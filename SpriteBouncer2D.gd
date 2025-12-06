@@ -26,12 +26,13 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if frozen:
-		pass
+		return
 	var angle = rotation_degrees
 	angle += speed * direction * delta
 	if (abs(angle) >= limit):
 		angle = limit * direction
 		direction = -direction
+	# This makes the loop stop when the angle crosses 0
 	if (!looping && sign(angle) != sign(rotation_degrees)):
 		angle = 0
 	rotation_degrees = angle
