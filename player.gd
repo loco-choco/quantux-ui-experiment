@@ -7,7 +7,7 @@ var screen_size
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$SpriteBouncer2D.Stop()
+	$SpriteBouncer2D.stop()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -23,12 +23,11 @@ func _process(delta: float) -> void:
 	position += velocity.normalized() * delta * speed;
 	
 	if velocity != Vector2.ZERO:
-		$SpriteBouncer2D.Play()
+		$SpriteBouncer2D.play()
 	else:
-		$SpriteBouncer2D.Stop()
+		$SpriteBouncer2D.stop()
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Item:
 		print("Item!")
-		area.hide()
 		item_collected.emit(area as Item)

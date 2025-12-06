@@ -1,42 +1,31 @@
 extends CenterContainer
 class_name InventorySlot
 
-@export var inventory_item_scene: PackedScene = preload("res://inventories/grid/inventory_item.tscn")
-
-@export var item: InventoryItem
+var item: Item
 
 signal slot_input(which: InventorySlot)
-signal slot_hovered(which: InventorySlot, is_hovering: bool)
 
 func _ready() -> void:
-	add_to_group("inventory_slots")
+	$ItemSprite.texture = null
 
 func _on_texture_button_gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory_select"):
 		slot_input.emit(self)
 
-func _on_texture_button_focus_entered() -> void:
-	slot_hovered.emit(self, true)
-
-func _on_texture_button_focus_exited() -> void:
-	slot_hovered.emit(self, false)
-
 func has_item() -> bool:
 	return item != null
 
-func release_item() -> InventoryItem:
+func release_item() -> Item:
 	if not item:
 		return null
 	var item_to_release := item
 	item = null
+	$ItemSprite.texture = null
 	return item_to_release
 
-func aquire_item(new_item: InventoryItem) -> bool:
+func aquire_item(new_item:Item) -> bool:
 	if item or not new_item:
 		return false
 	item = new_item
-	if item.get_parent():
-		item.reparent(self)
-	else:
-		add_child(item)
+	$ItemSprite.texture = item.icon
 	return true

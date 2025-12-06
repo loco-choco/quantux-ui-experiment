@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://n7lwal0fl241"]
+
+[ext_resource type="PackedScene" uid="uid://dfa3nrjnhe3mt" path="res://items/item.tscn" id="1_t38ti"]
+[ext_resource type="Texture2D" uid="uid://c4ovb6eqsu04x" path="res://items/item.png" id="2_6nyt4"]
+
+[node name="Soup" instance=ExtResource("1_t38ti")]
+item_name = "Soup"
+icon = ExtResource("2_6nyt4")
+
+[node name="SpriteBouncer2D" parent="." index="0"]
+scale = Vector2(2.5, 2.563)
+texture = ExtResource("2_6nyt4")
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, 1.5)

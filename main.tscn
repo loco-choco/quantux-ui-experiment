@@ -1,42 +1,31 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqus1j107kiuu"]
+[gd_scene load_steps=6 format=3 uid="uid://dy7fc8q4jmtgw"]
 
 [ext_resource type="PackedScene" uid="uid://cg55uk4s6qv0g" path="res://player.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://dfa3nrjnhe3mt" path="res://item.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://dfa3nrjnhe3mt" path="res://items/item.tscn" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://d0b7g03iss0pa" path="res://hud.gd" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://btu4ox8a5nhsk" path="res://inventories/grid/inventory.tscn" id="4_lquwl"]
+[ext_resource type="PackedScene" uid="uid://n7lwal0fl241" path="res://items/soup.tscn" id="5_lquwl"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Main" type="Node"]
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(237, 269)
 
 [node name="Item2" parent="." instance=ExtResource("2_0xm2m")]
-position = Vector2(287, 357)
+position = Vector2(385, 374)
 
 [node name="Item" parent="." instance=ExtResource("2_0xm2m")]
-position = Vector2(181, 355)
+position = Vector2(99, 354)
 
-[node name="HUD" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-scale = Vector2(3, 3)
+[node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("3_1bvp3")
 
 [node name="Inventory" parent="HUD" instance=ExtResource("4_lquwl")]
-layout_mode = 1
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 160.66667
-offset_bottom = 85.0
-grow_horizontal = 1
-grow_vertical = 1
-columns = 3
+offset_right = 3.125
+offset_bottom = 34.875
+scale = Vector2(2, 2)
+
+[node name="Soup" parent="." instance=ExtResource("5_lquwl")]
+position = Vector2(244, 426)
 
 [connection signal="item_collected" from="Player" to="HUD" method="_on_player_item_collected"]
