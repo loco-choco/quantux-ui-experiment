@@ -1,5 +1,6 @@
 extends Area2D
 
+signal item_collected
 
 @export var speed = 200
 var screen_size
@@ -7,7 +8,6 @@ var screen_size
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$SpriteBouncer2D.Stop()
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -26,3 +26,9 @@ func _process(delta: float) -> void:
 		$SpriteBouncer2D.Play()
 	else:
 		$SpriteBouncer2D.Stop()
+
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("items"):
+		print("Item!")
+		area.hide()
+		item_collected.emit()

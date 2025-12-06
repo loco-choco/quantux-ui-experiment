@@ -21,3 +21,5 @@ position = Vector2(-1, -7)
 scale = Vector2(3, 3)
 texture = ExtResource("2_onrkg")
 script = ExtResource("3_i3pqv")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
