@@ -1,6 +1,6 @@
 extends Area2D
 
-signal item_collected
+signal item_collected(item: Item)
 
 @export var speed = 200
 var screen_size
@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 		$SpriteBouncer2D.Stop()
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("items"):
+	if area is Item:
 		print("Item!")
 		area.hide()
-		item_collected.emit()
+		item_collected.emit(area as Item)

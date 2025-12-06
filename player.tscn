@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://sy1qjygxknt0" path="res://player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://chi3vm53wpukh" path="res://player.png" id="2_onrkg"]
-[ext_resource type="Script" uid="uid://udgl2ehv0tdf" path="res://SpriteBouncer2D.gd" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://udgl2ehv0tdf" path="res://sprite_bouncer_2D.gd" id="3_i3pqv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
 size = Vector2(28, 23)
