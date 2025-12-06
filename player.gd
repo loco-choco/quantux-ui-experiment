@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 		velocity.y += 1
 	if Input.is_action_pressed("player_move_y_neg"):
 		velocity.y -= 1
-	position += velocity * delta * speed;
+	position += velocity.normalized() * delta * speed;
 	
 	if velocity != Vector2.ZERO:
 		$SpriteBouncer2D.Play()
