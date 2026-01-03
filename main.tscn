@@ -23,7 +23,6 @@ script = ExtResource("3_1bvp3")
 [node name="Inventory" parent="HUD" instance=ExtResource("4_lquwl")]
 offset_right = 3.125
 offset_bottom = 34.875
-scale = Vector2(2, 2)
 
 [node name="Soup" parent="." instance=ExtResource("5_lquwl")]
 position = Vector2(244, 426)

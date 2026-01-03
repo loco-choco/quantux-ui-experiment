@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpq7yt2vbpnfv"]
+
+[ext_resource type="Texture2D" uid="uid://dy4o7cd63f0sv" path="res://inventories/grid/slot.png" id="1_glhpd"]
+[ext_resource type="Script" uid="uid://d3ok17le3eh7v" path="res://items/inventory_item.gd" id="1_mxc5p"]
+
+[node name="InventoryItem" type="Sprite2D"]
+texture = ExtResource("1_glhpd")
+script = ExtResource("1_mxc5p")
