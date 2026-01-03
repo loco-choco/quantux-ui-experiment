@@ -1,26 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://btu4ox8a5nhsk"]
+[gd_scene load_steps=5 format=3 uid="uid://btu4ox8a5nhsk"]
 
 [ext_resource type="Script" uid="uid://bao2oqno4ybbf" path="res://inventories/grid/inventory.gd" id="1_w7uli"]
-[ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://items/item_data.gd" id="2_2obg0"]
 [ext_resource type="PackedScene" uid="uid://cjwu7tuaqcjgl" path="res://inventories/grid/inventory_slot.tscn" id="3_imxn7"]
-[ext_resource type="Texture2D" uid="uid://c4ovb6eqsu04x" path="res://items/item.png" id="3_yt8kk"]
-[ext_resource type="Texture2D" uid="uid://chi3vm53wpukh" path="res://player.png" id="4_8rjwy"]
-[ext_resource type="PackedScene" uid="uid://bondeddh1fui1" path="res://items/inventory_item_v2.tscn" id="5_2obg0"]
+[ext_resource type="PackedScene" uid="uid://bondeddh1fui1" path="res://items/inventory_item.tscn" id="5_2obg0"]
 [ext_resource type="Script" uid="uid://bbu1oyu4naqin" path="res://inventories/grid/item_grid.gd" id="6_2obg0"]
-
-[sub_resource type="Resource" id="Resource_2obg0"]
-script = ExtResource("2_2obg0")
-name = "ADas"
-texture = ExtResource("3_yt8kk")
-dimensions = Vector2i(2, 2)
-metadata/_custom_type_script = "uid://dnhj6mns60i8v"
-
-[sub_resource type="Resource" id="Resource_yt8kk"]
-script = ExtResource("2_2obg0")
-name = "dwadsa"
-texture = ExtResource("4_8rjwy")
-dimensions = Vector2i(1, 2)
-metadata/_custom_type_script = "uid://dnhj6mns60i8v"
 
 [node name="Inventory" type="PanelContainer"]
 anchors_preset = 8
@@ -35,7 +18,6 @@ offset_bottom = 120.625
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w7uli")
-items = Array[ExtResource("2_2obg0")]([SubResource("Resource_2obg0"), SubResource("Resource_yt8kk")])
 inventory_item_scene = ExtResource("5_2obg0")
 
 [node name="Bag" type="GridContainer" parent="."]
