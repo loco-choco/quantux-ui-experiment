@@ -31,7 +31,9 @@ func _gui_input(event: InputEvent) -> void:
 				item.get_picked_up()
 				remove_item_from_slot_data(item)
 			else:
-				var index = get_slot_index_from_coords(held_item.anchor_point)
+				print("mouse:", get_global_mouse_position(), get_slot_index_from_coords(get_global_mouse_position()) )
+				print("pos:",held_item.upper_corner, get_slot_index_from_coords(held_item.upper_corner) )
+				var index = get_slot_index_from_coords(held_item.upper_corner)
 				
 				if !item_fits(index, held_item.data.dimensions):
 					return
@@ -47,8 +49,6 @@ func _gui_input(event: InputEvent) -> void:
 				
 				held_item.get_placed(get_slot_coords_from_index(index))
 				add_item_to_slot_data(index, held_item)
-				
-				
 
 func init_slot_data() -> void:
 	slot_data.resize(dimensions.x * dimensions.y)
@@ -57,7 +57,7 @@ func init_slot_data() -> void:
 func get_slot_index_from_coords(coords: Vector2) -> int:
 	coords -= self.global_position
 	var int_coords = Vector2i(floor(coords / SLOT_SIZE))
-	if int_coords.x >= dimensions.x || int_coords.x >= dimensions.y:
+	if int_coords.x >= dimensions.x || int_coords.y >= dimensions.y:
 		return -1
 	var index = int_coords.x + int_coords.y * columns
 	if index < 0:

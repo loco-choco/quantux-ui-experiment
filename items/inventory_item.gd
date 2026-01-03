@@ -9,9 +9,9 @@ var size: Vector2:
 	get():
 		return Vector2(data.dimensions.x, data.dimensions.y) * ITEM_SIZE
 		
-var anchor_point: Vector2:
+var upper_corner: Vector2:
 	get():
-		return global_position + offset
+		return global_position - size / 2
 
 func _ready() -> void:
 	#offset = - size / 2

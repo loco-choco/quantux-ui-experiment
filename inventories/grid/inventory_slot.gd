@@ -1,4 +1,4 @@
- extends CenterContainer
+extends CenterContainer
 class_name InventorySlot
 
 var item: Item
