@@ -27,4 +27,13 @@ offset_bottom = 34.875
 [node name="Soup" parent="." instance=ExtResource("5_lquwl")]
 position = Vector2(244, 426)
 
+[node name="Soup2" parent="." instance=ExtResource("5_lquwl")]
+position = Vector2(763, 366)
+
+[node name="Soup3" parent="." instance=ExtResource("5_lquwl")]
+position = Vector2(622, 334)
+
+[node name="Soup4" parent="." instance=ExtResource("5_lquwl")]
+position = Vector2(695, 201)
+
 [connection signal="item_collected" from="Player" to="HUD" method="_on_player_item_collected"]
