@@ -14,7 +14,7 @@ var size: Vector2:
 		
 var dimensions: Vector2i:
 	get():
-		return Vector2i(data.dimensions.x, data.dimensions.y) if is_rotated else data.dimensions
+		return Vector2i(data.dimensions.y, data.dimensions.x) if is_rotated else data.dimensions
 		
 var upper_corner: Vector2:
 	get():

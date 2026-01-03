@@ -1,6 +1,6 @@
 extends Area2D
 
-signal item_collected(item: Item)
+signal item_collected(item_data: ItemData)
 
 @export var speed = 200
 var screen_size
@@ -30,4 +30,6 @@ func _process(delta: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area is Item:
 		print("Item!")
-		item_collected.emit(area as Item)
+		var item: Item = area as Item
+		item.hide_in_game()
+		item_collected.emit(item.item_data)
