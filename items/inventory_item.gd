@@ -3,13 +3,18 @@ class_name InventoryItem extends Node2D
 const ITEM_SIZE = 16
 
 var data: ItemData = null
+var is_rotated: bool = false
 var is_picked: bool = false
 @onready var panel: PanelContainer = $PanelContainer
 @onready var icon: TextureRect = $PanelContainer/Icon
 
 var size: Vector2:
 	get():
-		return Vector2(data.dimensions.x, data.dimensions.y) * ITEM_SIZE
+		return dimensions * ITEM_SIZE
+		
+var dimensions: Vector2i:
+	get():
+		return Vector2i(data.dimensions.x, data.dimensions.y) if is_rotated else data.dimensions
 		
 var upper_corner: Vector2:
 	get():
@@ -46,7 +51,6 @@ func get_placed(pos: Vector2) -> void:
 	remove_from_group("held_item")
 	
 func do_rotation() -> void:
-	data.is_rotated = !data.is_rotated
-	data.dimensions = Vector2i(data.dimensions.y, data.dimensions.x)
+	is_rotated = !is_rotated
 	var tween = create_tween()
-	tween.tween_property(panel, "rotation_degrees", 90 if data.is_rotated else 0, 0.3)
+	tween.tween_property(panel, "rotation_degrees", 90 if is_rotated else 0, 0.3)

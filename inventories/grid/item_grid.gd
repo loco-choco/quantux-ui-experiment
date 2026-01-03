@@ -34,10 +34,10 @@ func _gui_input(event: InputEvent) -> void:
 				var offset = Vector2.ONE * SLOT_SIZE / 2
 				var index = get_slot_index_from_coords(held_item.upper_corner + offset)
 				
-				if !item_fits(index, held_item.data.dimensions):
+				if !item_fits(index, held_item.dimensions):
 					return
 				
-				var items = items_in_area(index, held_item.data.dimensions)
+				var items = items_in_area(index, held_item.dimensions)
 				if items.size() > 1 || index < 0:
 					return
 				
@@ -72,8 +72,8 @@ func remove_item_from_slot_data(item: InventoryItem) -> void:
 			slot_data[i] = null
 			
 func add_item_to_slot_data(index: int, item: InventoryItem) -> void:
-	for y in item.data.dimensions.y:
-		for x in item.data.dimensions.x:
+	for y in item.dimensions.y:
+		for x in item.dimensions.x:
 			slot_data[index + x + y * columns] = item 
 
 
@@ -92,7 +92,7 @@ func items_in_area(index: int, dim: Vector2i) -> Array[InventoryItem]:
 func attempt_to_add_item_data(item: InventoryItem) -> bool:
 	var slot_index: int = 0
 	while slot_index < slot_data.size():
-		if free_item_space(slot_index, item.data.dimensions):
+		if free_item_space(slot_index, item.dimensions):
 			break
 		slot_index += 1
 	if slot_index >= slot_data.size():
