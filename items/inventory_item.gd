@@ -14,9 +14,14 @@ var upper_corner: Vector2:
 		return global_position - size / 2
 
 func _ready() -> void:
-	#offset = - size / 2
 	if data:
 		texture = data.texture
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT && event.is_pressed():
+			if is_picked:
+				do_rotation()
 
 func _process(_delta: float) -> void:
 	if is_picked:
@@ -35,3 +40,9 @@ func get_placed(pos: Vector2i) -> void:
 	z_index = 0
 	global_position = pos + Vector2i(size / 2)
 	remove_from_group("held_item")
+	
+func do_rotation() -> void:
+	data.is_rotated = !data.is_rotated
+	data.dimensions = Vector2i(data.dimensions.y, data.dimensions.x)
+	var tween = create_tween()
+	tween.tween_property(self, "rotation_degrees", 90 if data.is_rotated else 0, 0.3)

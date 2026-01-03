@@ -31,9 +31,8 @@ func _gui_input(event: InputEvent) -> void:
 				item.get_picked_up()
 				remove_item_from_slot_data(item)
 			else:
-				print("mouse:", get_global_mouse_position(), get_slot_index_from_coords(get_global_mouse_position()) )
-				print("pos:",held_item.upper_corner, get_slot_index_from_coords(held_item.upper_corner) )
-				var index = get_slot_index_from_coords(held_item.upper_corner)
+				var offset = Vector2.ONE * SLOT_SIZE / 2
+				var index = get_slot_index_from_coords(held_item.upper_corner + offset)
 				
 				if !item_fits(index, held_item.data.dimensions):
 					return
@@ -43,7 +42,7 @@ func _gui_input(event: InputEvent) -> void:
 					return
 				
 				if items.size() == 1:
-					var item_to_swap_held = items.get(0)
+					var item_to_swap_held = items[0]
 					item_to_swap_held.get_picked_up()
 					remove_item_from_slot_data(item_to_swap_held)
 				

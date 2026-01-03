@@ -13,3 +13,5 @@ func add_item(item_data: ItemData) -> void:
 	inventory_item.data = item_data
 	add_child(inventory_item)
 	var success = item_grid.attempt_to_add_item_data(inventory_item)
+	if !success: 
+		print("Item doens't fit!")
