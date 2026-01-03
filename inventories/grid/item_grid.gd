@@ -63,7 +63,7 @@ func get_slot_index_from_coords(coords: Vector2) -> int:
 		return -1
 	return index
 	
-func get_slot_coords_from_index(index: int) -> Vector2i:
+func get_slot_coords_from_index(index: int) -> Vector2:
 	return Vector2i(get_child(index).global_position)
 
 func remove_item_from_slot_data(item: InventoryItem) -> void:

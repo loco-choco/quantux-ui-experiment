@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bao2oqno4ybbf" path="res://inventories/grid/inventory.gd" id="1_w7uli"]
 [ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://items/item_data.gd" id="2_2obg0"]
-[ext_resource type="PackedScene" uid="uid://cpq7yt2vbpnfv" path="res://items/inventory_item.tscn" id="2_xsu7x"]
 [ext_resource type="PackedScene" uid="uid://cjwu7tuaqcjgl" path="res://inventories/grid/inventory_slot.tscn" id="3_imxn7"]
 [ext_resource type="Texture2D" uid="uid://c4ovb6eqsu04x" path="res://items/item.png" id="3_yt8kk"]
 [ext_resource type="Texture2D" uid="uid://chi3vm53wpukh" path="res://player.png" id="4_8rjwy"]
+[ext_resource type="PackedScene" uid="uid://bondeddh1fui1" path="res://items/inventory_item_v2.tscn" id="5_2obg0"]
 [ext_resource type="Script" uid="uid://bbu1oyu4naqin" path="res://inventories/grid/item_grid.gd" id="6_2obg0"]
 
 [sub_resource type="Resource" id="Resource_2obg0"]
@@ -36,7 +36,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w7uli")
 items = Array[ExtResource("2_2obg0")]([SubResource("Resource_2obg0"), SubResource("Resource_yt8kk")])
-inventory_item_scene = ExtResource("2_xsu7x")
+inventory_item_scene = ExtResource("5_2obg0")
 
 [node name="Bag" type="GridContainer" parent="."]
 layout_mode = 2

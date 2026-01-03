@@ -10,8 +10,6 @@ size = Vector2(79, 82)
 [node name="Item" type="Area2D"]
 collision_mask = 0
 script = ExtResource("1_kg5e7")
-item_name = "Item"
-icon = ExtResource("3_cd4ji")
 
 [node name="SpriteBouncer2D" type="Sprite2D" parent="."]
 texture_filter = 1
