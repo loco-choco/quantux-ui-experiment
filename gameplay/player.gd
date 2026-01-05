@@ -3,7 +3,7 @@ extends Area2D
 signal item_collected(item: Item)
 
 @export var speed = 200
-var screen_size
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -20,12 +20,14 @@ func _process(delta: float) -> void:
 		velocity.y += 1
 	if Input.is_action_pressed("player_move_y_neg"):
 		velocity.y -= 1
-	position += velocity.normalized() * delta * speed;
+	global_position += velocity.normalized() * delta * speed;
 	
-	if velocity != Vector2.ZERO:
-		$SpriteBouncer2D.play()
-	else:
-		$SpriteBouncer2D.stop()
+	# TODO : uncomment this once we have sprites instead of shapes
+	#if velocity != Vector2.ZERO:
+		#$SpriteBouncer2D.play()
+	#else:
+		#$SpriteBouncer2D.stop()
+
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Item:
