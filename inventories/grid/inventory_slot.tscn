@@ -1,31 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjwu7tuaqcjgl"]
+[gd_scene format=3 uid="uid://cjwu7tuaqcjgl"]
 
-[ext_resource type="Script" uid="uid://cubfvdi1vgj36" path="res://inventories/grid/inventory_slot.gd" id="1_0xh8c"]
-[ext_resource type="Texture2D" uid="uid://dy4o7cd63f0sv" path="res://inventories/grid/slot.png" id="2_w5rjh"]
-[ext_resource type="Texture2D" uid="uid://bidf8wxw1wkkp" path="res://icon.svg" id="3_6c8tj"]
-
-[node name="InventorySlot" type="CenterContainer"]
-anchors_preset = -1
-anchor_right = 0.067
-anchor_bottom = 0.044000003
-offset_right = 40.84
-offset_bottom = 44.32
-grow_vertical = 2
-script = ExtResource("1_0xh8c")
-
-[node name="Slot" type="TextureButton" parent="."]
-texture_filter = 1
-layout_mode = 2
-texture_normal = ExtResource("2_w5rjh")
-
-[node name="ItemSprite" type="TextureRect" parent="."]
-texture_filter = 1
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
+[node name="InventorySlot" type="ColorRect"]
+custom_minimum_size = Vector2(16, 16)
+offset_right = 16.0
+offset_bottom = 16.0
 mouse_filter = 2
-texture = ExtResource("3_6c8tj")
-expand_mode = 3
+color = Color(0.45840502, 0.45840508, 0.45840502, 1)
 
-[connection signal="focus_entered" from="Slot" to="." method="_on_texture_button_focus_entered"]
-[connection signal="focus_exited" from="Slot" to="." method="_on_texture_button_focus_exited"]
-[connection signal="gui_input" from="Slot" to="." method="_on_texture_button_gui_input"]
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(14, 14)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

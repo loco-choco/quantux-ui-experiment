@@ -2,8 +2,7 @@ extends Area2D
 
 class_name Item
 
-@export var item_name: String = ""
-@export var icon: Texture2D
+@export var item_data: ItemData
 
 func hide_in_game() -> void:
 	hide()
