@@ -15,6 +15,7 @@ metadata/_edit_vertical_guides_ = [971.0, -288.0, 1027.0]
 metadata/_edit_horizontal_guides_ = [586.0, -107.0]
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_right = 974.0
 offset_bottom = 556.0
 color = Color(0, 0, 0, 1)
@@ -32,8 +33,6 @@ position = Vector2(99, 354)
 script = ExtResource("3_1bvp3")
 
 [node name="Inventory" parent="HUD" instance=ExtResource("4_lquwl")]
-offset_right = 3.125
-offset_bottom = 34.875
 
 [node name="Soup" parent="." instance=ExtResource("5_lquwl")]
 position = Vector2(244, 426)
