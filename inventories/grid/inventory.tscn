@@ -128,10 +128,12 @@ infinity_size = true
 layout_mode = 2
 infinity_size = true
 
-[node name="InventoryItem" parent="." groups=["held_item"] instance=ExtResource("5_2obg0")]
+[node name="InventoryItem" parent="." instance=ExtResource("5_2obg0")]
+visible = false
 position = Vector2(427, 236)
 is_picked = true
 
-[node name="InventoryItem2" parent="." groups=["held_item"] instance=ExtResource("5_2obg0")]
+[node name="InventoryItem2" parent="." instance=ExtResource("5_2obg0")]
+visible = false
 position = Vector2(427, 236)
 is_picked = true

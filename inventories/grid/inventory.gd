@@ -4,12 +4,11 @@ extends PanelContainer
 @onready var item_grid: ItemGrid = $MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer/Bag
 
 func add_item(item_data: ItemData) -> bool:
-	#var inventory_item = inventory_item_scene.instantiate()
-	#inventory_item.data = item_data
-	#add_child(inventory_item)
-	#var success = item_grid.attempt_to_add_item_data(inventory_item)
-	#if !success: 
-	#	print("Item doesn't fit!")
-	#	inventory_item.queue_free()
-	#return success
-	return false
+	var inventory_item = inventory_item_scene.instantiate()
+	inventory_item.data = item_data
+	add_child(inventory_item)
+	var success = item_grid.attempt_to_add_item_data(inventory_item)
+	if !success: 
+		print("Item doesn't fit!")
+		inventory_item.queue_free()
+	return success

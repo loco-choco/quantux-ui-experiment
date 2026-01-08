@@ -10,8 +10,7 @@ func _ready() -> void:
 	grid.rows = rows
 	grid.columns = columns
 	create_slots()
-	
-	
+
 func create_slots() -> void:
 	var slots: Array[InventorySlot] = []
 	for y in rows:
@@ -27,3 +26,12 @@ func create_slots() -> void:
 			slot.right_neighbor  = slots[x + 1 + y * rows]   if x < columns - 1 else null
 			slot.left_neighbor   = slots[x - 1 + y * rows]   if x > 0           else null
 			slot.set_neighbors_as_next_on_focus()
+
+func attempt_to_add_item_data(item: InventoryItem) -> bool:
+	for s : InventorySlot in grid.get_children():
+			if s.set_item(item):
+				var item_rect : Rect2 = Rect2(s.global_position, \
+											  s.size * Vector2(item.dimensions))
+				item.get_placed(item_rect)
+				return true
+	return false
