@@ -1,21 +1,29 @@
-extends GridContainer
+class_name ItemGrid extends MatrixContainer
 
-const SLOT_SIZE = 16
 @export var inventory_slot_scene: PackedScene
-@export var dimensions: Vector2i
 
-var slot_data: Array[InventoryItem] = []
+var SLOT_SIZE : float
 
 func _ready() -> void:
 	create_slots()
 	init_slot_data()
 	
 func create_slots() -> void:
-	self.columns = dimensions.x
-	for y in dimensions.y:
-		for x in dimensions.x:
-			var inventory_slot = inventory_slot_scene.instantiate()
+	var slots: Array[InventorySlot] = []
+	for y in rows:
+		for x in columns:
+			var inventory_slot : InventorySlot = inventory_slot_scene.instantiate()
 			add_child(inventory_slot)
+			slots.push_back(inventory_slot)
+	for y in rows:
+		for x in columns:
+			var slot : InventorySlot = slots[x + y * rows]
+			slot.top_neighbor    = slots[x + (y - 1) * rows] if y > 0           else null
+			slot.bottom_neighbor = slots[x + (y + 1) * rows] if y < rows - 1    else null
+			slot.right_neighbor  = slots[x + 1 + y * rows]   if x < columns - 1 else null
+			slot.left_neighbor   = slots[x - 1 + y * rows]   if x > 0           else null
+	
+	SLOT_SIZE = (get_child(0)  as Control).size.x
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -49,22 +57,6 @@ func _gui_input(event: InputEvent) -> void:
 				held_item.get_placed(get_slot_coords_from_index(index))
 				add_item_to_slot_data(index, held_item)
 
-func init_slot_data() -> void:
-	slot_data.resize(dimensions.x * dimensions.y)
-	slot_data.fill(null)
-	
-func get_slot_index_from_coords(coords: Vector2) -> int:
-	coords -= self.global_position
-	var int_coords = Vector2i(floor(coords / SLOT_SIZE))
-	if int_coords.x >= dimensions.x || int_coords.y >= dimensions.y:
-		return -1
-	var index = int_coords.x + int_coords.y * columns
-	if index < 0:
-		return -1
-	return index
-	
-func get_slot_coords_from_index(index: int) -> Vector2:
-	return Vector2i(get_child(index).global_position)
 
 func remove_item_from_slot_data(item: InventoryItem) -> void:
 	for i in slot_data.size():
@@ -103,10 +95,10 @@ func attempt_to_add_item_data(item: InventoryItem) -> bool:
 	
 
 func item_fits(index: int, dim: Vector2i) -> bool:
-	if index % dimensions.y  + dim.x - 1 >= dimensions.x:
+	if index % columns + dim.x - 1 >= rows:
 		return false
 	@warning_ignore("integer_division")
-	if index / dimensions.y + dim.y - 1 >= dimensions.y:
+	if index / columns + dim.y - 1 >= columns:
 		return false
 	return true
 	

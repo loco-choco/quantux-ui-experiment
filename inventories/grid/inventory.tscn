@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://btu4ox8a5nhsk"]
+[gd_scene load_steps=10 format=3 uid="uid://btu4ox8a5nhsk"]
 
 [ext_resource type="Script" uid="uid://bao2oqno4ybbf" path="res://inventories/grid/inventory.gd" id="1_w7uli"]
 [ext_resource type="PackedScene" uid="uid://cjwu7tuaqcjgl" path="res://inventories/grid/inventory_slot.tscn" id="3_imxn7"]
@@ -15,6 +15,9 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07exs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_07exs"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y5r71"]
 
@@ -60,15 +63,12 @@ alignment = 2
 
 [node name="InventorySlot2" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/QuickInventory" instance=ExtResource("3_imxn7")]
 layout_mode = 2
-alignment_horizontal = 2
 
 [node name="InventorySlot3" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/QuickInventory" instance=ExtResource("3_imxn7")]
 layout_mode = 2
-alignment_horizontal = 2
 
 [node name="InventorySlot" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/QuickInventory" instance=ExtResource("3_imxn7")]
 layout_mode = 2
-alignment_horizontal = 2
 
 [node name="VSeparator" type="VSeparator" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -84,14 +84,16 @@ layout_mode = 2
 border_color = Color(0.77359074, 0.43807957, 0.12801072, 1)
 border_width = 8.0
 
-[node name="Bag" type="GridContainer" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer"]
 layout_mode = 2
-theme_override_constants/h_separation = 0
-theme_override_constants/v_separation = 0
-columns = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_07exs")
+
+[node name="Bag" type="Container" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer/PanelContainer"]
+layout_mode = 2
 script = ExtResource("6_2obg0")
 inventory_slot_scene = ExtResource("3_imxn7")
-dimensions = Vector2i(8, 8)
+columns = 8
+rows = 8
 
 [node name="VSeparator2" type="VSeparator" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -104,12 +106,9 @@ size_flags_horizontal = 3
 
 [node name="InventorySlot" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/Equipment" instance=ExtResource("3_imxn7")]
 layout_mode = 2
-alignment_horizontal = 0
 
 [node name="InventorySlot2" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/Equipment" instance=ExtResource("3_imxn7")]
 layout_mode = 2
-alignment_horizontal = 0
 
 [node name="InventorySlot3" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/Equipment" instance=ExtResource("3_imxn7")]
 layout_mode = 2
-alignment_horizontal = 0

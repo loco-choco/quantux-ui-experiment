@@ -10,7 +10,6 @@ script = ExtResource("1_7uw6o")
 offset_right = 16.0
 offset_bottom = 16.0
 pivot_offset = Vector2(8, 8)
-mouse_filter = 2
 
 [node name="Icon" type="TextureRect" parent="PanelContainer"]
 texture_filter = 1

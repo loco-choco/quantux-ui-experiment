@@ -1,6 +1,4 @@
-extends Area2D
-
-class_name Item
+class_name Item extends Area2D
 
 @export var item_data: ItemData
 
