@@ -26,3 +26,4 @@ func create_slots() -> void:
 			slot.bottom_neighbor = slots[x + (y + 1) * rows] if y < rows - 1    else null
 			slot.right_neighbor  = slots[x + 1 + y * rows]   if x < columns - 1 else null
 			slot.left_neighbor   = slots[x - 1 + y * rows]   if x > 0           else null
+			slot.set_neighbors_as_next_on_focus()

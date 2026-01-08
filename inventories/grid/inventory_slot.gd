@@ -8,12 +8,22 @@ var item_in_slot: InventoryItem = null
 @export var left_neighbor : InventorySlot = null
 
 @export var infinity_size : bool = false
+@onready var focus_sqr : Control = $ColorRect
 
 func _notification(what):
-	if what == NOTIFICATION_FOCUS_ENTER or what == NOTIFICATION_MOUSE_ENTER_SELF:
+	if what == NOTIFICATION_MOUSE_ENTER_SELF:
+		grab_focus()
+	elif what == NOTIFICATION_FOCUS_ENTER:
+		focus_sqr.show()
+		if item_in_slot: 
+			item_in_slot.show_focus()
 		var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
 		if held_item != null:
 			held_item.global_position = global_position
+	elif what == NOTIFICATION_FOCUS_EXIT:
+		focus_sqr.hide()
+		if item_in_slot: 
+			item_in_slot.show_unfocus()
 		
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory_select"):
@@ -45,6 +55,16 @@ func get_item() -> InventoryItem:
 
 func has_item() -> bool:
 	return item_in_slot != null
+
+func set_neighbors_as_next_on_focus() -> void:
+	if top_neighbor:
+		focus_neighbor_top    = top_neighbor.get_path()
+	if focus_neighbor_bottom:
+		focus_neighbor_bottom = bottom_neighbor.get_path()
+	if focus_neighbor_right:
+		focus_neighbor_right  = right_neighbor.get_path()
+	if focus_neighbor_left:
+		focus_neighbor_left   = left_neighbor.get_path()
 
 func set_item(item: InventoryItem) -> bool:
 	assert(item.dimensions.x > 0 and item.dimensions.y > 0, "Dimension is not positive! ")
