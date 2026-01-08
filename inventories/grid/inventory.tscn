@@ -127,13 +127,3 @@ infinity_size = true
 [node name="InventorySlot3" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/Equipment" instance=ExtResource("3_imxn7")]
 layout_mode = 2
 infinity_size = true
-
-[node name="InventoryItem" parent="." instance=ExtResource("5_2obg0")]
-visible = false
-position = Vector2(427, 236)
-is_picked = true
-
-[node name="InventoryItem2" parent="." instance=ExtResource("5_2obg0")]
-visible = false
-position = Vector2(427, 236)
-is_picked = true

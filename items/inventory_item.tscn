@@ -6,11 +6,42 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v7vax"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gs1gh"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v7vax"]
+bg_color = Color(0.16862746, 0.16862746, 0.16862746, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing_size = 0.1
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wfwh4"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gs1gh"]
+bg_color = Color(0.16924527, 0.16924533, 0.16924518, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing_size = 0.1
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h2xrm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wfwh4"]
+bg_color = Color(0.6, 0.6, 0.6, 0.25882354)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing_size = 0.1
 
 [node name="InventoryItem" type="Node2D"]
 script = ExtResource("1_7uw6o")
@@ -26,17 +57,17 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_v7vax")
 [node name="PanelDiselected" type="Panel" parent="PanelContainer"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_gs1gh")
+theme_override_styles/panel = SubResource("StyleBoxFlat_v7vax")
 
 [node name="PanelSelected" type="Panel" parent="PanelContainer"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_wfwh4")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gs1gh")
 
 [node name="PanelHeld" type="Panel" parent="PanelContainer"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_h2xrm")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wfwh4")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2

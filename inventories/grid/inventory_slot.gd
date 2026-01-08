@@ -15,14 +15,14 @@ func _notification(what):
 	if what == NOTIFICATION_MOUSE_ENTER_SELF:
 		grab_focus()
 	elif what == NOTIFICATION_FOCUS_ENTER:
-		#focus_sqr.show()
+		focus_sqr.show()
 		if item_in_slot: 
 			item_in_slot.show_focus()
 		var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
 		if held_item != null:
 			held_item.global_position = global_position
 	elif what == NOTIFICATION_FOCUS_EXIT:
-		#focus_sqr.hide()
+		focus_sqr.hide()
 		if item_in_slot: 
 			item_in_slot.show_unfocus()
 		
@@ -84,7 +84,6 @@ func set_item(item: InventoryItem, pos: Vector2i = Vector2()) -> bool:
 		for s in slots_used:
 			s.item_in_slot = item
 			s.item_slot_pos = slots_used[s]
-			s.focus_sqr.color = Color.CRIMSON
 	return can_set
 
 func _set_item_recursive(item: InventoryItem, x: int, y: int, tested: Dictionary[InventorySlot, Vector2i]) -> bool:
@@ -133,7 +132,6 @@ func clear_item() -> void:
 func _clear_item_recursive(item: InventoryItem) -> void:
 	if item_in_slot != item:
 		return
-	focus_sqr.color = Color.WHITE
 	item_in_slot = null
 	if top_neighbor != null:
 		top_neighbor._clear_item_recursive(item)

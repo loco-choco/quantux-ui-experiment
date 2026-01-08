@@ -34,7 +34,7 @@ func get_placed(rect: Rect2) -> void:
 	global_position = rect.position
 	panel.size = rect.size
 	remove_from_group("held_item")
-	show_focus()
+	show_unfocus()
 	is_picked = false
 	z_index = 0
 	
