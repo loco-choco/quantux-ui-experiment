@@ -1,18 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://n7lwal0fl241"]
+[gd_scene load_steps=4 format=3 uid="uid://n7lwal0fl241"]
 
 [ext_resource type="PackedScene" uid="uid://dfa3nrjnhe3mt" path="res://items/item.tscn" id="1_t38ti"]
+[ext_resource type="Resource" uid="uid://bn4doka08j5ua" path="res://items/soup_item.tres" id="2_2j7a6"]
 [ext_resource type="Texture2D" uid="uid://c4ovb6eqsu04x" path="res://items/item.png" id="2_6nyt4"]
-[ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://items/item_data.gd" id="2_kpulk"]
-
-[sub_resource type="Resource" id="Resource_2j7a6"]
-script = ExtResource("2_kpulk")
-name = "SOUP"
-texture = ExtResource("2_6nyt4")
-dimensions = Vector2i(2, 3)
-metadata/_custom_type_script = "uid://dnhj6mns60i8v"
 
 [node name="Soup" instance=ExtResource("1_t38ti")]
-item_data = SubResource("Resource_2j7a6")
+item_data = ExtResource("2_2j7a6")
 
 [node name="SpriteBouncer2D" parent="." index="0"]
 scale = Vector2(2.5, 2.563)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://btu4ox8a5nhsk"]
+[gd_scene load_steps=11 format=3 uid="uid://btu4ox8a5nhsk"]
 
 [ext_resource type="Script" uid="uid://bao2oqno4ybbf" path="res://inventories/grid/inventory.gd" id="1_w7uli"]
 [ext_resource type="PackedScene" uid="uid://cjwu7tuaqcjgl" path="res://inventories/grid/inventory_slot.tscn" id="3_imxn7"]
 [ext_resource type="PackedScene" uid="uid://bondeddh1fui1" path="res://items/inventory_item.tscn" id="5_2obg0"]
+[ext_resource type="Script" uid="uid://ci3uvbm8eown6" path="res://inventories/grid/MatrixContainer.gd" id="5_yt8kk"]
 [ext_resource type="Script" uid="uid://bbu1oyu4naqin" path="res://inventories/grid/item_grid.gd" id="6_2obg0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xsu7x"]
@@ -18,6 +19,11 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_07exs"]
 bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y5r71"]
 
@@ -63,12 +69,15 @@ alignment = 2
 
 [node name="InventorySlot2" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/QuickInventory" instance=ExtResource("3_imxn7")]
 layout_mode = 2
+infinity_size = true
 
 [node name="InventorySlot3" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/QuickInventory" instance=ExtResource("3_imxn7")]
 layout_mode = 2
+infinity_size = true
 
 [node name="InventorySlot" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/QuickInventory" instance=ExtResource("3_imxn7")]
 layout_mode = 2
+infinity_size = true
 
 [node name="VSeparator" type="VSeparator" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -84,16 +93,19 @@ layout_mode = 2
 border_color = Color(0.77359074, 0.43807957, 0.12801072, 1)
 border_width = 8.0
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer"]
+[node name="Bag" type="PanelContainer" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_07exs")
-
-[node name="Bag" type="Container" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer/PanelContainer"]
-layout_mode = 2
 script = ExtResource("6_2obg0")
 inventory_slot_scene = ExtResource("3_imxn7")
-columns = 8
 rows = 8
+columns = 8
+
+[node name="Grid" type="Container" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer/Bag"]
+layout_mode = 2
+script = ExtResource("5_yt8kk")
+metadata/_custom_type_script = "uid://ci3uvbm8eown6"
 
 [node name="VSeparator2" type="VSeparator" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -106,9 +118,16 @@ size_flags_horizontal = 3
 
 [node name="InventorySlot" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/Equipment" instance=ExtResource("3_imxn7")]
 layout_mode = 2
+infinity_size = true
 
 [node name="InventorySlot2" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/Equipment" instance=ExtResource("3_imxn7")]
 layout_mode = 2
+infinity_size = true
 
 [node name="InventorySlot3" parent="MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/Equipment" instance=ExtResource("3_imxn7")]
 layout_mode = 2
+infinity_size = true
+
+[node name="InventoryItem" parent="." groups=["held_item"] instance=ExtResource("5_2obg0")]
+position = Vector2(427, 236)
+is_picked = true

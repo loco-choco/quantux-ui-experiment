@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://bn4doka08j5ua"]
+
+[ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://items/item_data.gd" id="1_00e3n"]
+[ext_resource type="Texture2D" uid="uid://c4ovb6eqsu04x" path="res://items/item.png" id="2_j5jae"]
+
+[resource]
+script = ExtResource("1_00e3n")
+name = "SOUP"
+texture = ExtResource("2_j5jae")
+dimensions = Vector2i(4, 4)
+metadata/_custom_type_script = "uid://dnhj6mns60i8v"

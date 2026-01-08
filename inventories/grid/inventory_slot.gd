@@ -7,23 +7,36 @@ var item_in_slot: InventoryItem = null
 @export var right_neighbor : InventorySlot = null
 @export var left_neighbor : InventorySlot = null
 
+@export var infinity_size : bool = false
+
+func _notification(what):
+	if what == NOTIFICATION_FOCUS_ENTER or what == NOTIFICATION_MOUSE_ENTER_SELF:
+		var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
+		if held_item != null:
+			held_item.global_position = global_position
+		
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory_select"):
 		var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
 		if held_item == null && item_in_slot != null: # Getting item from slot
 			item_in_slot.get_picked_up()
 			clear_item()
-		elif held_item != null && item_in_slot == null:  # Placing item in slot
-			if set_item(held_item):
-				item_in_slot.get_placed(held_item.global_position)
-		elif held_item != null && item_in_slot != null: # Swaping item held for the one in slot
-			var old_item : InventoryItem = item_in_slot
-			clear_item()
-			if set_item(held_item): #Swap!
-				item_in_slot.get_placed(held_item.global_position)
-				old_item.get_picked_up()
-			else: #Return old item
-				set_item(old_item)
+		elif held_item != null:
+			var held_item_size : Vector2 = Vector2(held_item.dimensions) \
+								 if not infinity_size else Vector2.ONE
+			if item_in_slot == null:  # Placing item in slot
+				if set_item(held_item):
+					var item_rect : Rect2 = Rect2(global_position, size * held_item_size)
+					held_item.get_placed(item_rect)
+			else: # Swaping item held for the one in slot
+				var old_item : InventoryItem = item_in_slot
+				clear_item()
+				if set_item(held_item): #Swap!
+					var item_rect : Rect2 = Rect2(global_position, size * held_item_size)
+					held_item.get_placed(item_rect)
+					old_item.get_picked_up()
+				else: #Return old item
+					set_item(old_item)
 		## TODO Add feedback that the new item couldnt fit the slot
 		## IDEA: Make the held item shake and play a negation sfx
 
@@ -34,12 +47,15 @@ func has_item() -> bool:
 	return item_in_slot != null
 
 func set_item(item: InventoryItem) -> bool:
-	assert(item.dimensions.x <= 0 || item.dimensions.y <= 0, "Dimension is not positive! ")
+	assert(item.dimensions.x > 0 and item.dimensions.y > 0, "Dimension is not positive! ")
 	return _set_item_recursive_right(item, item.dimensions.x - 1, item.dimensions.y - 1)
 
 func _set_item_recursive_right(item: InventoryItem, row: int, colums: int) -> bool:
 	if item_in_slot != null:
 		return false
+	if infinity_size: ## If infinity size, stop there
+		item_in_slot = item
+		return true
 	## Check neighbor to the right
 	if row > 0:
 		if right_neighbor == null:

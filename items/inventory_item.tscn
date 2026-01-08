@@ -1,24 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://bondeddh1fui1"]
+[gd_scene load_steps=4 format=3 uid="uid://bondeddh1fui1"]
 
 [ext_resource type="Script" uid="uid://d3ok17le3eh7v" path="res://items/inventory_item.gd" id="1_7uw6o"]
 [ext_resource type="Texture2D" uid="uid://c4ovb6eqsu04x" path="res://items/item.png" id="1_pj3yu"]
+[ext_resource type="Resource" uid="uid://bn4doka08j5ua" path="res://items/soup_item.tres" id="2_v7vax"]
 
 [node name="InventoryItem" type="Node2D"]
 script = ExtResource("1_7uw6o")
+data = ExtResource("2_v7vax")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 offset_right = 16.0
 offset_bottom = 16.0
 pivot_offset = Vector2(8, 8)
+mouse_filter = 2
 
-[node name="Icon" type="TextureRect" parent="PanelContainer"]
+[node name="ReferenceRect" type="ReferenceRect" parent="PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+border_color = Color(0.5886024, 0.5418278, 0.2207968, 1)
+editor_only = false
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ReferenceRect" type="ReferenceRect" parent="PanelContainer/AspectRatioContainer"]
+layout_mode = 2
+mouse_filter = 2
+editor_only = false
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/AspectRatioContainer"]
 texture_filter = 1
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("1_pj3yu")
 expand_mode = 1
-
-[node name="ReferenceRect" type="ReferenceRect" parent="PanelContainer"]
-layout_mode = 2
-mouse_filter = 2
-editor_only = false
