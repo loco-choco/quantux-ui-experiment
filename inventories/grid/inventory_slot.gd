@@ -1,6 +1,7 @@
 class_name InventorySlot extends PanelContainer
 
 var item_in_slot: InventoryItem = null
+var item_slot_pos: Vector2i = Vector2i()
 
 @export var top_neighbor : InventorySlot = null
 @export var bottom_neighbor : InventorySlot = null
@@ -34,19 +35,24 @@ func _gui_input(event: InputEvent) -> void:
 		elif held_item != null:
 			var held_item_size : Vector2 = Vector2(held_item.dimensions) \
 								 if not infinity_size else Vector2.ONE
-			if item_in_slot == null:  # Placing item in slot
+			var intersecting_items: Dictionary[InventoryItem, InventorySlot] \
+				= find_intersecting_items(held_item.dimensions)
+			if intersecting_items.size() == 0: # No items in region, we can place
 				if set_item(held_item):
 					var item_rect : Rect2 = Rect2(global_position, size * held_item_size)
 					held_item.get_placed(item_rect)
-			else: # Swaping item held for the one in slot
-				var old_item : InventoryItem = item_in_slot
-				clear_item()
+			elif intersecting_items.size() == 1: 
+			# Swaping item held for the one in the region
+				var interc_item : InventoryItem = intersecting_items.keys()[0]
+				var interc_item_slot: InventorySlot = intersecting_items[interc_item]
+				var interc_item_slot_pos : Vector2i = interc_item_slot.item_slot_pos
+				interc_item_slot.clear_item()
 				if set_item(held_item): #Swap!
 					var item_rect : Rect2 = Rect2(global_position, size * held_item_size)
 					held_item.get_placed(item_rect)
-					old_item.get_picked_up()
+					interc_item.get_picked_up()
 				else: #Return old item
-					set_item(old_item)
+					interc_item_slot.set_item(interc_item, interc_item_slot_pos)
 		## TODO Add feedback that the new item couldnt fit the slot
 		## IDEA: Make the held item shake and play a negation sfx
 
@@ -66,21 +72,24 @@ func set_neighbors_as_next_on_focus() -> void:
 	if focus_neighbor_left:
 		focus_neighbor_left   = left_neighbor.get_path()
 
-func set_item(item: InventoryItem) -> bool:
-	assert(item.dimensions.x > 0 and item.dimensions.y > 0, "Dimension is not positive! ")
-	var slots_used : Array[InventorySlot] = []
+func set_item(item: InventoryItem, pos: Vector2i = Vector2()) -> bool:
+	assert(item.dimensions.x > 0 and item.dimensions.y > 0, "Dimension is not positive!")
+	assert(pos.x >= 0 and pos.x < item.dimensions.x \
+	   and pos.y >= 0 and pos.x < item.dimensions.y, "Slot position outside item dimension!")
+	var slots_used : Dictionary[InventorySlot, Vector2i] = {}
 	print("Dim: ", item.dimensions)
-	var can_set : bool = _set_item_recursive(item, 0, 0, slots_used)
+	var can_set : bool = _set_item_recursive(item, pos.x, pos.y, slots_used)
 	print("Used: ", slots_used.size())
 	if can_set:
 		for s in slots_used:
 			s.item_in_slot = item
+			s.item_slot_pos = slots_used[s]
 			s.focus_sqr.color = Color.CRIMSON
 	return can_set
 
-func _set_item_recursive(item: InventoryItem, x: int, y: int, tested: Array[InventorySlot]) -> bool:
-	tested.append(self)
-	if item_in_slot != null:
+func _set_item_recursive(item: InventoryItem, x: int, y: int, tested: Dictionary[InventorySlot, Vector2i]) -> bool:
+	tested[self] = Vector2i(x, y)
+	if has_item():
 		return false
 	if infinity_size: ## If infinity size, stop there
 		item_in_slot = item
@@ -134,3 +143,35 @@ func _clear_item_recursive(item: InventoryItem) -> void:
 		right_neighbor._clear_item_recursive(item)
 	if left_neighbor != null:
 		left_neighbor._clear_item_recursive(item)
+
+func find_intersecting_items(dimension: Vector2i, pos: Vector2i = Vector2()) -> Dictionary[InventoryItem, InventorySlot]:
+	assert(dimension.x > 0 and dimension.y > 0, "Dimension is not positive!")
+	assert(pos.x >= 0 and pos.x < dimension.x \
+	   and pos.y >= 0 and pos.x < dimension.y, "Slot position outside item dimension!")
+	var slots_in_region : Array[InventorySlot] = []
+	_find_intersecting_items_recursive(dimension, pos.x, pos.y, slots_in_region)
+	var slots_with_unique_items : Dictionary[InventoryItem, InventorySlot] = {}
+	for s in slots_in_region:
+		if s.item_in_slot and s.item_in_slot not in slots_with_unique_items:
+			slots_with_unique_items[s.item_in_slot] = s
+	return slots_with_unique_items
+
+func _find_intersecting_items_recursive(dimension: Vector2i, x: int, y: int, tested: Array[InventorySlot]) -> void:
+	tested.append(self)
+	## Check neighbors
+	## Top
+	if y > 0:
+		if top_neighbor and top_neighbor not in tested:
+			top_neighbor._find_intersecting_items_recursive(dimension, x, y-1, tested)
+	## Bottom	
+	if y < dimension.y - 1:
+		if bottom_neighbor and bottom_neighbor not in tested:
+			bottom_neighbor._find_intersecting_items_recursive(dimension, x, y+1, tested)
+	## Left
+	if x > 0:
+		if left_neighbor and left_neighbor not in tested:
+			left_neighbor._find_intersecting_items_recursive(dimension, x - 1, y, tested)
+	## Right
+	if x < dimension.y - 1:
+		if right_neighbor and right_neighbor not in tested:
+			right_neighbor._find_intersecting_items_recursive(dimension, x + 1, y, tested)
