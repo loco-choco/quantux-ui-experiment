@@ -55,13 +55,11 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_v7vax")
 
 [node name="PanelDiselected" type="Panel" parent="PanelContainer"]
-visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gs1gh")
 
 [node name="PanelSelected" type="Panel" parent="PanelContainer"]
-visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wfwh4")

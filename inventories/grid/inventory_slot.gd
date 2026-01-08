@@ -8,20 +8,20 @@ var item_in_slot: InventoryItem = null
 @export var left_neighbor : InventorySlot = null
 
 @export var infinity_size : bool = false
-@onready var focus_sqr : Control = $ColorRect
+@onready var focus_sqr : ColorRect = $ColorRect
 
 func _notification(what):
 	if what == NOTIFICATION_MOUSE_ENTER_SELF:
 		grab_focus()
 	elif what == NOTIFICATION_FOCUS_ENTER:
-		focus_sqr.show()
+		#focus_sqr.show()
 		if item_in_slot: 
 			item_in_slot.show_focus()
 		var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
 		if held_item != null:
 			held_item.global_position = global_position
 	elif what == NOTIFICATION_FOCUS_EXIT:
-		focus_sqr.hide()
+		#focus_sqr.hide()
 		if item_in_slot: 
 			item_in_slot.show_unfocus()
 		
@@ -68,42 +68,52 @@ func set_neighbors_as_next_on_focus() -> void:
 
 func set_item(item: InventoryItem) -> bool:
 	assert(item.dimensions.x > 0 and item.dimensions.y > 0, "Dimension is not positive! ")
-	return _set_item_recursive_right(item, item.dimensions.x - 1, item.dimensions.y - 1)
+	var slots_used : Array[InventorySlot] = []
+	print("Dim: ", item.dimensions)
+	var can_set : bool = _set_item_recursive(item, 0, 0, slots_used)
+	print("Used: ", slots_used.size())
+	if can_set:
+		for s in slots_used:
+			s.item_in_slot = item
+			s.focus_sqr.color = Color.CRIMSON
+	return can_set
 
-func _set_item_recursive_right(item: InventoryItem, row: int, colums: int) -> bool:
+func _set_item_recursive(item: InventoryItem, x: int, y: int, tested: Array[InventorySlot]) -> bool:
+	tested.append(self)
 	if item_in_slot != null:
 		return false
 	if infinity_size: ## If infinity size, stop there
 		item_in_slot = item
 		return true
-	## Check neighbor to the right
-	if row > 0:
-		if right_neighbor == null:
+	## Check neighbors
+	## Top
+	if y > 0:
+		if not top_neighbor:
 			return false
-		var can_set : bool = right_neighbor._set_item_recursive_right(item, row - 1, colums)
-		if !can_set:
+		if top_neighbor not in tested \
+		   and !top_neighbor._set_item_recursive(item, x, y-1, tested):
 			return false
-	## Check neighbor under
-	if colums > 0:
-		if bottom_neighbor == null:
+	## Bottom
+	if y < item.dimensions.y - 1:
+		if not bottom_neighbor:
 			return false
-		var can_set : bool = bottom_neighbor._set_item_recursive_down(item, colums - 1)
-		if !can_set:
+		if bottom_neighbor not in tested \
+		   and !bottom_neighbor._set_item_recursive(item, x, y+1, tested):
 			return false
-	item_in_slot = item
-	return true
-	
-func _set_item_recursive_down(item: InventoryItem, column: int) -> bool:
-	## Check neighbor under
-	if item_in_slot != null:
-		return false
-	if column > 0:
-		if bottom_neighbor == null:
+	## Left
+	if x > 0:
+		if not left_neighbor:
 			return false
-		var can_set : bool = bottom_neighbor._set_item_recursive_down(item, column - 1)
-		if !can_set:
+		if left_neighbor not in tested \
+		   and !left_neighbor._set_item_recursive(item, x-1, y, tested):
 			return false
-	item_in_slot = item
+	## Right
+	if x < item.dimensions.x - 1:
+		if not right_neighbor:
+			return false
+		if right_neighbor not in tested \
+		   and !right_neighbor._set_item_recursive(item, x+1, y, tested):
+			return false
 	return true
 
 func clear_item() -> void:
@@ -114,6 +124,7 @@ func clear_item() -> void:
 func _clear_item_recursive(item: InventoryItem) -> void:
 	if item_in_slot != item:
 		return
+	focus_sqr.color = Color.WHITE
 	item_in_slot = null
 	if top_neighbor != null:
 		top_neighbor._clear_item_recursive(item)

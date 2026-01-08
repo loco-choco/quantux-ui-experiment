@@ -24,6 +24,5 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_2l6od")
 script = ExtResource("1_0xh8c")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 layout_mode = 2
 mouse_filter = 2
