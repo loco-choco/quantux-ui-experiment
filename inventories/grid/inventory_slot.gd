@@ -77,9 +77,9 @@ func set_item(item: InventoryItem, pos: Vector2i = Vector2()) -> bool:
 	assert(pos.x >= 0 and pos.x < item.dimensions.x \
 	   and pos.y >= 0 and pos.x < item.dimensions.y, "Slot position outside item dimension!")
 	var slots_used : Dictionary[InventorySlot, Vector2i] = {}
-	print("Dim: ", item.dimensions)
+	#print("Dim: ", item.dimensions)
 	var can_set : bool = _set_item_recursive(item, pos.x, pos.y, slots_used)
-	print("Used: ", slots_used.size())
+	#print("Used: ", slots_used.size())
 	if can_set:
 		for s in slots_used:
 			s.item_in_slot = item
@@ -147,8 +147,8 @@ func find_intersecting_items(dimension: Vector2i, pos: Vector2i = Vector2()) -> 
 	assert(pos.x >= 0 and pos.x < dimension.x \
 	   and pos.y >= 0 and pos.x < dimension.y, "Slot position outside item dimension!")
 	var slots_in_region : Array[InventorySlot] = []
-	print("Intr Dim: ", dimension)
-	print("Intr Pos: ", pos)
+	#print("Intr Dim: ", dimension)
+	#print("Intr Pos: ", pos)
 	_find_intersecting_items_recursive(dimension, pos.x, pos.y, slots_in_region)
 	var slots_with_unique_items : Dictionary[InventoryItem, InventorySlot] = {}
 	for s in slots_in_region:
