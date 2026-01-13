@@ -61,5 +61,3 @@ func _on_inventory_item_dropped(item: Item) -> void:
 		get_parent().add_child(item)
 	grabbable_items.push_front(item)
 	grabbable_items[-1].select()
-	#TODO FIGUREOUT WAIT TO CLEANLY ADD THE DROPPED ITEM TO THE 
-	# NEARBY ITEM LIST
