@@ -16,7 +16,10 @@ func _ready() -> void:
 	drop_item_slot.item_slot_update.connect(_drop_item_slot_update)
 
 func _weapon_slot_update(item: InventoryItem) -> void:
-	weapon_slot_update.emit(item.data)
+	if item:
+		weapon_slot_update.emit(item.data)
+	else:
+		weapon_slot_update.emit(null)
 	
 func _drop_item_slot_update(inv_item: InventoryItem) -> void:
 	if inv_item == null:

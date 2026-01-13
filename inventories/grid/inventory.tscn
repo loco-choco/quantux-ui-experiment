@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://btu4ox8a5nhsk"]
+[gd_scene load_steps=13 format=3 uid="uid://btu4ox8a5nhsk"]
 
 [ext_resource type="Script" uid="uid://bao2oqno4ybbf" path="res://inventories/grid/inventory.gd" id="1_w7uli"]
 [ext_resource type="PackedScene" uid="uid://cjwu7tuaqcjgl" path="res://inventories/grid/inventory_slot.tscn" id="3_imxn7"]
@@ -9,6 +9,14 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsu7x"]
 bg_color = Color(0, 0, 0, 0.36862746)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yt8kk"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07exs"]
 
@@ -36,15 +44,11 @@ corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2obg0"]
 bg_color = Color(0.6, 0.6, 0.6, 0.11764706)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 border_color = Color(0, 0, 0, 0.11764706)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 anti_aliasing_size = 0.1
 
 [node name="Inventory" type="PanelContainer"]
@@ -78,16 +82,31 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="WeaponSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2" instance=ExtResource("3_imxn7")]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
+
+[node name="WeaponSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/PanelContainer" instance=ExtResource("3_imxn7")]
 unique_name_in_owner = true
 layout_mode = 2
 infinity_size = true
 
-[node name="InventorySlot3" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2" instance=ExtResource("3_imxn7")]
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
+
+[node name="InventorySlot3" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/PanelContainer2" instance=ExtResource("3_imxn7")]
 layout_mode = 2
 infinity_size = true
 
-[node name="InventorySlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2" instance=ExtResource("3_imxn7")]
+[node name="PanelContainer3" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
+
+[node name="InventorySlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/PanelContainer3" instance=ExtResource("3_imxn7")]
 layout_mode = 2
 infinity_size = true
 

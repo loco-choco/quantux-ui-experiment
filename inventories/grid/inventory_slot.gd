@@ -22,7 +22,7 @@ func _notification(what):
 			item_in_slot.show_focus()
 		var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
 		if held_item != null:
-			held_item.global_position = global_position
+			held_item.update_size(get_global_rect())
 	elif what == NOTIFICATION_FOCUS_EXIT:
 		focus_sqr.hide()
 		if item_in_slot: 
