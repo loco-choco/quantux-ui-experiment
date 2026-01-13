@@ -1,7 +1,7 @@
 extends PanelContainer
 
 @export var inventory_item_scene: PackedScene
-@onready var item_grid: ItemGrid = $MarginContainer/AspectRatioContainer/PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer/Bag
+@onready var item_grid: ItemGrid = $PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer/BagBg/Bag
 
 func add_item(item_data: ItemData) -> bool:
 	var inventory_item = inventory_item_scene.instantiate()

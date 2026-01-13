@@ -7,5 +7,5 @@
 script = ExtResource("1_00e3n")
 name = "SOUP"
 texture = ExtResource("2_j5jae")
-dimensions = Vector2i(4, 4)
+dimensions = Vector2i(1, 2)
 metadata/_custom_type_script = "uid://dnhj6mns60i8v"

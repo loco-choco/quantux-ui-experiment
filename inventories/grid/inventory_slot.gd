@@ -147,6 +147,8 @@ func find_intersecting_items(dimension: Vector2i, pos: Vector2i = Vector2()) -> 
 	assert(pos.x >= 0 and pos.x < dimension.x \
 	   and pos.y >= 0 and pos.x < dimension.y, "Slot position outside item dimension!")
 	var slots_in_region : Array[InventorySlot] = []
+	print("Intr Dim: ", dimension)
+	print("Intr Pos: ", pos)
 	_find_intersecting_items_recursive(dimension, pos.x, pos.y, slots_in_region)
 	var slots_with_unique_items : Dictionary[InventoryItem, InventorySlot] = {}
 	for s in slots_in_region:
@@ -170,6 +172,6 @@ func _find_intersecting_items_recursive(dimension: Vector2i, x: int, y: int, tes
 		if left_neighbor and left_neighbor not in tested:
 			left_neighbor._find_intersecting_items_recursive(dimension, x - 1, y, tested)
 	## Right
-	if x < dimension.y - 1:
+	if x < dimension.x - 1:
 		if right_neighbor and right_neighbor not in tested:
 			right_neighbor._find_intersecting_items_recursive(dimension, x + 1, y, tested)
