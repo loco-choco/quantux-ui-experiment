@@ -7,12 +7,12 @@ class_name Item extends Area2D
 
 func _ready() -> void:
 	sync_with_item_data()
-	disselect()
+	diselect()
 
 func sync_with_item_data() -> void:
 	icon.texture = item_data.texture
 
-func disselect() -> void:
+func diselect() -> void:
 	diselected.show()
 	selected.hide()
 	

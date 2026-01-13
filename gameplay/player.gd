@@ -1,10 +1,11 @@
-extends Area2D
+class_name Player extends Area2D
 
 signal item_collected(item_data: Item)
 
 @export var speed = 200
 
 @onready var inventory : Inventory = $%Inventory
+var selected_ground_item : Item = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,8 +31,20 @@ func _process(delta: float) -> void:
 		#$SpriteBouncer2D.stop()
 
 func _on_area_entered(area: Area2D) -> void:
-	if area is Item:
-		item_collected.emit(area as Item)
+	var item : Item = area as Item
+	if item:
+		if selected_ground_item:
+			selected_ground_item.diselect()
+		selected_ground_item = item
+		selected_ground_item.select()
+		#item_collected.emit()
+		
+func _on_area_exited(area: Area2D) -> void:
+	var item : Item = area as Item
+	if item:
+		if selected_ground_item == item:
+			selected_ground_item = null
+		item.diselect()
 
 
 func _on_inventory_item_dropped(item: Item) -> void:
