@@ -40,7 +40,7 @@ func _process(delta: float) -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	var item : Item = area as Item
-	if item:
+	if item and not grabbable_items.has(item):
 		if grabbable_items.size() > 0:
 			grabbable_items[-1].diselect()
 		grabbable_items.push_back(item)
@@ -57,7 +57,8 @@ func _on_area_exited(area: Area2D) -> void:
 
 func _on_inventory_item_dropped(item: Item) -> void:
 	item.global_position = global_position
-	get_parent().add_child(item)
+	if item.get_parent() != get_parent():
+		get_parent().add_child(item)
 	grabbable_items.push_front(item)
 	grabbable_items[-1].select()
 	#TODO FIGUREOUT WAIT TO CLEANLY ADD THE DROPPED ITEM TO THE 
