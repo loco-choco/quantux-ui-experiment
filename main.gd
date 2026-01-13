@@ -27,6 +27,7 @@ func killed_enemy():
 	create_tween().tween_property($Score, "scale", Vector2.ONE, 0.7).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 
 func _on_spawn_new_enemy_timeout() -> void:
+	return
 	var new_enemy = enemy_scene.instantiate()
 	new_enemy.name = "Enemy" + str(enemy_cpt)
 	enemy_cpt += 1

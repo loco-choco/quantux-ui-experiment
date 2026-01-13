@@ -11,5 +11,4 @@ func _process(_delta: float) -> void:
 			$Inventory.hide()
 
 func _on_player_item_collected(item: Item) -> void:
-	if $Inventory.add_item(item.item_data):
-		item.hide_in_game()
+	$Inventory.add_item(item)

@@ -4,6 +4,7 @@ signal item_collected(item_data: Item)
 
 @export var speed = 200
 
+@onready var inventory : Inventory = $%Inventory
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,7 +29,11 @@ func _process(delta: float) -> void:
 	#else:
 		#$SpriteBouncer2D.stop()
 
-
 func _on_area_entered(area: Area2D) -> void:
 	if area is Item:
 		item_collected.emit(area as Item)
+
+
+func _on_inventory_item_dropped(item: Item) -> void:
+	item.global_position = global_position
+	get_parent().add_child(item)

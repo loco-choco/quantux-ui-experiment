@@ -1,9 +1,10 @@
-extends PanelContainer
+class_name Inventory extends PanelContainer
 
 signal weapon_slot_update(item: ItemData)
-signal item_dropped(item: ItemData)
+signal item_dropped(item: Item)
 
 @export var inventory_item_scene: PackedScene
+@export var item_scene: PackedScene
 
 @onready var bag_grid: ItemGrid = $%Bag
 @onready var quick_inv_grid: ItemGrid = $%QuickInventory
@@ -17,21 +18,26 @@ func _ready() -> void:
 func _weapon_slot_update(item: InventoryItem) -> void:
 	weapon_slot_update.emit(item.data)
 	
-func _drop_item_slot_update(item: InventoryItem) -> void:
-	if item == null:
+func _drop_item_slot_update(inv_item: InventoryItem) -> void:
+	if inv_item == null:
 		return
-	item.queue_free()
+	var dropped_item : Item  = item_scene.instantiate()
+	dropped_item.item_data = inv_item.data
+	inv_item.queue_free()
 	drop_item_slot.clear_item()
-	item_dropped.emit(item.data)
+	item_dropped.emit(dropped_item)
 
-func add_item(item_data: ItemData) -> bool:
-	var inventory_item = inventory_item_scene.instantiate()
+func add_item(item: Item) -> bool:
+	var item_data : ItemData = item.item_data
+	var inventory_item : InventoryItem  = inventory_item_scene.instantiate()
 	inventory_item.data = item_data
 	add_child(inventory_item)
 	var success = bag_grid.attempt_to_add_item_data(inventory_item)
 	if !success: 
 		print("Item doesn't fit!")
 		inventory_item.queue_free()
+	else:
+		item.queue_free()
 	return success
 	
 func get_bagged_items() -> Array[ItemData]:

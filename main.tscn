@@ -21,18 +21,22 @@ offset_bottom = 556.0
 color = Color(0, 0, 0, 1)
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+unique_name_in_owner = true
 position = Vector2(241, 254)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_1bvp3")
+
+[node name="Inventory" parent="HUD" instance=ExtResource("4_lquwl")]
+unique_name_in_owner = true
+item_scene = ExtResource("2_0xm2m")
 
 [node name="Item2" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(385, 374)
 
 [node name="Item" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(99, 354)
-
-[node name="HUD" type="CanvasLayer" parent="."]
-script = ExtResource("3_1bvp3")
-
-[node name="Inventory" parent="HUD" instance=ExtResource("4_lquwl")]
 
 [node name="Soup" parent="." instance=ExtResource("5_lquwl")]
 position = Vector2(244, 426)
@@ -75,4 +79,5 @@ text = "Score : 0"
 [node name="6" parent="Bullets" instance=ExtResource("8_5vw27")]
 
 [connection signal="item_collected" from="Player" to="HUD" method="_on_player_item_collected"]
+[connection signal="item_dropped" from="HUD/Inventory" to="Player" method="_on_inventory_item_dropped"]
 [connection signal="timeout" from="SpawnNewEnemy" to="." method="_on_spawn_new_enemy_timeout"]
