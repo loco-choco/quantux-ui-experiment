@@ -4,6 +4,7 @@ class_name ItemGrid extends MatrixContainer
 
 func _ready() -> void:
 	create_slots()
+	_notification(NOTIFICATION_SORT_CHILDREN)
 
 func create_slots() -> void:
 	var slots: Array[InventorySlot] = []
@@ -29,3 +30,11 @@ func attempt_to_add_item_data(item: InventoryItem) -> bool:
 				item.get_placed(item_rect)
 				return true
 	return false
+
+
+func get_items() -> Array[InventoryItem]:
+	var items: Array[InventoryItem] = []
+	for s : InventorySlot in get_children():
+		if not items.has(s.get_item()):
+			items.append(s.get_item())
+	return items

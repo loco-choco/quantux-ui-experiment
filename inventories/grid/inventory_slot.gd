@@ -1,7 +1,6 @@
 class_name InventorySlot extends PanelContainer
 
-var item_in_slot: InventoryItem = null
-var item_slot_pos: Vector2i = Vector2i()
+signal item_slot_update(item: InventoryItem)
 
 @export var top_neighbor : InventorySlot = null
 @export var bottom_neighbor : InventorySlot = null
@@ -10,6 +9,9 @@ var item_slot_pos: Vector2i = Vector2i()
 
 @export var infinity_size : bool = false
 @onready var focus_sqr : ColorRect = $ColorRect
+
+var item_in_slot: InventoryItem = null
+var item_slot_pos: Vector2i = Vector2i()
 
 func _notification(what):
 	if what == NOTIFICATION_MOUSE_ENTER_SELF:
@@ -84,6 +86,7 @@ func set_item(item: InventoryItem, pos: Vector2i = Vector2()) -> bool:
 		for s in slots_used:
 			s.item_in_slot = item
 			s.item_slot_pos = slots_used[s]
+		item_slot_update.emit(item)
 	return can_set
 
 func _set_item_recursive(item: InventoryItem, x: int, y: int, tested: Dictionary[InventorySlot, Vector2i]) -> bool:
@@ -128,6 +131,7 @@ func clear_item() -> void:
 	if item_in_slot == null:
 		return
 	_clear_item_recursive(item_in_slot)
+	item_slot_update.emit(null)
 	
 func _clear_item_recursive(item: InventoryItem) -> void:
 	if item_in_slot != item:

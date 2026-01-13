@@ -9,10 +9,6 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsu7x"]
 bg_color = Color(0, 0, 0, 0.36862746)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07exs"]
 
@@ -70,6 +66,7 @@ size_flags_horizontal = 3
 alignment = 2
 
 [node name="WeaponSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2" instance=ExtResource("3_imxn7")]
+unique_name_in_owner = true
 layout_mode = 2
 infinity_size = true
 
@@ -101,6 +98,7 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_07exs")
 
 [node name="Bag" type="Container" parent="PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer/BagBg"]
+unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("6_2obg0")
 inventory_slot_scene = ExtResource("3_imxn7")
@@ -132,6 +130,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_y5r71")
 
 [node name="QuickInventory" type="Container" parent="PanelContainer/MarginContainer/HBoxContainer/Others/AspectRatioContainer/QuickInvBg"]
+unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("6_2obg0")
 inventory_slot_scene = ExtResource("3_imxn7")
