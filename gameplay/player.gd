@@ -13,6 +13,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if InputMode.get_mode() != InputMode.Modes.PLAYER:
+		return
 	var velocity = Vector2.ZERO
 	if Input.is_action_pressed("player_move_x_pos"):
 		velocity.x += 1
