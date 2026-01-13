@@ -25,29 +25,35 @@ func _notification(what):
 			held_item.update_size(item_rect(held_item))
 	elif what == NOTIFICATION_FOCUS_EXIT:
 		focus_sqr.hide()
-		if item_in_slot: 
+		if item_in_slot:
 			item_in_slot.show_unfocus()
 	elif what == NOTIFICATION_RESIZED:
 		if item_in_slot and item_slot_pos == Vector2i.ZERO: 
 			item_in_slot.update_size(item_rect(item_in_slot))
-		
 
 func item_rect(item: InventoryItem) -> Rect2:
+	var pos : Vector2 = Vector2.ZERO if infinity_size \
+				else size * Vector2(item.picked_pos)
 	var dim : Vector2 = Vector2.ONE if infinity_size else Vector2(item.dimensions)
-	var rect : Rect2 = Rect2(global_position, size * dim)
+	var rect : Rect2 = Rect2(global_position - pos, size * dim)
 	return rect
 
 func _gui_input(event: InputEvent) -> void:
+	var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
+	if event.is_action_pressed("inventory_rotate"):
+		if held_item:
+			held_item.do_rotation()
+			held_item.update_size(item_rect(held_item))
+		
 	if event.is_action_pressed("inventory_select"):
-		var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
 		if held_item == null && item_in_slot != null: # Getting item from slot
-			item_in_slot.get_picked_up()
+			item_in_slot.get_picked_up(item_slot_pos)
 			clear_item()
 		elif held_item != null:
 			var intersecting_items: Dictionary[InventoryItem, InventorySlot] \
 				= find_intersecting_items(held_item.dimensions)
 			if intersecting_items.size() == 0: # No items in region, we can place
-				if set_item(held_item):
+				if set_item(held_item, held_item.picked_pos):
 					held_item.get_placed(item_rect(held_item)) 
 			elif intersecting_items.size() == 1: 
 			# Swaping item held for the one in the region
@@ -55,9 +61,9 @@ func _gui_input(event: InputEvent) -> void:
 				var interc_item_slot: InventorySlot = intersecting_items[interc_item]
 				var interc_item_slot_pos : Vector2i = interc_item_slot.item_slot_pos
 				interc_item_slot.clear_item()
-				if set_item(held_item): #Swap!
+				if set_item(held_item, held_item.picked_pos): #Swap!
 					held_item.get_placed(item_rect(held_item))
-					interc_item.get_picked_up()
+					interc_item.get_picked_up(interc_item_slot_pos)
 				else: #Return old item
 					interc_item_slot.set_item(interc_item, interc_item_slot_pos)
 		## TODO Add feedback that the new item couldnt fit the slot
@@ -79,10 +85,10 @@ func set_neighbors_as_next_on_focus() -> void:
 	if focus_neighbor_left:
 		focus_neighbor_left   = left_neighbor.get_path()
 
-func set_item(item: InventoryItem, pos: Vector2i = Vector2()) -> bool:
+func set_item(item: InventoryItem, pos: Vector2i = Vector2.ZERO) -> bool:
 	assert(item.dimensions.x > 0 and item.dimensions.y > 0, "Dimension is not positive!")
 	assert(pos.x >= 0 and pos.x < item.dimensions.x \
-	   and pos.y >= 0 and pos.x < item.dimensions.y, "Slot position outside item dimension!")
+	   and pos.y >= 0 and pos.y < item.dimensions.y, "Slot position outside item dimension!")
 	var slots_used : Dictionary[InventorySlot, Vector2i] = {}
 	#print("Dim: ", item.dimensions)
 	var can_set : bool = _set_item_recursive(item, pos.x, pos.y, slots_used)
