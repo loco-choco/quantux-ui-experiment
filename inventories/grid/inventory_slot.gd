@@ -64,7 +64,7 @@ func _gui_input(event: InputEvent) -> void:
 				if set_item(held_item, held_item.picked_pos): #Swap!
 					held_item.get_placed(item_rect(held_item))
 					interc_item.get_picked_up(interc_item_slot_pos)
-					interc_item_slot.grab_focus()
+					interc_item.update_size(item_rect(interc_item))
 				else: #Return old item
 					interc_item_slot.set_item(interc_item, interc_item_slot_pos)
 		## TODO Add feedback that the new item couldnt fit the slot
