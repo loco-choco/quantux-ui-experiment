@@ -1,18 +1,21 @@
 class_name Item extends Area2D
 
 @export var item_data: ItemData
-@onready var sprite: SpriteBouncer2D = $SpriteBouncer2D
+@onready var icon: TextureRect = $%Icon
+@onready var diselected: Control = $%Diselected
+@onready var selected: Control = $%Selected
 
 func _ready() -> void:
 	sync_with_item_data()
+	disselect()
 
 func sync_with_item_data() -> void:
-	sprite.texture = item_data.texture
+	icon.texture = item_data.texture
 
-func hide_in_game() -> void:
-	hide()
-	set_process_mode(Node.PROCESS_MODE_DISABLED)
+func disselect() -> void:
+	diselected.show()
+	selected.hide()
 	
-func show_in_game() -> void:
-	show()
-	set_process_mode(Node.PROCESS_MODE_INHERIT)
+func select() -> void:
+	diselected.hide()
+	selected.show()

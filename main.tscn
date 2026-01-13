@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dy7fc8q4jmtgw"]
+[gd_scene load_steps=8 format=3 uid="uid://dy7fc8q4jmtgw"]
 
 [ext_resource type="Script" uid="uid://d0lfe13c8lca8" path="res://main.gd" id="1_272bh"]
 [ext_resource type="PackedScene" uid="uid://cg55uk4s6qv0g" path="res://player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dfa3nrjnhe3mt" path="res://items/item.tscn" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://d0b7g03iss0pa" path="res://hud.gd" id="3_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://btu4ox8a5nhsk" path="res://inventories/grid/inventory.tscn" id="4_lquwl"]
-[ext_resource type="PackedScene" uid="uid://n7lwal0fl241" path="res://items/soup.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://bnq00287k1il2" path="res://gameplay/enemy.tscn" id="6_7mycd"]
 [ext_resource type="PackedScene" uid="uid://c45awuou43skt" path="res://gameplay/bullet.tscn" id="8_5vw27"]
 
@@ -30,25 +29,11 @@ script = ExtResource("3_1bvp3")
 
 [node name="Inventory" parent="HUD" instance=ExtResource("4_lquwl")]
 unique_name_in_owner = true
+visible = false
 item_scene = ExtResource("2_0xm2m")
 
-[node name="Item2" parent="." instance=ExtResource("2_0xm2m")]
-position = Vector2(385, 374)
-
 [node name="Item" parent="." instance=ExtResource("2_0xm2m")]
-position = Vector2(99, 354)
-
-[node name="Soup" parent="." instance=ExtResource("5_lquwl")]
-position = Vector2(244, 426)
-
-[node name="Soup2" parent="." instance=ExtResource("5_lquwl")]
-position = Vector2(763, 366)
-
-[node name="Soup3" parent="." instance=ExtResource("5_lquwl")]
-position = Vector2(622, 334)
-
-[node name="Soup4" parent="." instance=ExtResource("5_lquwl")]
-position = Vector2(695, 201)
+position = Vector2(397, 327)
 
 [node name="Enemy1" parent="." instance=ExtResource("6_7mycd")]
 position = Vector2(792, 99)
@@ -65,6 +50,7 @@ offset_bottom = 50.0
 text = "Score : 0"
 
 [node name="Bullets" type="Node2D" parent="."]
+visible = false
 
 [node name="1" parent="Bullets" instance=ExtResource("8_5vw27")]
 

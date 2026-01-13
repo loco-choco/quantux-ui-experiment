@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfa3nrjnhe3mt"]
+[gd_scene load_steps=9 format=3 uid="uid://dfa3nrjnhe3mt"]
 
 [ext_resource type="Script" uid="uid://ck4ylmuc6egep" path="res://items/item.gd" id="1_kg5e7"]
-[ext_resource type="Script" uid="uid://udgl2ehv0tdf" path="res://sprite_bouncer_2D.gd" id="1_tnite"]
 [ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://items/item_data.gd" id="2_cd4ji"]
 [ext_resource type="Texture2D" uid="uid://bidf8wxw1wkkp" path="res://icon.svg" id="3_cd4ji"]
+[ext_resource type="Texture2D" uid="uid://c4ovb6eqsu04x" path="res://items/item.png" id="5_88lpn"]
 
 [sub_resource type="Resource" id="Resource_88lpn"]
 script = ExtResource("2_cd4ji")
@@ -12,22 +12,94 @@ texture = ExtResource("3_cd4ji")
 dimensions = Vector2i(1, 1)
 metadata/_custom_type_script = "uid://dnhj6mns60i8v"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kg5e7"]
-size = Vector2(79, 82)
+[sub_resource type="CircleShape2D" id="CircleShape2D_cd4ji"]
+radius = 55.509007
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88lpn"]
+bg_color = Color(0.16862746, 0.16862746, 0.16862746, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing_size = 0.1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_881i2"]
+bg_color = Color(0.16924527, 0.16924533, 0.16924518, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing_size = 0.1
 
 [node name="Item" type="Area2D"]
 collision_mask = 0
 script = ExtResource("1_kg5e7")
 item_data = SubResource("Resource_88lpn")
 
-[node name="SpriteBouncer2D" type="Sprite2D" parent="."]
-texture_filter = 1
-scale = Vector2(0.6171873, 0.63281256)
-texture = ExtResource("3_cd4ji")
-script = ExtResource("1_tnite")
-limit = 30
-speed = 210
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_kg5e7")
+shape = SubResource("CircleShape2D_cd4ji")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="Diselected" type="Panel" parent="Control/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_88lpn")
+
+[node name="Selected" type="Panel" parent="Control/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_881i2")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Icon" type="TextureRect" parent="Control/PanelContainer/MarginContainer/AspectRatioContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_88lpn")
+expand_mode = 1
