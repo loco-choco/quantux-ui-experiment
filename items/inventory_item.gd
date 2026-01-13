@@ -4,11 +4,11 @@ class_name InventoryItem extends Node2D
 var is_rotated: bool = false
 @export var is_picked: bool = false
 @onready var panel: PanelContainer = $PanelContainer
-@onready var icon: TextureRect = $PanelContainer/MarginContainer/AspectRatioContainer/Icon
+@onready var icon: TextureRect = $%Icon
 
-@onready var panelDiselected: Panel = $PanelContainer/PanelDiselected
-@onready var panelSelected: Panel = $PanelContainer/PanelSelected
-@onready var panelHeld: Panel = $PanelContainer/PanelHeld
+@onready var diselected: Control = $%Diselected
+@onready var selected: Control = $%Selected
+@onready var held: Control = $%Held
 
 var dimensions: Vector2i:
 	get():
@@ -42,17 +42,17 @@ func get_placed(rect: Rect2) -> void:
 	z_index = 0
 	
 func show_focus() -> void:
-	panelHeld.hide()
-	panelDiselected.hide()
-	panelSelected.show()
+	held.hide()
+	diselected.hide()
+	selected.show()
 func show_unfocus() -> void:
-	panelHeld.hide()
-	panelDiselected.show()
-	panelSelected.hide()
+	held.hide()
+	diselected.show()
+	selected.hide()
 func show_held() -> void:
-	panelHeld.show()
-	panelDiselected.hide()
-	panelSelected.hide()
+	held.show()
+	diselected.hide()
+	selected.hide()
 	
 func do_rotation() -> void:
 	var old_size : Vector2 = panel.size / Vector2(dimensions)
