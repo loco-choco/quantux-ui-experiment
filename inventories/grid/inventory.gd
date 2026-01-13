@@ -42,6 +42,7 @@ func add_item(item: Item) -> bool:
 	if !success: 
 		print("Item doesn't fit!")
 		inventory_item.queue_free()
+		item_dropped.emit(item)
 	else:
 		item.queue_free()
 	return success

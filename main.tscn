@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dy7fc8q4jmtgw"]
+[gd_scene load_steps=12 format=3 uid="uid://dy7fc8q4jmtgw"]
 
 [ext_resource type="Script" uid="uid://d0lfe13c8lca8" path="res://main.gd" id="1_272bh"]
 [ext_resource type="PackedScene" uid="uid://cg55uk4s6qv0g" path="res://player.tscn" id="1_ig7tw"]
@@ -7,7 +7,16 @@
 [ext_resource type="PackedScene" uid="uid://btu4ox8a5nhsk" path="res://inventories/grid/inventory.tscn" id="4_lquwl"]
 [ext_resource type="Resource" uid="uid://bn4doka08j5ua" path="res://items/soup_item.tres" id="6_5vw27"]
 [ext_resource type="PackedScene" uid="uid://bnq00287k1il2" path="res://gameplay/enemy.tscn" id="6_7mycd"]
+[ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://items/item_data.gd" id="7_4c57u"]
 [ext_resource type="PackedScene" uid="uid://c45awuou43skt" path="res://gameplay/bullet.tscn" id="8_5vw27"]
+[ext_resource type="Texture2D" uid="uid://bidf8wxw1wkkp" path="res://icon.svg" id="8_efxa6"]
+
+[sub_resource type="Resource" id="Resource_dg77c"]
+script = ExtResource("7_4c57u")
+name = "GODOT"
+texture = ExtResource("8_efxa6")
+dimensions = Vector2i(3, 2)
+metadata/_custom_type_script = "uid://dnhj6mns60i8v"
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_272bh")
@@ -41,9 +50,17 @@ item_data = ExtResource("6_5vw27")
 position = Vector2(412, 225)
 item_data = ExtResource("6_5vw27")
 
+[node name="Item6" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(470, 455)
+item_data = SubResource("Resource_dg77c")
+
 [node name="Item3" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(212, 400)
 item_data = ExtResource("6_5vw27")
+
+[node name="Item7" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(370, 431)
+item_data = SubResource("Resource_dg77c")
 
 [node name="Item4" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(438, 302)
