@@ -22,15 +22,21 @@ func _notification(what):
 			item_in_slot.show_focus()
 		var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
 		if held_item != null:
-			held_item.update_size(get_global_rect())
+			held_item.update_size(item_rect(held_item))
 	elif what == NOTIFICATION_FOCUS_EXIT:
 		focus_sqr.hide()
 		if item_in_slot: 
 			item_in_slot.show_unfocus()
 	elif what == NOTIFICATION_RESIZED:
 		if item_in_slot and item_slot_pos == Vector2i.ZERO: 
-			item_in_slot.update_size(get_global_rect())
+			item_in_slot.update_size(item_rect(item_in_slot))
 		
+
+func item_rect(item: InventoryItem) -> Rect2:
+	var dim : Vector2 = Vector2.ONE if infinity_size else Vector2(item.dimensions)
+	var rect : Rect2 = Rect2(global_position, size * dim)
+	return rect
+
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory_select"):
 		var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
@@ -38,14 +44,11 @@ func _gui_input(event: InputEvent) -> void:
 			item_in_slot.get_picked_up()
 			clear_item()
 		elif held_item != null:
-			var held_item_size : Vector2 = Vector2(held_item.dimensions) \
-								 if not infinity_size else Vector2.ONE
 			var intersecting_items: Dictionary[InventoryItem, InventorySlot] \
 				= find_intersecting_items(held_item.dimensions)
 			if intersecting_items.size() == 0: # No items in region, we can place
 				if set_item(held_item):
-					var item_rect : Rect2 = Rect2(global_position, size * held_item_size)
-					held_item.get_placed(item_rect) 
+					held_item.get_placed(item_rect(held_item)) 
 			elif intersecting_items.size() == 1: 
 			# Swaping item held for the one in the region
 				var interc_item : InventoryItem = intersecting_items.keys()[0]
@@ -53,8 +56,7 @@ func _gui_input(event: InputEvent) -> void:
 				var interc_item_slot_pos : Vector2i = interc_item_slot.item_slot_pos
 				interc_item_slot.clear_item()
 				if set_item(held_item): #Swap!
-					var item_rect : Rect2 = Rect2(global_position, size * held_item_size)
-					held_item.get_placed(item_rect)
+					held_item.get_placed(item_rect(held_item))
 					interc_item.get_picked_up()
 				else: #Return old item
 					interc_item_slot.set_item(interc_item, interc_item_slot_pos)
