@@ -7,7 +7,7 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v7vax"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v7vax"]
-bg_color = Color(0.16862746, 0.16862746, 0.16862746, 1)
+bg_color = Color(0.16862746, 0.16862746, 0.16862746, 0.78431374)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -20,7 +20,7 @@ corner_radius_bottom_left = 2
 anti_aliasing_size = 0.1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gs1gh"]
-bg_color = Color(0.16924527, 0.16924533, 0.16924518, 1)
+bg_color = Color(0.16862746, 0.16862746, 0.16862746, 0.78431374)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
