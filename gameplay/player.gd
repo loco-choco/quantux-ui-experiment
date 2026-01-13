@@ -24,6 +24,10 @@ func _process(delta: float) -> void:
 		velocity.y -= 1
 	global_position += velocity.normalized() * delta * speed;
 	
+	if Input.is_action_just_pressed("pickup_item"):
+		if selected_ground_item:
+			item_collected.emit(selected_ground_item)
+				
 	# TODO : uncomment this once we have sprites instead of shapes
 	#if velocity != Vector2.ZERO:
 		#$SpriteBouncer2D.play()
@@ -37,7 +41,6 @@ func _on_area_entered(area: Area2D) -> void:
 			selected_ground_item.diselect()
 		selected_ground_item = item
 		selected_ground_item.select()
-		#item_collected.emit()
 		
 func _on_area_exited(area: Area2D) -> void:
 	var item : Item = area as Item
