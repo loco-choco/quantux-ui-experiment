@@ -34,7 +34,23 @@ visible = false
 item_scene = ExtResource("2_0xm2m")
 
 [node name="Item" parent="." instance=ExtResource("2_0xm2m")]
-position = Vector2(397, 327)
+position = Vector2(367, 290)
+item_data = ExtResource("6_5vw27")
+
+[node name="Item2" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(412, 225)
+item_data = ExtResource("6_5vw27")
+
+[node name="Item3" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(212, 400)
+item_data = ExtResource("6_5vw27")
+
+[node name="Item4" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(438, 302)
+item_data = ExtResource("6_5vw27")
+
+[node name="Item5" parent="." instance=ExtResource("2_0xm2m")]
+position = Vector2(105, 195)
 item_data = ExtResource("6_5vw27")
 
 [node name="Enemy1" parent="." instance=ExtResource("6_7mycd")]

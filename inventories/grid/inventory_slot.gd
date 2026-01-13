@@ -51,7 +51,7 @@ func _gui_input(event: InputEvent) -> void:
 			clear_item()
 		elif held_item != null:
 			var intersecting_items: Dictionary[InventoryItem, InventorySlot] \
-				= find_intersecting_items(held_item.dimensions)
+				= find_intersecting_items(held_item.dimensions, held_item.picked_pos)
 			if intersecting_items.size() == 0: # No items in region, we can place
 				if set_item(held_item, held_item.picked_pos):
 					held_item.get_placed(item_rect(held_item)) 
@@ -64,6 +64,7 @@ func _gui_input(event: InputEvent) -> void:
 				if set_item(held_item, held_item.picked_pos): #Swap!
 					held_item.get_placed(item_rect(held_item))
 					interc_item.get_picked_up(interc_item_slot_pos)
+					interc_item_slot.grab_focus()
 				else: #Return old item
 					interc_item_slot.set_item(interc_item, interc_item_slot_pos)
 		## TODO Add feedback that the new item couldnt fit the slot
@@ -157,10 +158,10 @@ func _clear_item_recursive(item: InventoryItem) -> void:
 	if left_neighbor != null:
 		left_neighbor._clear_item_recursive(item)
 
-func find_intersecting_items(dimension: Vector2i, pos: Vector2i = Vector2()) -> Dictionary[InventoryItem, InventorySlot]:
+func find_intersecting_items(dimension: Vector2i, pos: Vector2i = Vector2i.ZERO) -> Dictionary[InventoryItem, InventorySlot]:
 	assert(dimension.x > 0 and dimension.y > 0, "Dimension is not positive!")
 	assert(pos.x >= 0 and pos.x < dimension.x \
-	   and pos.y >= 0 and pos.x < dimension.y, "Slot position outside item dimension!")
+	   and pos.y >= 0 and pos.y < dimension.y, "Slot position outside item dimension!")
 	var slots_in_region : Array[InventorySlot] = []
 	#print("Intr Dim: ", dimension)
 	#print("Intr Pos: ", pos)
