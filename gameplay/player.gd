@@ -15,16 +15,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if InputMode.get_mode() != InputMode.Modes.PLAYER:
 		return
-	var velocity = Vector2.ZERO
-	if Input.is_action_pressed("player_move_x_pos"):
-		velocity.x += 1
-	if Input.is_action_pressed("player_move_x_neg"):
-		velocity.x -= 1
-	if Input.is_action_pressed("player_move_y_pos"):
-		velocity.y += 1
-	if Input.is_action_pressed("player_move_y_neg"):
-		velocity.y -= 1
-	global_position += velocity.normalized() * delta * speed;
+	var velocity = Input.get_vector("player_move_x_neg", \
+									"player_move_x_pos", \
+									"player_move_y_neg", \
+									"player_move_y_pos")
+	
+	global_position += velocity * delta * speed;
 	
 	if Input.is_action_just_pressed("pickup_item"):
 		if grabbable_items.size() > 0:
