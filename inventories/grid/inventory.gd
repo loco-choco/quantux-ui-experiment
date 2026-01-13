@@ -15,6 +15,9 @@ func _ready() -> void:
 	weapon_slot.item_slot_update.connect(_weapon_slot_update)
 	drop_item_slot.item_slot_update.connect(_drop_item_slot_update)
 
+func set_focus() -> void:
+	(bag_grid.get_child(0) as Control).grab_focus()
+
 func _weapon_slot_update(item: InventoryItem) -> void:
 	if item:
 		weapon_slot_update.emit(item.data)

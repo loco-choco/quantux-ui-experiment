@@ -1,14 +1,15 @@
 extends CanvasLayer
-
+@onready var inventory : Inventory = $Inventory
 func _ready() -> void:
-	$Inventory.hide()
+	inventory.hide()
 	
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("hud_toggle_inventory"):
-		if not $Inventory.visible: 
-			$Inventory.show()
+		if not inventory.visible: 
+			inventory.show()
+			inventory.set_focus()
 		else:
-			$Inventory.hide()
+			inventory.hide()
 
 func _on_player_item_collected(item: Item) -> void:
-	$Inventory.add_item(item)
+	inventory.add_item(item)
