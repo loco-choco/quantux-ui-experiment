@@ -15,8 +15,13 @@ func _ready() -> void:
 	weapon_slot.item_slot_update.connect(_weapon_slot_update)
 	drop_item_slot.item_slot_update.connect(_drop_item_slot_update)
 
+func drop_held_item() -> void:
+	var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
+	_drop_item_slot_update(held_item)
+
 func set_focus() -> void:
 	(bag_grid.get_child(0) as Control).grab_focus()
+
 
 func _weapon_slot_update(item: InventoryItem) -> void:
 	if item:

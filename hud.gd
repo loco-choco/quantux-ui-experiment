@@ -1,5 +1,5 @@
 extends CanvasLayer
-@onready var inventory : Inventory = $Inventory
+@onready var inventory : Inventory = $%Inventory
 func _ready() -> void:
 	inventory.hide()
 	InputMode.change_mode(InputMode.Modes.PLAYER)
@@ -12,6 +12,7 @@ func _process(_delta: float) -> void:
 			InputMode.change_mode(InputMode.Modes.UI)
 		else:
 			inventory.hide()
+			inventory.drop_held_item()
 			InputMode.change_mode(InputMode.Modes.PLAYER)
 
 func _on_player_item_collected(item: Item) -> void:
