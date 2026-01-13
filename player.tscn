@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cg55uk4s6qv0g"]
+[gd_scene load_steps=8 format=3 uid="uid://cg55uk4s6qv0g"]
 
 [ext_resource type="Script" uid="uid://sy1qjygxknt0" path="res://gameplay/player.gd" id="1_4flbx"]
 [ext_resource type="Shader" uid="uid://bgbqefwcusl52" path="res://gameplay/player.gdshader" id="2_hqtel"]
@@ -11,7 +11,10 @@ shader = ExtResource("2_hqtel")
 [sub_resource type="CircleShape2D" id="CircleShape2D_hqtel"]
 radius = 12.337838
 
-[node name="Player" type="Area2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_sweqy"]
+radius = 90.02222
+
+[node name="Player" type="Node2D"]
 script = ExtResource("1_4flbx")
 
 [node name="SpriteBouncer2D" type="Sprite2D" parent="."]
@@ -22,10 +25,19 @@ scale = Vector2(9.1640625, 9.0703125)
 texture = ExtResource("2_onrkg")
 script = ExtResource("3_i3pqv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="DamageCollider" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageCollider"]
 position = Vector2(0, -4.7683716e-07)
 scale = Vector2(3, 3)
 shape = SubResource("CircleShape2D_hqtel")
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[node name="InteractableCollider" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableCollider"]
+shape = SubResource("CircleShape2D_sweqy")
+
+[connection signal="area_entered" from="InteractableCollider" to="." method="_on_interactable_enter"]
+[connection signal="area_exited" from="InteractableCollider" to="." method="_on_interactable_exit"]

@@ -47,7 +47,7 @@ position = Vector2(367, 290)
 item_data = ExtResource("6_5vw27")
 
 [node name="Item2" parent="." instance=ExtResource("2_0xm2m")]
-position = Vector2(412, 225)
+position = Vector2(394, 243)
 item_data = ExtResource("6_5vw27")
 
 [node name="Item6" parent="." instance=ExtResource("2_0xm2m")]

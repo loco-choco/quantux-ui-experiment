@@ -1,4 +1,4 @@
-class_name Player extends Area2D
+class_name Player extends Node2D
 
 signal item_collected(item_data: Item)
 
@@ -34,16 +34,18 @@ func _process(delta: float) -> void:
 	#else:
 		#$SpriteBouncer2D.stop()
 
-func _on_area_entered(area: Area2D) -> void:
-	var item : Item = area as Item
+func _on_interactable_enter(area: Area2D) -> void:
+	var item_coll : ItemInteractCollider = area as ItemInteractCollider
+	var item : Item = item_coll.get_item() if item_coll else null
 	if item and not grabbable_items.has(item):
 		if grabbable_items.size() > 0:
 			grabbable_items[-1].diselect()
 		grabbable_items.push_back(item)
 		item.select()
 		
-func _on_area_exited(area: Area2D) -> void:
-	var item : Item = area as Item
+func _on_interactable_exit(area: Area2D) -> void:
+	var item_coll : ItemInteractCollider = area as ItemInteractCollider
+	var item : Item = item_coll.get_item() if item_coll else null
 	if item:
 		grabbable_items.erase(item)
 		item.diselect()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfa3nrjnhe3mt"]
+[gd_scene load_steps=11 format=3 uid="uid://dfa3nrjnhe3mt"]
 
 [ext_resource type="Script" uid="uid://ck4ylmuc6egep" path="res://items/item.gd" id="1_kg5e7"]
 [ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://items/item_data.gd" id="2_cd4ji"]
 [ext_resource type="Texture2D" uid="uid://bidf8wxw1wkkp" path="res://icon.svg" id="3_cd4ji"]
+[ext_resource type="Script" uid="uid://dr35ee7tniemq" path="res://items/item_interact_collider.gd" id="4_88lpn"]
 [ext_resource type="Texture2D" uid="uid://c4ovb6eqsu04x" path="res://items/item.png" id="5_88lpn"]
 
 [sub_resource type="Resource" id="Resource_88lpn"]
@@ -13,7 +14,10 @@ dimensions = Vector2i(1, 1)
 metadata/_custom_type_script = "uid://dnhj6mns60i8v"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cd4ji"]
-radius = 55.509007
+radius = 50.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_88lpn"]
+radius = 28.01785
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88lpn"]
 bg_color = Color(0.16862746, 0.16862746, 0.16862746, 1)
@@ -40,14 +44,29 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 anti_aliasing_size = 0.1
 
-[node name="Item" type="Area2D"]
-collision_mask = 0
+[node name="Item" type="Node2D"]
 script = ExtResource("1_kg5e7")
 item_data = SubResource("Resource_88lpn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="InteractCollider" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("4_88lpn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractCollider"]
 position = Vector2(0.5, 0)
 shape = SubResource("CircleShape2D_cd4ji")
+
+[node name="ItemCollider" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-20, -20)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("4_88lpn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemCollider"]
+position = Vector2(20, 20)
+shape = SubResource("CircleShape2D_88lpn")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
