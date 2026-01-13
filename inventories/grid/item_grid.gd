@@ -4,7 +4,6 @@ class_name ItemGrid extends MatrixContainer
 
 func _ready() -> void:
 	create_slots()
-	_notification(NOTIFICATION_SORT_CHILDREN)
 
 func create_slots() -> void:
 	var slots: Array[InventorySlot] = []

@@ -30,9 +30,12 @@ func get_picked_up() -> void:
 	is_picked = true
 	z_index = 10
 
-func get_placed(rect: Rect2) -> void:
+func update_size(rect: Rect2) -> void:
 	global_position = rect.position
 	panel.size = rect.size
+	
+func get_placed(rect: Rect2) -> void:
+	update_size(rect)
 	remove_from_group("held_item")
 	show_unfocus()
 	is_picked = false

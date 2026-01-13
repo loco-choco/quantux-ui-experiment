@@ -27,6 +27,9 @@ func _notification(what):
 		focus_sqr.hide()
 		if item_in_slot: 
 			item_in_slot.show_unfocus()
+	elif what == NOTIFICATION_RESIZED:
+		if item_in_slot and item_slot_pos == Vector2i.ZERO: 
+			item_in_slot.update_size(get_global_rect())
 		
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("inventory_select"):
