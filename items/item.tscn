@@ -13,12 +13,6 @@ texture = ExtResource("3_cd4ji")
 dimensions = Vector2i(1, 1)
 metadata/_custom_type_script = "uid://dnhj6mns60i8v"
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cd4ji"]
-radius = 50.5
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_88lpn"]
-radius = 28.01785
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88lpn"]
 bg_color = Color(0.16862746, 0.16862746, 0.16862746, 1)
 border_width_left = 2
@@ -44,29 +38,15 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 anti_aliasing_size = 0.1
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_cd4ji"]
+radius = 27.518175
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_88lpn"]
+size = Vector2(24, 24)
+
 [node name="Item" type="Node2D"]
 script = ExtResource("1_kg5e7")
 item_data = SubResource("Resource_88lpn")
-
-[node name="InteractCollider" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("4_88lpn")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractCollider"]
-position = Vector2(0.5, 0)
-shape = SubResource("CircleShape2D_cd4ji")
-
-[node name="ItemCollider" type="Area2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(-20, -20)
-collision_layer = 4
-collision_mask = 4
-script = ExtResource("4_88lpn")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemCollider"]
-position = Vector2(20, 20)
-shape = SubResource("CircleShape2D_88lpn")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -122,3 +102,23 @@ layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("5_88lpn")
 expand_mode = 1
+
+[node name="InteractCollider" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("4_88lpn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractCollider"]
+position = Vector2(0.5, 0)
+shape = SubResource("CircleShape2D_cd4ji")
+
+[node name="ItemCollider" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-20, -20)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("4_88lpn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ItemCollider"]
+position = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_88lpn")

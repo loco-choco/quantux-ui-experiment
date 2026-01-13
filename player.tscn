@@ -12,7 +12,7 @@ shader = ExtResource("2_hqtel")
 radius = 12.337838
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sweqy"]
-radius = 90.02222
+radius = 57.035076
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_4flbx")

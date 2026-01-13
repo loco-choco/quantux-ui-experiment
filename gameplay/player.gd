@@ -6,6 +6,7 @@ signal item_collected(item_data: Item)
 
 @onready var inventory : Inventory = $%Inventory
 var grabbable_items: Array[Item] = []
+@export var dropped_item_offset_radius : float = 25
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -54,7 +55,9 @@ func _on_interactable_exit(area: Area2D) -> void:
 
 
 func _on_inventory_item_dropped(item: Item) -> void:
-	item.global_position = global_position
+	randomize()
+	item.global_position = global_position + \
+			Vector2.RIGHT.rotated(randf()*2*PI) * dropped_item_offset_radius
 	if item.get_parent() != get_parent():
 		get_parent().add_child(item)
 	grabbable_items.push_front(item)
