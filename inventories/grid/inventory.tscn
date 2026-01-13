@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://btu4ox8a5nhsk"]
+[gd_scene load_steps=12 format=3 uid="uid://btu4ox8a5nhsk"]
 
 [ext_resource type="Script" uid="uid://bao2oqno4ybbf" path="res://inventories/grid/inventory.gd" id="1_w7uli"]
 [ext_resource type="PackedScene" uid="uid://cjwu7tuaqcjgl" path="res://inventories/grid/inventory_slot.tscn" id="3_imxn7"]
@@ -33,6 +33,19 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2obg0"]
+bg_color = Color(0.6, 0.6, 0.6, 0.11764706)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.11764706)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing_size = 0.1
 
 [node name="Inventory" type="PanelContainer"]
 anchors_preset = 15
@@ -139,4 +152,12 @@ rows = 2
 metadata/_custom_type_script = "uid://bbu1oyu4naqin"
 
 [node name="DropItemSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Others" instance=ExtResource("3_imxn7")]
+unique_name_in_owner = true
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2obg0")
+infinity_size = true
+
+[node name="ColorRect" parent="PanelContainer/MarginContainer/HBoxContainer/Others/DropItemSlot" index="0"]
+color = Color(1, 1, 1, 0.11764706)
+
+[editable path="PanelContainer/MarginContainer/HBoxContainer/Others/DropItemSlot"]

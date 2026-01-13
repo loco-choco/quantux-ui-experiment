@@ -1,18 +1,28 @@
 extends PanelContainer
 
-signal weapon_slot_update(item: InventoryItem)
+signal weapon_slot_update(item: ItemData)
+signal item_dropped(item: ItemData)
 
 @export var inventory_item_scene: PackedScene
 
 @onready var bag_grid: ItemGrid = $%Bag
 @onready var quick_inv_grid: ItemGrid = $%QuickInventory
 @onready var weapon_slot: InventorySlot = $%WeaponSlot
+@onready var drop_item_slot: InventorySlot = $%DropItemSlot
 
 func _ready() -> void:
 	weapon_slot.item_slot_update.connect(_weapon_slot_update)
+	drop_item_slot.item_slot_update.connect(_drop_item_slot_update)
 
 func _weapon_slot_update(item: InventoryItem) -> void:
-	weapon_slot_update.emit(item)
+	weapon_slot_update.emit(item.data)
+	
+func _drop_item_slot_update(item: InventoryItem) -> void:
+	if item == null:
+		return
+	item.queue_free()
+	drop_item_slot.clear_item()
+	item_dropped.emit(item.data)
 
 func add_item(item_data: ItemData) -> bool:
 	var inventory_item = inventory_item_scene.instantiate()
@@ -24,11 +34,15 @@ func add_item(item_data: ItemData) -> bool:
 		inventory_item.queue_free()
 	return success
 	
-func get_bagged_items() -> Array[InventoryItem]:
-	return bag_grid.get_items()
+func get_bagged_items() -> Array[ItemData]:
+	var lambda = func (i: InventoryItem) -> ItemData:
+		return i.data
+	return bag_grid.get_items().map(lambda)
 	
-func get_quick_inv_items() -> Array[InventoryItem]:
-	return quick_inv_grid.get_items()
+func get_quick_inv_items() -> Array[ItemData]:
+	var lambda = func (i: InventoryItem) -> ItemData:
+		return i.data
+	return quick_inv_grid.get_items().map(lambda)
 
-func get_weapon() -> InventoryItem:
-	return weapon_slot.get_item()
+func get_weapon() -> ItemData:
+	return weapon_slot.get_item().data
