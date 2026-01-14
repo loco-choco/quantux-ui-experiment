@@ -9,10 +9,18 @@ signal item_slot_update(item: InventoryItem)
 
 @export var infinity_size : bool = false
 @onready var selected : Control = $%Selected
+@onready var available : Control = $%Available
 
 var item_in_slot: InventoryItem = null
 var item_slot_pos: Vector2i = Vector2i()
 
+func _process(_delta: float) -> void:
+	var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
+	if held_item and _can_have_item(held_item):
+		available.show()
+	else: 
+		available.hide()
+		
 func _notification(what):
 	if what == NOTIFICATION_MOUSE_ENTER_SELF:
 		grab_focus()
@@ -77,7 +85,7 @@ func has_item() -> bool:
 	return item_in_slot != null
 
 func _can_have_item(_item: InventoryItem) -> bool:
-	return true
+	return not has_item()
 
 func set_neighbors_as_next_on_focus() -> void:
 	if top_neighbor:
@@ -106,7 +114,7 @@ func set_item(item: InventoryItem, pos: Vector2i = Vector2.ZERO) -> bool:
 
 func _set_item_recursive(item: InventoryItem, x: int, y: int, tested: Dictionary[InventorySlot, Vector2i]) -> bool:
 	tested[self] = Vector2i(x, y)
-	if has_item() or not _can_have_item(item):
+	if not _can_have_item(item):
 		return false
 	if infinity_size: ## If infinity size, stop there
 		item_in_slot = item

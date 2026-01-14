@@ -1,8 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjwu7tuaqcjgl"]
+[gd_scene load_steps=4 format=3 uid="uid://cjwu7tuaqcjgl"]
 
 [ext_resource type="Script" uid="uid://dmwj5wi5lhpyu" path="res://inventories/grid/inventory_slot.gd" id="1_0xh8c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2l6od"]
+bg_color = Color(0.39308554, 0.39308554, 0.39308533, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -13,6 +14,8 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 anti_aliasing_size = 0.1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0xh8c"]
 
 [node name="InventorySlot" type="PanelContainer"]
 offset_right = 18.0
@@ -28,3 +31,16 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 mouse_filter = 2
+color = Color(0.8, 0.8, 0.8, 1)
+
+[node name="Available" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0xh8c")
+
+[node name="ColorRect" type="ColorRect" parent="Available"]
+layout_mode = 2
+mouse_filter = 2
+color = Color(0.6, 0.6, 0.6, 1)

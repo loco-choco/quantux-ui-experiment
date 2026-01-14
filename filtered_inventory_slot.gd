@@ -4,12 +4,16 @@ class_name FilteredInventorySlot extends InventorySlot
 
 @export var filter_tag : String
 
-func _can_have_item(item: InventoryItem) -> bool:
+func allowed_item(item: InventoryItem) -> bool:
 	return item.data.tags.has(filter_tag)
 
+func _can_have_item(item: InventoryItem) -> bool:
+	return super._can_have_item(item) and allowed_item(item) 
+
 func _process(_delta: float) -> void:
+	super._process(_delta)
 	var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
-	if held_item and not _can_have_item(held_item):
+	if held_item and not allowed_item(held_item):
 		refuse.show()
 	else: 
 		refuse.hide()
