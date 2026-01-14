@@ -2,6 +2,7 @@ class_name Inventory extends PanelContainer
 
 signal weapon_slot_update(item: ItemData)
 signal item_dropped(item: Item)
+signal item_returned(item: Item)
 
 @export var inventory_item_scene: PackedScene
 @export var item_scene: PackedScene
@@ -47,7 +48,7 @@ func add_item(item: Item) -> bool:
 	if !success: 
 		print("Item doesn't fit!")
 		inventory_item.queue_free()
-		item_dropped.emit(item)
+		item_returned.emit(item)
 	else:
 		item.queue_free()
 	return success

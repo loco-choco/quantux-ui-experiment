@@ -101,4 +101,5 @@ visible = false
 
 [connection signal="item_collected" from="Player" to="HUD" method="_on_player_item_collected"]
 [connection signal="item_dropped" from="HUD/Inventory" to="Player" method="_on_inventory_item_dropped"]
+[connection signal="item_returned" from="HUD/Inventory" to="Player" method="_on_inventory_item_returned"]
 [connection signal="timeout" from="SpawnNewEnemy" to="." method="_on_spawn_new_enemy_timeout"]

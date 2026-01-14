@@ -53,12 +53,14 @@ func _on_interactable_exit(area: Area2D) -> void:
 		if grabbable_items.size() > 0:
 			grabbable_items[-1].select()
 
-
 func _on_inventory_item_dropped(item: Item) -> void:
-	randomize()
 	item.global_position = global_position + \
 			Vector2.RIGHT.rotated(randf()*2*PI) * dropped_item_offset_radius
 	if item.get_parent() != get_parent():
 		get_parent().add_child(item)
+	grabbable_items.push_front(item)
+	grabbable_items[-1].select()
+
+func _on_inventory_item_returned(item: Item) -> void:
 	grabbable_items.push_front(item)
 	grabbable_items[-1].select()
