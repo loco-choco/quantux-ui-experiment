@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://btu4ox8a5nhsk"]
+[gd_scene load_steps=14 format=3 uid="uid://btu4ox8a5nhsk"]
 
 [ext_resource type="Script" uid="uid://bao2oqno4ybbf" path="res://inventories/grid/inventory.gd" id="1_w7uli"]
 [ext_resource type="PackedScene" uid="uid://cjwu7tuaqcjgl" path="res://inventories/grid/inventory_slot.tscn" id="3_imxn7"]
@@ -17,6 +17,8 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2obg0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07exs"]
 
@@ -80,35 +82,61 @@ alignment = 1
 [node name="Equipment2" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 8
 alignment = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment_horizontal = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
 
-[node name="WeaponSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/PanelContainer" instance=ExtResource("3_imxn7")]
+[node name="ShieldSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer2/PanelContainer2" instance=ExtResource("3_imxn7")]
 unique_name_in_owner = true
 layout_mode = 2
 infinity_size = true
 
-[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+layout_mode = 2
+size_flags_vertical = 3
+ratio = 2.0
+alignment_horizontal = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
 
-[node name="InventorySlot3" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/PanelContainer2" instance=ExtResource("3_imxn7")]
+[node name="WeaponSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer/PanelContainer" instance=ExtResource("3_imxn7")]
+unique_name_in_owner = true
 layout_mode = 2
 infinity_size = true
 
-[node name="PanelContainer3" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+layout_mode = 2
+size_flags_vertical = 3
+ratio = 2.0
+alignment_horizontal = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer3"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
 
-[node name="InventorySlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/PanelContainer3" instance=ExtResource("3_imxn7")]
+[node name="SideWeaponSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer3/PanelContainer3" instance=ExtResource("3_imxn7")]
+unique_name_in_owner = true
 layout_mode = 2
 infinity_size = true
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme_override_styles/separator = SubResource("StyleBoxEmpty_2obg0")
 
 [node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
