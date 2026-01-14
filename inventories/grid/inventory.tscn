@@ -1,10 +1,11 @@
 [gd_scene load_steps=15 format=3 uid="uid://btu4ox8a5nhsk"]
 
 [ext_resource type="Script" uid="uid://bao2oqno4ybbf" path="res://inventories/grid/inventory.gd" id="1_w7uli"]
-[ext_resource type="PackedScene" uid="uid://dw5hdjci6n82d" path="res://filtered_inventory_slot.tscn" id="3_07exs"]
+[ext_resource type="PackedScene" uid="uid://dw5hdjci6n82d" path="res://inventories/grid/filtered_inventory_slot.tscn" id="3_07exs"]
 [ext_resource type="PackedScene" uid="uid://cjwu7tuaqcjgl" path="res://inventories/grid/inventory_slot.tscn" id="3_imxn7"]
 [ext_resource type="PackedScene" uid="uid://bondeddh1fui1" path="res://items/inventory_item.tscn" id="5_2obg0"]
 [ext_resource type="Script" uid="uid://bbu1oyu4naqin" path="res://inventories/grid/item_grid.gd" id="6_2obg0"]
+[ext_resource type="PackedScene" uid="uid://djaethjrvolsf" path="res://inventories/grid/drop_item_slot.tscn" id="6_y5r71"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xsu7x"]
 
@@ -44,15 +45,6 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2obg0"]
-bg_color = Color(0.6, 0.6, 0.6, 0.11764706)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0, 0, 0, 0.11764706)
-anti_aliasing_size = 0.1
 
 [node name="Inventory" type="PanelContainer"]
 anchors_preset = 15
@@ -202,10 +194,6 @@ columns = 4
 rows = 2
 metadata/_custom_type_script = "uid://bbu1oyu4naqin"
 
-[node name="DropItemSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Others" instance=ExtResource("3_imxn7")]
+[node name="DropItemSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Others" instance=ExtResource("6_y5r71")]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_2obg0")
-infinity_size = true
-
-[editable path="PanelContainer/MarginContainer/HBoxContainer/Others/DropItemSlot"]
