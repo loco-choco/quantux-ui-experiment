@@ -22,6 +22,15 @@ func create_slots() -> void:
 			slot.set_neighbors_as_next_on_focus()
 
 func attempt_to_add_item_data(item: InventoryItem) -> bool:
+	if _attempt_to_add_item_data(item):
+		return true
+	## Try with rotated item
+	item.do_rotation()
+	if _attempt_to_add_item_data(item):
+		return true
+	return false
+
+func _attempt_to_add_item_data(item: InventoryItem) -> bool:
 	for s : InventorySlot in get_children():
 			if s.set_item(item):
 				var item_rect : Rect2 = Rect2(s.global_position, \
