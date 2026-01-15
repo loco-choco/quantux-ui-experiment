@@ -12,7 +12,7 @@ func _process(_delta: float) -> void:
 			InputMode.change_mode(InputMode.Modes.UI)
 		else:
 			inventory.hide()
-			inventory.drop_held_item()
+			inventory.handle_held_item()
 			InputMode.change_mode(InputMode.Modes.PLAYER)
 
 func _on_player_item_collected(item: Item) -> void:
