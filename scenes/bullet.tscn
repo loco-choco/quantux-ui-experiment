@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://c45awuou43skt"]
 
-[ext_resource type="Script" uid="uid://bqirtt0oyb8a8" path="res://gameplay/bullet.gd" id="1_t4vbm"]
-[ext_resource type="Shader" uid="uid://dvkx332vegn6i" path="res://gameplay/bullet.gdshader" id="1_v8qja"]
-[ext_resource type="Texture2D" uid="uid://bidf8wxw1wkkp" path="res://icon.svg" id="2_t4vbm"]
+[ext_resource type="Script" uid="uid://bqirtt0oyb8a8" path="res://scripts/bullet.gd" id="1_t4vbm"]
+[ext_resource type="Shader" uid="uid://dvkx332vegn6i" path="res://resources/shaders/bullet.gdshader" id="1_v8qja"]
+[ext_resource type="Texture2D" uid="uid://bidf8wxw1wkkp" path="res://assets/icon.svg" id="2_t4vbm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2b2rl"]
 shader = ExtResource("1_v8qja")

@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://cg55uk4s6qv0g"]
 
-[ext_resource type="Script" uid="uid://sy1qjygxknt0" path="res://gameplay/player.gd" id="1_4flbx"]
-[ext_resource type="Shader" uid="uid://bgbqefwcusl52" path="res://gameplay/player.gdshader" id="2_hqtel"]
-[ext_resource type="Texture2D" uid="uid://chi3vm53wpukh" path="res://player.png" id="2_onrkg"]
-[ext_resource type="Script" uid="uid://udgl2ehv0tdf" path="res://sprite_bouncer_2D.gd" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://sy1qjygxknt0" path="res://scripts/player.gd" id="1_4flbx"]
+[ext_resource type="Shader" uid="uid://bgbqefwcusl52" path="res://resources/shaders/player.gdshader" id="2_hqtel"]
+[ext_resource type="Texture2D" uid="uid://chi3vm53wpukh" path="res://assets/player.png" id="2_onrkg"]
+[ext_resource type="Script" uid="uid://udgl2ehv0tdf" path="res://scripts/sprite_bouncer_2D.gd" id="3_i3pqv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sweqy"]
 shader = ExtResource("2_hqtel")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bexv6mdsuct4j"]
 
-[ext_resource type="Shader" uid="uid://bfu2maqr5e04g" path="res://inventories/radial/radial_slot.gdshader" id="1_eyaj8"]
+[ext_resource type="Shader" uid="uid://bfu2maqr5e04g" path="res://resources/shaders/radial_slot.gdshader" id="1_eyaj8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qqqpe"]
 shader = ExtResource("1_eyaj8")

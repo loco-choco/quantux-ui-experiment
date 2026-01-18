@@ -1,6 +1,6 @@
 extends Node2D
 
-const enemy_scene = preload("res://gameplay/enemy.tscn")
+@export var enemy_scene : PackedScene
 @onready var enemy_cpt = 2
 @onready var score := 0
 
@@ -13,7 +13,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		get_node("Bullets/" + str(current_bullet)).shoot($Player.global_position, get_global_mouse_position())
 		current_bullet += 1

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://bnq00287k1il2"]
 
-[ext_resource type="Shader" uid="uid://0ddaknnuvp43" path="res://gameplay/enemy.gdshader" id="1_4gyqm"]
-[ext_resource type="Script" uid="uid://dnp74qjkqva7e" path="res://gameplay/enemy.gd" id="1_qi2p4"]
-[ext_resource type="Texture2D" uid="uid://bidf8wxw1wkkp" path="res://icon.svg" id="2_qi2p4"]
+[ext_resource type="Shader" uid="uid://0ddaknnuvp43" path="res://resources/shaders/enemy.gdshader" id="1_4gyqm"]
+[ext_resource type="Script" uid="uid://dnp74qjkqva7e" path="res://scripts/enemy.gd" id="1_qi2p4"]
+[ext_resource type="Texture2D" uid="uid://bidf8wxw1wkkp" path="res://assets/icon.svg" id="2_qi2p4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iifgy"]
 resource_local_to_scene = true
