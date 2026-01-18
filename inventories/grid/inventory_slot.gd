@@ -1,6 +1,7 @@
 class_name InventorySlot extends PanelContainer
 
 signal item_slot_update(item: InventoryItem)
+signal item_slot_popup(slot_rect: Rect2, item: InventoryItem)
 
 @export var top_neighbor : InventorySlot = null
 @export var bottom_neighbor : InventorySlot = null
@@ -53,9 +54,9 @@ func _gui_input(event: InputEvent) -> void:
 			held_item.do_rotation()
 			held_item.update_size(item_rect(held_item))
 			
-	#if event.is_action_pressed("item_use"):
-		#if held_item == null && item_in_slot != null: # Can only use when no item held
-			#item_in_slot.show_options(get_global_rect())
+	if event.is_action_pressed("item_use"):
+		if held_item == null && item_in_slot != null: # Can only use when no item held
+			item_slot_popup.emit(get_global_rect(), item_in_slot)
 		
 	if event.is_action_pressed("inventory_select"):
 		if held_item == null && item_in_slot != null: # Getting item from slot
