@@ -53,9 +53,9 @@ func _gui_input(event: InputEvent) -> void:
 			held_item.do_rotation()
 			held_item.update_size(item_rect(held_item))
 			
-	if event.is_action_pressed("item_use"):
-		if held_item == null && item_in_slot != null: # Can only use when no item held
-			item_in_slot.show_options(get_global_rect())
+	#if event.is_action_pressed("item_use"):
+		#if held_item == null && item_in_slot != null: # Can only use when no item held
+			#item_in_slot.show_options(get_global_rect())
 		
 	if event.is_action_pressed("inventory_select"):
 		if held_item == null && item_in_slot != null: # Getting item from slot
