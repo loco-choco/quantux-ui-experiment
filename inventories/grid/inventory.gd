@@ -89,7 +89,6 @@ func get_weapon() -> ItemData:
 	return weapon_slot.get_item().data
 
 func create_item_popup(slot: InventorySlot, item: InventoryItem) -> void:
-	print("Creating popup!")
 	var item_popup : InventoryItemOptionsPopup  = inventory_item_popup_scene.instantiate()
 	item_popup.item = item
 	item_popup.slot = slot

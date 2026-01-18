@@ -19,6 +19,7 @@ var dimensions: Vector2i:
 			   else data.dimensions
 
 func _ready() -> void:
+	show_unfocus()
 	if data:
 		icon.texture = data.texture
 
@@ -36,7 +37,6 @@ func update_size(rect: Rect2) -> void:
 func get_placed(rect: Rect2) -> void:
 	update_size(rect)
 	remove_from_group("held_item")
-	show_unfocus()
 	is_picked = false
 	picked_pos = Vector2.ZERO
 	z_index = 0

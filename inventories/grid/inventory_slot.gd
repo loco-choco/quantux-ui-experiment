@@ -67,7 +67,8 @@ func _gui_input(event: InputEvent) -> void:
 				= find_intersecting_items(held_item.dimensions, held_item.picked_pos)
 			if intersecting_items.size() == 0: # No items in region, we can place
 				if set_item(held_item, held_item.picked_pos):
-					held_item.get_placed(item_rect(held_item)) 
+					held_item.get_placed(item_rect(held_item))
+					held_item.show_focus()
 			elif intersecting_items.size() == 1: 
 			# Swaping item held for the one in the region
 				var interc_item : InventoryItem = intersecting_items.keys()[0]
@@ -76,6 +77,7 @@ func _gui_input(event: InputEvent) -> void:
 				interc_item_slot.clear_item()
 				if set_item(held_item, held_item.picked_pos): #Swap!
 					held_item.get_placed(item_rect(held_item))
+					held_item.show_focus() 
 					interc_item.get_picked_up(interc_item_slot_pos)
 					interc_item.update_size(item_rect(interc_item))
 				else: #Return old item
