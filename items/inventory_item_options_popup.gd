@@ -4,13 +4,14 @@ class_name InventoryItemOptionsPopup extends PanelContainer
 @export var item_option_scene : PackedScene
 
 @export var item: InventoryItem = null
-@export var slot_rec: Rect2 = Rect2()
+@export var slot: InventorySlot = null
 
 func _ready() -> void:
 	_set_item()
 	_position_popup()
 
 func _position_popup() -> void:
+	var slot_rec : Rect2 = slot.get_global_rect()
 	var pos: Vector2 = slot_rec.position + Vector2(slot_rec.size.x, 0)
 	if not get_viewport_rect().encloses(Rect2(pos, size)):
 		pos = slot_rec.position - Vector2(size.x, 0)

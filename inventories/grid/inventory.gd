@@ -18,9 +18,19 @@ signal item_returned(item: Item)
 @onready var drop_item_slot: InventorySlot = $%DropItemSlot
 
 func _ready() -> void:
+	connect_item_slot_updates()
+	connect_item_slot_popup()
+
+func connect_item_slot_updates() -> void:
 	weapon_slot.item_slot_update.connect(_weapon_slot_update)
-	shield_slot.item_slot_popup.connect(create_item_popup)
 	drop_item_slot.item_slot_update.connect(_drop_item_slot_update)
+	
+func connect_item_slot_popup() -> void:
+	shield_slot.item_slot_popup.connect(create_item_popup)
+	weapon_slot.item_slot_popup.connect(create_item_popup)
+	side_weapon_slot.item_slot_popup.connect(create_item_popup)
+	bag_grid.item_slot_popup.connect(create_item_popup)
+	quick_inv_grid.item_slot_popup.connect(create_item_popup)
 
 func handle_held_item() -> void:
 	var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
@@ -62,11 +72,11 @@ func add_item(item: Item) -> bool:
 		item.queue_free()
 	return success
 
-func create_item_popup(slot_rect: Rect2, item: InventoryItem) -> void:
+func create_item_popup(slot: InventorySlot, item: InventoryItem) -> void:
 	print("Creating popup!")
 	var item_popup : InventoryItemOptionsPopup  = inventory_item_popup_scene.instantiate()
 	item_popup.item = item
-	item_popup.slot_rec = slot_rect
+	item_popup.slot = slot
 	inventory_item_popup_parent.add_child(item_popup)
 	
 func get_bagged_items() -> Array[ItemData]:
