@@ -52,10 +52,13 @@ func _weapon_slot_update(item: InventoryItem) -> void:
 func _drop_item_slot_update(inv_item: InventoryItem) -> void:
 	if inv_item == null:
 		return
+	drop_item_from_slot(inv_item, drop_item_slot)
+
+func drop_item_from_slot(inv_item: InventoryItem, slot: InventorySlot) -> void:
 	var dropped_item : Item  = item_scene.instantiate()
 	dropped_item.item_data = inv_item.data
 	inv_item.queue_free()
-	drop_item_slot.clear_item()
+	slot.clear_item()
 	item_dropped.emit(dropped_item)
 
 func add_item(item: Item) -> bool:
@@ -72,13 +75,6 @@ func add_item(item: Item) -> bool:
 		item.queue_free()
 	return success
 
-func create_item_popup(slot: InventorySlot, item: InventoryItem) -> void:
-	print("Creating popup!")
-	var item_popup : InventoryItemOptionsPopup  = inventory_item_popup_scene.instantiate()
-	item_popup.item = item
-	item_popup.slot = slot
-	inventory_item_popup_parent.add_child(item_popup)
-	
 func get_bagged_items() -> Array[ItemData]:
 	var lambda = func (i: InventoryItem) -> ItemData:
 		return i.data
@@ -91,3 +87,17 @@ func get_quick_inv_items() -> Array[ItemData]:
 
 func get_weapon() -> ItemData:
 	return weapon_slot.get_item().data
+
+func create_item_popup(slot: InventorySlot, item: InventoryItem) -> void:
+	print("Creating popup!")
+	var item_popup : InventoryItemOptionsPopup  = inventory_item_popup_scene.instantiate()
+	item_popup.item = item
+	item_popup.slot = slot
+	item_popup.selected_option.connect(_on_item_popup_selected_option)
+	inventory_item_popup_parent.add_child(item_popup)
+
+func _on_item_popup_selected_option(slot: InventorySlot, item: InventoryItem,\
+									option: String) -> void:
+	slot.grab_focus()
+	if option == "drop":
+		drop_item_from_slot(item, slot)

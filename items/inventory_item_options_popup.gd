@@ -1,5 +1,7 @@
 class_name InventoryItemOptionsPopup extends PanelContainer
 
+signal selected_option(slot: InventorySlot, item: InventoryItem, option: String)
+
 @onready var options_list: VBoxContainer = $%OptionsList
 @export var item_option_scene : PackedScene
 
@@ -27,6 +29,7 @@ func _set_item() -> void:
 		options_list.add_child(item_option)
 
 func _on_option_selected(_option_data: String) -> void:
+	selected_option.emit(slot, item, _option_data)
 	queue_free()
 	
 func _on_option_lost_focus() -> void:
