@@ -41,6 +41,7 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_0xh8c")
 
 [node name="ColorRect" type="ColorRect" parent="Available"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 color = Color(0.6, 0.6, 0.6, 1)

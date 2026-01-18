@@ -52,6 +52,10 @@ func _gui_input(event: InputEvent) -> void:
 		if held_item:
 			held_item.do_rotation()
 			held_item.update_size(item_rect(held_item))
+			
+	if event.is_action_pressed("item_use"):
+		if held_item == null && item_in_slot != null: # Can only use when no item held
+			item_in_slot.show_options(get_global_rect())
 		
 	if event.is_action_pressed("inventory_select"):
 		if held_item == null && item_in_slot != null: # Getting item from slot
@@ -77,7 +81,6 @@ func _gui_input(event: InputEvent) -> void:
 					interc_item_slot.set_item(interc_item, interc_item_slot_pos)
 		## TODO Add feedback that the new item couldnt fit the slot
 		## IDEA: Make the held item shake and play a negation sfx
-
 func get_item() -> InventoryItem:
 	return item_in_slot
 
