@@ -96,7 +96,6 @@ func create_item_popup(slot: InventorySlot, item: InventoryItem) -> void:
 	inventory_item_popup_parent.add_child(item_popup)
 
 func _on_item_popup_selected_option(slot: InventorySlot, item: InventoryItem,\
-									option: String) -> void:
+									option: ItemProperty) -> void:
 	slot.grab_focus()
-	if option == "drop":
-		drop_item_from_slot(item, slot)
+	option.use_property(self, slot, item)

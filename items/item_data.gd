@@ -4,14 +4,10 @@ class_name ItemData extends Resource
 @export var texture: Texture2D
 @export var dimensions: Vector2i
 
-@export var additional_tags: PackedStringArray
+@export var properties: Array[ItemProperty]
 
-var tags: PackedStringArray:
-	get():
-		return additional_tags
-
-@export var additional_options: PackedStringArray = ["drop"]
-
-var options: PackedStringArray:
-	get():
-		return additional_options
+func get_property(propertyClass : String) -> ItemProperty:
+	for p : ItemProperty in properties:
+		if p.is_class(propertyClass):
+			return p 
+	return null

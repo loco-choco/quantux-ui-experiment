@@ -1,12 +1,17 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://bn4doka08j5ua"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=5 format=3 uid="uid://bn4doka08j5ua"]
 
 [ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://items/item_data.gd" id="1_00e3n"]
 [ext_resource type="Texture2D" uid="uid://c4ovb6eqsu04x" path="res://items/item.png" id="2_j5jae"]
+[ext_resource type="Script" uid="uid://bwu2eys7vapgl" path="res://items/droppable.gd" id="2_o5msq"]
+
+[sub_resource type="Resource" id="Resource_j5jae"]
+script = ExtResource("2_o5msq")
+metadata/_custom_type_script = "uid://bwu2eys7vapgl"
 
 [resource]
 script = ExtResource("1_00e3n")
 name = "SOUP"
 texture = ExtResource("2_j5jae")
 dimensions = Vector2i(1, 2)
-additional_tags = PackedStringArray("shield")
+properties = Array[Object]([SubResource("Resource_j5jae")])
 metadata/_custom_type_script = "uid://dnhj6mns60i8v"

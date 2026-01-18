@@ -2,10 +2,10 @@ class_name FilteredInventorySlot extends InventorySlot
 
 @onready var refuse : Control = $%Refused
 
-@export var filter_tag : String
+@export var filter_item_property : String
 
 func allowed_item(item: InventoryItem) -> bool:
-	return item.data.tags.has(filter_tag)
+	return item.data.get_property(filter_item_property) != null
 
 func _can_have_item(item: InventoryItem) -> bool:
 	return super._can_have_item(item) and allowed_item(item) 

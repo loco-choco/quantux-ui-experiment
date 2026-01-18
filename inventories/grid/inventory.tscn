@@ -95,7 +95,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
 [node name="ShieldSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer2/PanelContainer2" instance=ExtResource("3_07exs")]
 unique_name_in_owner = true
 layout_mode = 2
-filter_tag = "shield"
+filter_item_property = ""
 infinity_size = true
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
@@ -112,7 +112,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
 [node name="WeaponSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer/PanelContainer" instance=ExtResource("3_07exs")]
 unique_name_in_owner = true
 layout_mode = 2
-filter_tag = "weapon"
+filter_item_property = ""
 infinity_size = true
 
 [node name="AspectRatioContainer3" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
@@ -129,7 +129,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
 [node name="SideWeaponSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer3/PanelContainer3" instance=ExtResource("3_07exs")]
 unique_name_in_owner = true
 layout_mode = 2
-filter_tag = "weapon"
+filter_item_property = ""
 infinity_size = true
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]

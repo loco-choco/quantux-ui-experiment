@@ -3,14 +3,14 @@ class_name InventoryItemOption extends PanelContainer
 @onready var selected = $%Selected
 @onready var label = $%Label
 
-@export var option_data : String = ""
+@export var option_data : ItemProperty
 
 signal lost_focus()
-signal option_selected(option_data: String)
+signal option_selected(option_data: ItemProperty)
 
 func _ready() -> void:
 	if option_data:
-		label.set_text(option_data)
+		label.set_text(option_data.resource_name)
 
 func _notification(what):
 	if what == NOTIFICATION_MOUSE_ENTER_SELF:
