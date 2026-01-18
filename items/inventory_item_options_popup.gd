@@ -4,18 +4,20 @@ class_name InventoryItemOptionsPopup extends PanelContainer
 @export var item_option_scene : PackedScene
 
 @export var item: InventoryItem = null
+@export var slot_rec: Rect2 = Rect2()
 
-func initialize_popup(slot_rec: Rect2, item_: InventoryItem) -> void:
-	_set_item(item_)
+func _ready() -> void:
+	_set_item()
+	_position_popup()
+
+func _position_popup() -> void:
 	var pos: Vector2 = slot_rec.position + Vector2(slot_rec.size.x, 0)
 	if not get_viewport_rect().encloses(Rect2(pos, size)):
 		pos = slot_rec.position - Vector2(size.x, 0)
 	global_position = pos
-	show()
 	(options_list.get_child(0) as Control).grab_focus()
 
-func _set_item(item_: InventoryItem) -> void:
-	self.item = item_
+func _set_item() -> void:
 	for option : String in item.data.options:
 		var item_option : InventoryItemOption = item_option_scene.instantiate()
 		item_option.option_data = option

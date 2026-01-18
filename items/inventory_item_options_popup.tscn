@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cawr2a6x0jyiv"]
+[gd_scene load_steps=4 format=3 uid="uid://cawr2a6x0jyiv"]
 
 [ext_resource type="Script" uid="uid://cpdud41koi3op" path="res://items/inventory_item_options_popup.gd" id="1_b6scv"]
+[ext_resource type="PackedScene" uid="uid://dbpbro11p0igc" path="res://items/inventory_item_option.tscn" id="2_mc1kl"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gs1gh"]
 
@@ -12,6 +13,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_gs1gh")
 script = ExtResource("1_b6scv")
+item_option_scene = ExtResource("2_mc1kl")
 
 [node name="OptionsList" type="VBoxContainer" parent="."]
 unique_name_in_owner = true

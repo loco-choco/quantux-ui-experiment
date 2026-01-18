@@ -4,16 +4,22 @@ signal weapon_slot_update(item: ItemData)
 signal item_dropped(item: Item)
 signal item_returned(item: Item)
 
-@export var inventory_item_scene: PackedScene
 @export var item_scene: PackedScene
+@onready var inventory_item_parent: Control =$%InventoryItems
+@export var inventory_item_scene: PackedScene
+@onready var inventory_item_popup_parent: Control =$%InventoryItemsPopups
+@export var inventory_item_popup_scene: PackedScene
 
 @onready var bag_grid: ItemGrid = $%Bag
 @onready var quick_inv_grid: ItemGrid = $%QuickInventory
+@onready var shield_slot: InventorySlot = $%ShieldSlot
 @onready var weapon_slot: InventorySlot = $%WeaponSlot
+@onready var side_weapon_slot: InventorySlot = $%SideWeaponSlot
 @onready var drop_item_slot: InventorySlot = $%DropItemSlot
 
 func _ready() -> void:
 	weapon_slot.item_slot_update.connect(_weapon_slot_update)
+	shield_slot.item_slot_popup.connect(create_item_popup)
 	drop_item_slot.item_slot_update.connect(_drop_item_slot_update)
 
 func handle_held_item() -> void:
@@ -46,7 +52,7 @@ func add_item(item: Item) -> bool:
 	var item_data : ItemData = item.item_data
 	var inventory_item : InventoryItem  = inventory_item_scene.instantiate()
 	inventory_item.data = item_data
-	add_child(inventory_item)
+	inventory_item_parent.add_child(inventory_item)
 	var success = bag_grid.attempt_to_add_item_data(inventory_item)
 	if !success: 
 		print("Item doesn't fit!")
@@ -55,6 +61,13 @@ func add_item(item: Item) -> bool:
 	else:
 		item.queue_free()
 	return success
+
+func create_item_popup(slot_rect: Rect2, item: InventoryItem) -> void:
+	print("Creating popup!")
+	var item_popup : InventoryItemOptionsPopup  = inventory_item_popup_scene.instantiate()
+	item_popup.item = item
+	item_popup.slot_rec = slot_rect
+	inventory_item_popup_parent.add_child(item_popup)
 	
 func get_bagged_items() -> Array[ItemData]:
 	var lambda = func (i: InventoryItem) -> ItemData:
