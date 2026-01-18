@@ -10,7 +10,7 @@ signal option_selected(option_data: ItemProperty)
 
 func _ready() -> void:
 	if option_data:
-		label.set_text(option_data.resource_name)
+		label.set_text(option_data.get_property_name())
 
 func _notification(what):
 	if what == NOTIFICATION_MOUSE_ENTER_SELF:
