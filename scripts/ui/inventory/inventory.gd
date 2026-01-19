@@ -89,13 +89,14 @@ func get_weapon() -> ItemData:
 	return weapon_slot.get_item().data
 
 func create_item_popup(slot: InventorySlot, item: InventoryItem) -> void:
+	var item_options : Dictionary[String, Callable] = \
+	{"drop": (func(): drop_item_from_slot(item, slot))}
 	var item_popup : InventoryItemOptionsPopup  = inventory_item_popup_scene.instantiate()
-	item_popup.item = item
+	item_popup.options = item_options
 	item_popup.slot = slot
 	item_popup.selected_option.connect(_on_item_popup_selected_option)
 	inventory_item_popup_parent.add_child(item_popup)
 
-func _on_item_popup_selected_option(slot: InventorySlot, item: InventoryItem,\
-									option: ItemProperty) -> void:
+func _on_item_popup_selected_option(slot: InventorySlot, option_function: Callable) -> void:
 	slot.grab_focus()
-	option.use_property(self, slot, item)
+	option_function.call()

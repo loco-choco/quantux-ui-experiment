@@ -1,11 +1,12 @@
 class_name InventoryItemOptionsPopup extends PanelContainer
 
-signal selected_option(slot: InventorySlot, item: InventoryItem, option: ItemProperty)
+signal selected_option(slot: InventorySlot, option_function: Callable)
 
 @onready var options_list: VBoxContainer = $%OptionsList
 @export var item_option_scene : PackedScene
 
-@export var item: InventoryItem = null
+@export var options: Dictionary[String, Callable] = {}
+#@export var item: InventoryItem = null
 @export var slot: InventorySlot = null
 
 func _ready() -> void:
@@ -24,15 +25,16 @@ func _position_popup() -> void:
 		first_child.grab_focus()
 
 func _set_item() -> void:
-	for property : ItemProperty in item.data.properties:
+	for option_name : String in options:
 		var item_option : InventoryItemOption = item_option_scene.instantiate()
-		item_option.option_data = property
+		item_option.option_text = option_name
+		item_option.option_function = options[option_name]
 		item_option.lost_focus.connect(_on_option_lost_focus)
 		item_option.option_selected.connect(_on_option_selected)
 		options_list.add_child(item_option)
 
-func _on_option_selected(option_data: ItemProperty) -> void:
-	selected_option.emit(slot, item, option_data)
+func _on_option_selected(option_function: Callable) -> void:
+	selected_option.emit(slot, option_function)
 	queue_free()
 	
 func _on_option_lost_focus() -> void:
