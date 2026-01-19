@@ -10,10 +10,35 @@ const nb_bullets = 6
 
 const item_blueprint = preload("res://scenes/item.tscn")
 
+@onready var start_screen = $CanvasLayer/StartScreen
+@onready var name_input = $CanvasLayer/StartScreen/CenterContainer/VBoxContainer/NameInput
+@onready var game_over_screen = $CanvasLayer/GameOverScreen
+@onready var final_score_label = $CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer/FinalScoreLabel
+@onready var health_bar = $CanvasLayer/HealthBar
+
 @onready var curr_wrong_color = 1
 @onready var can_big_shot := false
 
+func _ready() -> void:
+	start_screen.visible = true
+	game_over_screen.visible = false
+	get_tree().paused = true
+	$SpawnNewEnemy.stop()
+	
+	if has_node("Player"):
+		var player = $Player
+		health_bar.max_value = player.max_health
+		health_bar.value = player.max_health
+		if not player.health_changed.is_connected(_on_player_health_changed):
+			player.health_changed.connect(_on_player_health_changed)
+			
+		if not player.player_died.is_connected(game_over):
+			player.player_died.connect(game_over)
+
 func _process(_delta: float) -> void:
+	if get_tree().paused:
+		return
+
 	if Input.is_action_just_pressed("shoot") and not $HUD/Inventory.visible:
 		$BigShot.start()
 		get_node("Bullets/" + str(current_bullet)).shoot($Player.global_position, get_global_mouse_position(), $Player.item_color)
@@ -31,6 +56,9 @@ func _process(_delta: float) -> void:
 			current_bullet = 1
 	for ch in $Loot.get_children():
 		ch.visible = true
+
+func _on_player_health_changed(new_value: int) -> void:
+	health_bar.value = new_value
 
 func DropNewLoot(whom : Node2D) -> Node2D:
 	var clr_dice = randi() % 3	
@@ -82,3 +110,25 @@ func _on_spawn_new_enemy_timeout() -> void:
 func _on_big_shot_timeout() -> void:
 	create_tween().tween_property($Player, "scale", Vector2(1.6, 1.6), 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	can_big_shot = true
+
+func _on_start_button_pressed() -> void:
+	var player_name = name_input.text
+	if player_name.strip_edges() == "":
+		print("Please enter a name!")
+		return 
+	LogInput.start_logging(player_name)
+	score = 0
+	$Score.text = "Score : 0"
+	start_screen.visible = false
+	get_tree().paused = false
+	$SpawnNewEnemy.start()
+
+func game_over() -> void:
+	get_tree().paused = true
+	LogInput.stop_logging(str(score))
+	game_over_screen.visible = true
+	final_score_label.text = "Final Score: [" + name_input.text + "] " + str(score)
+
+func _on_restart_button_pressed() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
