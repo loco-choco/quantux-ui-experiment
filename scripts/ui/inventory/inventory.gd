@@ -45,7 +45,7 @@ func handle_held_item() -> void:
 	var held_item : InventoryItem = get_tree().get_first_node_in_group("held_item")
 	if held_item:
 		var success = bag_grid.attempt_to_add_item_data(held_item)
-		if !success: 
+		if !success:
 			_drop_item_slot_update(held_item)
 
 func set_focus() -> void:
@@ -101,11 +101,11 @@ func get_quick_inv_items() -> Array[InventoryItem]:
 func get_weapon() -> ItemData:
 	return weapon_slot.get_item().data
 
-func create_item_popup(slot: InventorySlot, item: InventoryItem) -> void:
+func create_item_popup(item: InventoryItem) -> void:
 	if item_popup: # Delete old popup
 		item_popup.queue_free()
 	var item_options : Dictionary[String, Callable] = \
-	{"drop": (func(): drop_item_from_slot(item, slot))}
+	{"drop": (func(): drop_item_from_slot(item, item.current_slot))}
 	var consumable_property : ConsumableItemProperty = item.data.get_property("consumable")
 	if consumable_property:
 		item_options["consume"] = (func(): consumable_property.consume())

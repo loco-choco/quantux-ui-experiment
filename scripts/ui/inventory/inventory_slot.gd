@@ -1,7 +1,7 @@
 class_name InventorySlot extends PanelContainer
 
 signal item_slot_update(item: InventoryItem)
-signal item_slot_popup(slot: InventorySlot, item: InventoryItem)
+signal item_slot_popup(item: InventoryItem)
 
 @export var top_neighbor : InventorySlot = null
 @export var bottom_neighbor : InventorySlot = null
@@ -56,7 +56,7 @@ func _gui_input(event: InputEvent) -> void:
 			
 	if event.is_action_pressed("item_use"):
 		if held_item == null && item_in_slot != null: # Can only use when no item held
-			item_slot_popup.emit(self, item_in_slot)
+			item_slot_popup.emit(item_in_slot)
 		
 	if event.is_action_pressed("inventory_select"):
 		if held_item == null && item_in_slot != null: # Getting item from slot
@@ -67,7 +67,7 @@ func _gui_input(event: InputEvent) -> void:
 				= find_intersecting_items(held_item.dimensions, held_item.picked_pos)
 			if intersecting_items.size() == 0: # No items in region, we can place
 				if set_item(held_item, held_item.picked_pos):
-					held_item.get_placed(item_rect(held_item))
+					held_item.get_placed(item_rect(held_item), self)
 					held_item.show_focus()
 			elif intersecting_items.size() == 1: 
 			# Swaping item held for the one in the region
@@ -76,7 +76,7 @@ func _gui_input(event: InputEvent) -> void:
 				var interc_item_slot_pos : Vector2i = interc_item_slot.item_slot_pos
 				interc_item_slot.clear_item()
 				if set_item(held_item, held_item.picked_pos): #Swap!
-					held_item.get_placed(item_rect(held_item))
+					held_item.get_placed(item_rect(held_item), self)
 					held_item.show_focus() 
 					interc_item.get_picked_up(interc_item_slot_pos)
 					interc_item.update_size(item_rect(interc_item))
