@@ -5,7 +5,7 @@ signal player_died
 signal health_changed(new_value)
 
 @export var speed = 200
-@export var max_health = 3
+@export var max_health = 10
 @onready var current_health = max_health
 
 func _ready() -> void:
@@ -29,12 +29,11 @@ func _on_area_entered(area: Area2D) -> void:
 func take_damage(amount: int) -> void:
 	current_health -= amount
 	health_changed.emit(current_health)
-	print("Player took damage! Health is now: ", current_health)
 	var tween = create_tween()
 	tween.set_parallel(true) 
 	modulate = Color(1, 0, 0)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.2)
-	scale = Vector2(0.8, 0.8)
+	scale = Vector2(0.5, 0.5)
 	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.4).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 	var shake_offset = Vector2(randf_range(-5, 5), randf_range(-5, 5))
 	global_position += shake_offset

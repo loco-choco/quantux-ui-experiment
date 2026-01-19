@@ -74,9 +74,9 @@ func _on_start_button_pressed() -> void:
 
 func game_over() -> void:
 	get_tree().paused = true
-	LogInput.stop_logging()
+	LogInput.stop_logging(str(score))
 	game_over_screen.visible = true
-	final_score_label.text = "Final Score: " + str(score)
+	final_score_label.text = "Final Score: [" + name_input.text + "] " + str(score)
 
 func _on_restart_button_pressed() -> void:
 	get_tree().paused = false
