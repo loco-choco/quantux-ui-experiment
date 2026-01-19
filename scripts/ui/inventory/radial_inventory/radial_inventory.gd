@@ -11,7 +11,7 @@ var last_entry : RadialInventoryEntry = null
 func _process(_delta: float) -> void:
 	if entries.get_child_count() == 0:
 		return
-	var selection_vec: Vector2 = (get_local_mouse_position() - size/2 ).normalized()
+	var selection_vec: Vector2 = (get_local_mouse_position() - size/2).normalized()
 	if selection_vec.is_zero_approx():
 		return
 	var selection: int = floori(rad_to_deg(selection_vec.angle() + PI) / 360 \

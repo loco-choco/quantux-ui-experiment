@@ -55,5 +55,5 @@ func get_items() -> Array[InventoryItem]:
 func _on_item_slot_popup(slot: InventorySlot, item: InventoryItem) -> void:
 	item_slot_popup.emit(slot, item)
 	
-func _on_item_slot_update(item: InventoryItem) -> void:
+func _on_item_slot_update(_item: InventoryItem) -> void:
 	items_update.emit(get_items())
