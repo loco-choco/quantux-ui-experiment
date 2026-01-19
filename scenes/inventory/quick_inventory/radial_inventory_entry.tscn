@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1ykrmc557ifc"]
+
+[ext_resource type="Texture2D" uid="uid://c4ovb6eqsu04x" path="res://assets/items/soup.png" id="1_al35a"]
+[ext_resource type="Script" uid="uid://o64p161ssl83" path="res://scripts/ui/inventory/radial_inventory/radial_inventory_entry.gd" id="1_x4co7"]
+
+[node name="RadialInventoryEntry" type="AspectRatioContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_x4co7")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="PanelContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("1_al35a")

@@ -82,12 +82,12 @@ func add_item(item: Item) -> bool:
 		item.queue_free()
 	return success
 
-func get_bagged_items() -> Array[ItemData]:
+func get_bagged_items() -> Array[InventoryItem]:
 	var lambda = func (i: InventoryItem) -> ItemData:
 		return i.data
 	return bag_grid.get_items().map(lambda)
 	
-func get_quick_inv_items() -> Array[ItemData]:
+func get_quick_inv_items() -> Array[InventoryItem]:
 	var lambda = func (i: InventoryItem) -> ItemData:
 		return i.data
 	return quick_inv_grid.get_items().map(lambda)
