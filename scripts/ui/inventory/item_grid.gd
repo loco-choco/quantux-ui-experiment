@@ -3,6 +3,7 @@ class_name ItemGrid extends MatrixContainer
 @export var inventory_slot_scene: PackedScene
 
 signal item_slot_popup(slot: InventorySlot, item: InventoryItem)
+signal items_update(items: Array[InventoryItem])
 
 func _ready() -> void:
 	create_slots()
@@ -14,6 +15,7 @@ func create_slots() -> void:
 			var inventory_slot : InventorySlot = inventory_slot_scene.instantiate()
 			add_child(inventory_slot)
 			inventory_slot.item_slot_popup.connect(_on_item_slot_popup)
+			inventory_slot.item_slot_update.connect(_on_item_slot_update)
 			slots.push_back(inventory_slot)
 	for y in rows:
 		for x in columns:
@@ -46,9 +48,12 @@ func _attempt_to_add_item_data(item: InventoryItem) -> bool:
 func get_items() -> Array[InventoryItem]:
 	var items: Array[InventoryItem] = []
 	for s : InventorySlot in get_children():
-		if not items.has(s.get_item()):
+		if s.get_item() and not items.has(s.get_item()):
 			items.append(s.get_item())
 	return items
 
 func _on_item_slot_popup(slot: InventorySlot, item: InventoryItem) -> void:
 	item_slot_popup.emit(slot, item)
+	
+func _on_item_slot_update(item: InventoryItem) -> void:
+	items_update.emit(get_items())

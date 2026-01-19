@@ -34,17 +34,17 @@ script = ExtResource("3_1bvp3")
 unique_name_in_owner = true
 visible = false
 
-[node name="WrongColorLabels" type="Control" parent="HUD"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="RadialInventory" parent="HUD" instance=ExtResource("6_choun")]
 offset_left = 652.0
 offset_top = 261.0
 offset_right = -133.0
 offset_bottom = -186.0
+
+[node name="WrongColorLabels" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Item" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(367, 290)
@@ -171,6 +171,7 @@ value = 50.0
 [connection signal="item_collected" from="Player" to="HUD" method="_on_player_item_collected"]
 [connection signal="item_dropped" from="HUD/Inventory" to="Player" method="_on_inventory_item_dropped"]
 [connection signal="item_returned" from="HUD/Inventory" to="Player" method="_on_inventory_item_returned"]
+[connection signal="quick_inventory_update" from="HUD/Inventory" to="HUD/RadialInventory" method="update_radial_inventory"]
 [connection signal="timeout" from="SpawnNewEnemy" to="." method="_on_spawn_new_enemy_timeout"]
 [connection signal="timeout" from="BigShot" to="." method="_on_big_shot_timeout"]
 [connection signal="pressed" from="CanvasLayer/StartScreen/CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://b1ykrmc557ifc"]
+[gd_scene load_steps=5 format=3 uid="uid://b1ykrmc557ifc"]
 
-[ext_resource type="Texture2D" uid="uid://c4ovb6eqsu04x" path="res://assets/items/soup.png" id="1_al35a"]
 [ext_resource type="Script" uid="uid://o64p161ssl83" path="res://scripts/ui/inventory/radial_inventory/radial_inventory_entry.gd" id="1_x4co7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_al35a"]
@@ -69,5 +68,4 @@ unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("1_al35a")
 expand_mode = 1
