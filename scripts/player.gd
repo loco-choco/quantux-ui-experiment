@@ -12,6 +12,9 @@ signal health_changed(new_value)
 var grabbable_items: Array[Item] = []
 @export var dropped_item_offset_radius : float = 25
 
+@onready var item_color := 'b'
+@onready var holding_gun := true
+
 func _ready() -> void:
 	$SpriteBouncer2D.stop()
 	current_health = max_health
@@ -31,6 +34,11 @@ func _process(delta: float) -> void:
 		if grabbable_items.size() > 0:
 			var item : Item = grabbable_items.pop_back()
 			item.diselect()
+			
+			# TODO : use ItemProperty to encode weapon color and type
+			if str(item.name)[0] == 'r' or str(item.name)[0] == 'g' or str(item.name)[0] == 'b':
+				item_color = str(item.name)[0]
+
 			item_collected.emit(item)
 
 func _on_interactable_enter(area: Area2D) -> void:
