@@ -1,34 +1,30 @@
 extends Node
 
-var socket := WebSocketPeer.new()
-var connected := false
-var client_id: String
-var session_id: String
+var file: FileAccess
+var is_active: bool = false
 
-func _ready():
-	client_id = get_or_create_client_id()
-	session_id = generate_id()
-	var err := socket.connect_to_url("ws://localhost:8080")
-	if err != OK:
-		push_error("WebSocket connection failed: %s" % err)
+func start_logging(player_name: String):
+	var datetime := Time.get_datetime_string_from_system(true)
+	datetime = datetime.replace(":", "-").replace(" ", "_")
+	var safe_name = player_name.validate_filename()
+	var filename := "user://input_log_%s_%s.txt" % [safe_name, datetime]
+	file = FileAccess.open(filename, FileAccess.WRITE)
+	if file:
+		file.store_line("=== Input Recording Started for: %s ===" % player_name)
+		is_active = true
+		print("Logging started for: ", player_name)
 	else:
-		print("Connecting to WebSocket...")
+		push_error("Failed to open input log file")
 
-func _process(_delta):
-	socket.poll()
-
-	var state := socket.get_ready_state()
-
-	if state == WebSocketPeer.STATE_OPEN and not connected:
-		connected = true
-
-	elif state == WebSocketPeer.STATE_CLOSED:
-		if connected:
-			push_error("WebSocket closed")
-		connected = false
+func stop_logging():
+	if file:
+		file.store_line("=== Input Recording Ended ===")
+		file.close()
+		file = null
+	is_active = false
 
 func _input(event):
-	if not connected:
+	if not is_active or not file:
 		return
 
 	var datetime := Time.get_datetime_string_from_system(true)
@@ -38,53 +34,17 @@ func _input(event):
 			return
 
 		if event.pressed:
-			send_data('KEY DOWN', {
-				"key": OS.get_keycode_string(event.keycode), 
-				"keycode": event.keycode
-			}, datetime)
+			file.store_line("[%s] KEY DOWN: %s (keycode=%d)" % [datetime, OS.get_keycode_string(event.keycode), event.keycode])
 		else:
-			send_data('KEY UP', {
-				"key": OS.get_keycode_string(event.keycode), 
-				"keycode": event.keycode
-			}, datetime)
+			file.store_line("[%s] KEY UP: %s" % [datetime, OS.get_keycode_string(event.keycode)])
 
 	elif event is InputEventMouseButton:
-		send_data("MOUSE BUTTON " + "DOWN" if event.pressed else "UP", {
-			"button_index": event.button_index, 
-			"position": event.position
-		}, datetime)
-			
+		file.store_line("[%s] MOUSE BUTTON %s: button=%d pos=%s" % [datetime, "DOWN" if event.pressed else "UP", event.button_index, event.position])
+
 	elif event is InputEventMouseMotion:
-		send_data("MOUSE MOVE", {
-			"position": event.position
-		}, datetime)
-		
-func send_data(event_type, payload, datetime):
-	var packet := {
-		"client_id": client_id,
-		"session_id": session_id,
-		"timestamp": datetime,
-		"type": event_type,
-		"payload": payload
-	}
-	socket.send_text(JSON.stringify(packet))
+		file.store_line("[%s] MOUSE MOVE: pos=%s rel=%s" % [datetime, event.position, event.relative])
 
-func get_or_create_client_id() -> String:
-	var path := "user://client_id.txt"
-
-	if FileAccess.file_exists(path):
-		return FileAccess.open(path, FileAccess.READ).get_line()
-
-	var id := generate_id()
-	var file := FileAccess.open(path, FileAccess.WRITE)
-	file.store_line(id)
-	file.close()
-	return id
-		
-func generate_id() -> String:
-	var crypto := Crypto.new()
-	var bytes := crypto.generate_random_bytes(16)
-	return bytes.hex_encode()
+	if file: file.flush()
 
 func _exit_tree():
-	socket.close()
+	stop_logging()
