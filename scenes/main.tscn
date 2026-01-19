@@ -36,10 +36,6 @@ visible = false
 
 [node name="QuickInventory" parent="HUD" instance=ExtResource("6_choun")]
 unique_name_in_owner = true
-offset_left = 652.0
-offset_top = 261.0
-offset_right = -133.0
-offset_bottom = -186.0
 
 [node name="WrongColorLabels" type="Control" parent="HUD"]
 layout_mode = 3
