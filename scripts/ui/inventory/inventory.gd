@@ -17,6 +17,8 @@ signal item_returned(item: Item)
 @onready var side_weapon_slot: InventorySlot = $%SideWeaponSlot
 @onready var drop_item_slot: InventorySlot = $%DropItemSlot
 
+var item_popup : InventoryItemOptionsPopup = null
+
 func _ready() -> void:
 	connect_item_slot_updates()
 	connect_item_slot_popup()
@@ -89,14 +91,25 @@ func get_weapon() -> ItemData:
 	return weapon_slot.get_item().data
 
 func create_item_popup(slot: InventorySlot, item: InventoryItem) -> void:
+	if item_popup: # Delete old popup
+		item_popup.queue_free()
 	var item_options : Dictionary[String, Callable] = \
 	{"drop": (func(): drop_item_from_slot(item, slot))}
-	var item_popup : InventoryItemOptionsPopup  = inventory_item_popup_scene.instantiate()
+	var consumable_property : ConsumableItemProperty = item.data.get_property("consumable")
+	if consumable_property:
+		item_options["consume"] = (func(): consumable_property.consume())
+	item_popup = inventory_item_popup_scene.instantiate()
 	item_popup.options = item_options
-	item_popup.slot = slot
+	item_popup.item = item
 	item_popup.selected_option.connect(_on_item_popup_selected_option)
+	item_popup.request_deletion.connect(_on_item_popup_request_deletion)
 	inventory_item_popup_parent.add_child(item_popup)
 
-func _on_item_popup_selected_option(slot: InventorySlot, option_function: Callable) -> void:
-	slot.grab_focus()
+func _on_item_popup_request_deletion() -> void:
+	item_popup.queue_free() # Delete current popup
+	item_popup = null
+	
+func _on_item_popup_selected_option(option_function: Callable) -> void:
 	option_function.call()
+	item_popup.queue_free() # Delete current popup
+	item_popup = null

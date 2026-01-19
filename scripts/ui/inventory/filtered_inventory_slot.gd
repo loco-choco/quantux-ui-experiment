@@ -2,7 +2,7 @@ class_name FilteredInventorySlot extends InventorySlot
 
 @onready var refuse : Control = $%Refused
 
-@export var filter_item_property : Script
+@export var filter_item_property : String
 
 func allowed_item(item: InventoryItem) -> bool:
 	if !filter_item_property:

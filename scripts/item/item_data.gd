@@ -6,8 +6,8 @@ class_name ItemData extends Resource
 
 @export var properties: Array[ItemProperty]
 
-func get_property(propertyScript : Script) -> ItemProperty:
+func get_property(propertyTag : String) -> ItemProperty:
 	for p : ItemProperty in properties:
-		if is_instance_of(p, propertyScript):
+		if p.get_property_name().begins_with(propertyTag):
 			return p 
 	return null

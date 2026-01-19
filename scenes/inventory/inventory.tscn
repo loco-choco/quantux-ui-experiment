@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://btu4ox8a5nhsk"]
+[gd_scene load_steps=17 format=3 uid="uid://btu4ox8a5nhsk"]
 
 [ext_resource type="Script" uid="uid://bao2oqno4ybbf" path="res://scripts/ui/inventory/inventory.gd" id="1_w7uli"]
 [ext_resource type="PackedScene" uid="uid://dfa3nrjnhe3mt" path="res://scenes/item.tscn" id="2_2obg0"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://cawr2a6x0jyiv" path="res://scenes/inventory/popup/inventory_item_options_popup.tscn" id="4_yt8kk"]
 [ext_resource type="PackedScene" uid="uid://bondeddh1fui1" path="res://scenes/inventory/inventory_item.tscn" id="5_2obg0"]
 [ext_resource type="Script" uid="uid://bbu1oyu4naqin" path="res://scripts/ui/inventory/item_grid.gd" id="6_2obg0"]
-[ext_resource type="Script" uid="uid://5hh7yuefkiip" path="res://scripts/item/properties/protection.gd" id="6_l6cit"]
 [ext_resource type="PackedScene" uid="uid://djaethjrvolsf" path="res://scenes/inventory/slots/drop_item_slot.tscn" id="6_y5r71"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xsu7x"]
@@ -96,7 +95,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
 [node name="ShieldSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer2/PanelContainer2" instance=ExtResource("3_07exs")]
 unique_name_in_owner = true
 layout_mode = 2
-filter_item_property = ExtResource("6_l6cit")
+filter_item_property = "shield"
 infinity_size = true
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
@@ -113,7 +112,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
 [node name="WeaponSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer/PanelContainer" instance=ExtResource("3_07exs")]
 unique_name_in_owner = true
 layout_mode = 2
-filter_item_property = null
+filter_item_property = "weapon"
 infinity_size = true
 
 [node name="AspectRatioContainer3" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
@@ -130,7 +129,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
 [node name="SideWeaponSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer3/PanelContainer3" instance=ExtResource("3_07exs")]
 unique_name_in_owner = true
 layout_mode = 2
-filter_item_property = null
+filter_item_property = "weapon"
 infinity_size = true
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
