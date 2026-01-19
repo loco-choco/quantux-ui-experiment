@@ -18,6 +18,7 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 InputMode="*res://scripts/global/input_mode.gd"
+LogInput="*res://log_input.gd"
 
 [display]
 

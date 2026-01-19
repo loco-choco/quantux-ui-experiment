@@ -1,18 +1,22 @@
 class_name Player extends Node2D
 
 signal item_collected(item_data: Item)
+signal player_died
+signal health_changed(new_value)
 
 @export var speed = 200
+@export var max_health = 3
+@onready var current_health = max_health
 
 @onready var inventory : Inventory = $%Inventory
 var grabbable_items: Array[Item] = []
 @export var dropped_item_offset_radius : float = 25
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$SpriteBouncer2D.stop()
+	current_health = max_health
+	health_changed.emit(current_health)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if InputMode.get_mode() != InputMode.Modes.PLAYER:
 		return
@@ -28,12 +32,6 @@ func _process(delta: float) -> void:
 			var item : Item = grabbable_items.pop_back()
 			item.diselect()
 			item_collected.emit(item)
-				
-	# TODO : uncomment this once we have sprites instead of shapes
-	#if velocity != Vector2.ZERO:
-		#$SpriteBouncer2D.play()
-	#else:
-		#$SpriteBouncer2D.stop()
 
 func _on_interactable_enter(area: Area2D) -> void:
 	var item_coll : ItemInteractCollider = area as ItemInteractCollider
@@ -64,3 +62,23 @@ func _on_inventory_item_dropped(item: Item) -> void:
 func _on_inventory_item_returned(item: Item) -> void:
 	grabbable_items.push_front(item)
 	grabbable_items[-1].select()
+
+func take_damage(amount: int) -> void:
+	current_health -= amount
+	health_changed.emit(current_health)
+	print("Player took damage! Health is now: ", current_health)
+	var tween = create_tween()
+	tween.set_parallel(true) 
+	modulate = Color(1, 0, 0)
+	tween.tween_property(self, "modulate", Color.WHITE, 0.2)
+	scale = Vector2(0.8, 0.8)
+	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.4).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
+	var shake_offset = Vector2(randf_range(-5, 5), randf_range(-5, 5))
+	global_position += shake_offset
+	
+	if current_health <= 0:
+		die()
+
+func die() -> void:
+	player_died.emit()
+	queue_free()
