@@ -17,7 +17,6 @@ metadata/_edit_vertical_guides_ = [971.0, -288.0, 1027.0]
 metadata/_edit_horizontal_guides_ = [586.0, -107.0]
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 offset_right = 974.0
 offset_bottom = 556.0
 color = Color(0, 0, 0, 1)
@@ -34,6 +33,12 @@ script = ExtResource("3_1bvp3")
 unique_name_in_owner = true
 visible = false
 
+[node name="WrongColorLabels" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="Item" parent="." instance=ExtResource("2_0xm2m")]
 position = Vector2(367, 290)
 item_data = ExtResource("7_tipki")
@@ -46,7 +51,7 @@ item_data = ExtResource("8_85g3d")
 position = Vector2(792, 99)
 
 [node name="SpawnNewEnemy" type="Timer" parent="."]
-wait_time = 1.25
+wait_time = 2.5
 autostart = true
 
 [node name="Score" type="Label" parent="."]
@@ -56,8 +61,13 @@ offset_right = 156.0
 offset_bottom = 50.0
 text = "Score : 0"
 
+[node name="Loot" type="Node2D" parent="."]
+
+[node name="BigShot" type="Timer" parent="."]
+wait_time = 1.2999999999999998
+one_shot = true
+
 [node name="Bullets" type="Node2D" parent="."]
-visible = false
 
 [node name="1" parent="Bullets" instance=ExtResource("8_5vw27")]
 
@@ -75,3 +85,4 @@ visible = false
 [connection signal="item_dropped" from="HUD/Inventory" to="Player" method="_on_inventory_item_dropped"]
 [connection signal="item_returned" from="HUD/Inventory" to="Player" method="_on_inventory_item_returned"]
 [connection signal="timeout" from="SpawnNewEnemy" to="." method="_on_spawn_new_enemy_timeout"]
+[connection signal="timeout" from="BigShot" to="." method="_on_big_shot_timeout"]

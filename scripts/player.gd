@@ -8,6 +8,9 @@ signal item_collected(item_data: Item)
 var grabbable_items: Array[Item] = []
 @export var dropped_item_offset_radius : float = 25
 
+@onready var item_color := 'b'
+@onready var holding_gun := true
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$SpriteBouncer2D.stop()
@@ -27,8 +30,13 @@ func _process(delta: float) -> void:
 		if grabbable_items.size() > 0:
 			var item : Item = grabbable_items.pop_back()
 			item.diselect()
+			
+			# TODO : use ItemProperty to encode weapon color and type
+			if str(item.name)[0] == 'r' or str(item.name)[0] == 'g' or str(item.name)[0] == 'b':
+				item_color = str(item.name)[0]
+
 			item_collected.emit(item)
-				
+
 	# TODO : uncomment this once we have sprites instead of shapes
 	#if velocity != Vector2.ZERO:
 		#$SpriteBouncer2D.play()

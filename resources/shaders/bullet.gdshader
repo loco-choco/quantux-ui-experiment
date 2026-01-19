@@ -1,5 +1,7 @@
 shader_type canvas_item;
 
+uniform vec3 clr = vec3(1., 0., 0.);
+
 float sdSegment( in vec2 p, in vec2 a, in vec2 b )
 {
     vec2 pa = p-a, ba = b-a;
@@ -25,6 +27,5 @@ void fragment()
     d *= smoothstep(1., 0.8, length(uv0));
     d = clamp(0., 1., d);
     
-    vec3 col = vec3(1., 1., 0.);
-    COLOR = vec4(col, d);
+    COLOR = vec4(clr, d);
 }

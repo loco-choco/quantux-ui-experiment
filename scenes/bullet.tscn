@@ -6,6 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2b2rl"]
 shader = ExtResource("1_v8qja")
+shader_parameter/clr = Vector3(1, 0, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tpswj"]
 size = Vector2(56, 12)
@@ -19,7 +20,8 @@ material = SubResource("ShaderMaterial_2b2rl")
 texture = ExtResource("2_t4vbm")
 
 [node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 2
+collision_layer = 8
+collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_tpswj")
