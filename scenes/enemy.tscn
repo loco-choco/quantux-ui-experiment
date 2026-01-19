@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnq00287k1il2"]
+
+[ext_resource type="Shader" uid="uid://0ddaknnuvp43" path="res://resources/shaders/enemy.gdshader" id="1_4gyqm"]
+[ext_resource type="Script" uid="uid://dnp74qjkqva7e" path="res://scripts/enemy.gd" id="1_qi2p4"]
+[ext_resource type="Texture2D" uid="uid://bidf8wxw1wkkp" path="res://assets/icon.svg" id="2_qi2p4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iifgy"]
+resource_local_to_scene = true
+shader = ExtResource("1_4gyqm")
+shader_parameter/clr = Vector3(0, 0, 0)
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_qi2p4")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 8
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+polygon = PackedVector2Array(-22, -39, -22, 38, 43, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_iifgy")
+texture = ExtResource("2_qi2p4")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = 37.0
+offset_top = -34.0
+offset_right = 86.0
+offset_bottom = -11.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "+1000"
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_area_2d_area_entered"]

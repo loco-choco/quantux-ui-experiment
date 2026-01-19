@@ -16,8 +16,9 @@ func start_logging(player_name: String):
 	else:
 		push_error("Failed to open input log file")
 
-func stop_logging():
+func stop_logging(score: String):
 	if file:
+		file.store_line("Final Score: [" + score + "]")
 		file.store_line("=== Input Recording Ended ===")
 		file.close()
 		file = null
@@ -47,4 +48,4 @@ func _input(event):
 	if file: file.flush()
 
 func _exit_tree():
-	stop_logging()
+	stop_logging("-")

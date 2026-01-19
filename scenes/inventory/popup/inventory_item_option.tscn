@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbpbro11p0igc"]
+
+[ext_resource type="Script" uid="uid://ya711svo0s68" path="res://scripts/ui/inventory/item_popup/inventory_item_option.gd" id="1_vmv62"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vmv62"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_v7vax"]
+font_size = 24
+
+[node name="InventorytItemOption" type="PanelContainer"]
+focus_mode = 2
+script = ExtResource("1_vmv62")
+
+[node name="Selected" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vmv62")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Label" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "DEFAULT"
+label_settings = SubResource("LabelSettings_v7vax")

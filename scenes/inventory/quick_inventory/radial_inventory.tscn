@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://bexv6mdsuct4j"]
+
+[ext_resource type="Shader" uid="uid://bfu2maqr5e04g" path="res://resources/shaders/radial_slot.gdshader" id="1_eyaj8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qqqpe"]
+shader = ExtResource("1_eyaj8")
+shader_parameter/inner_radius = 0.400000019
+shader_parameter/outer_radius = 0.800000038
+shader_parameter/arc_angle = 80.0000038
+shader_parameter/angle_offset = 0.0
+shader_parameter/fill_color = Color(1, 1, 1, 1)
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/border_width = 0.05
+
+[node name="RadialInventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -791.0
+offset_bottom = -363.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_qqqpe")
+layout_mode = 0
+offset_top = 200.0
+offset_right = 200.0
+offset_bottom = 400.0
+rotation = -1.5707964
+color = Color(1, 0.22000003, 0.22000003, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_qqqpe")
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 200.0
+color = Color(1, 0.22000003, 0.22000003, 1)

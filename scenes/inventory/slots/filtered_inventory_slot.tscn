@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw5hdjci6n82d"]
+
+[ext_resource type="PackedScene" uid="uid://cjwu7tuaqcjgl" path="res://scenes/inventory/slots/inventory_slot.tscn" id="1_jwonj"]
+[ext_resource type="Script" uid="uid://xnw8vf2s8c2q" path="res://scripts/ui/inventory/filtered_inventory_slot.gd" id="2_rb22m"]
+
+[node name="FilteredInventorySlot" instance=ExtResource("1_jwonj")]
+script = ExtResource("2_rb22m")
+filter_tag = ""
+
+[node name="Refused" type="ColorRect" parent="." index="1"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 0.13, 0.13, 1)

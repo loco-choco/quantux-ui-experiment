@@ -1,0 +1,213 @@
+[gd_scene load_steps=18 format=3 uid="uid://btu4ox8a5nhsk"]
+
+[ext_resource type="Script" uid="uid://bao2oqno4ybbf" path="res://scripts/ui/inventory/inventory.gd" id="1_w7uli"]
+[ext_resource type="PackedScene" uid="uid://dfa3nrjnhe3mt" path="res://scenes/item.tscn" id="2_2obg0"]
+[ext_resource type="PackedScene" uid="uid://dw5hdjci6n82d" path="res://scenes/inventory/slots/filtered_inventory_slot.tscn" id="3_07exs"]
+[ext_resource type="PackedScene" uid="uid://cjwu7tuaqcjgl" path="res://scenes/inventory/slots/inventory_slot.tscn" id="3_imxn7"]
+[ext_resource type="PackedScene" uid="uid://cawr2a6x0jyiv" path="res://scenes/inventory/popup/inventory_item_options_popup.tscn" id="4_yt8kk"]
+[ext_resource type="PackedScene" uid="uid://bondeddh1fui1" path="res://scenes/inventory/inventory_item.tscn" id="5_2obg0"]
+[ext_resource type="Script" uid="uid://bbu1oyu4naqin" path="res://scripts/ui/inventory/item_grid.gd" id="6_2obg0"]
+[ext_resource type="Script" uid="uid://5hh7yuefkiip" path="res://scripts/item/properties/protection.gd" id="6_l6cit"]
+[ext_resource type="PackedScene" uid="uid://djaethjrvolsf" path="res://scenes/inventory/slots/drop_item_slot.tscn" id="6_y5r71"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xsu7x"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsu7x"]
+bg_color = Color(0, 0, 0, 0.36862746)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yt8kk"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2obg0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07exs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_07exs"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y5r71"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5r71"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Inventory" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_xsu7x")
+script = ExtResource("1_w7uli")
+item_scene = ExtResource("2_2obg0")
+inventory_item_scene = ExtResource("5_2obg0")
+inventory_item_popup_scene = ExtResource("4_yt8kk")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xsu7x")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Equipment2" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment_horizontal = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
+
+[node name="ShieldSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer2/PanelContainer2" instance=ExtResource("3_07exs")]
+unique_name_in_owner = true
+layout_mode = 2
+filter_item_property = ExtResource("6_l6cit")
+infinity_size = true
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+layout_mode = 2
+size_flags_vertical = 3
+ratio = 2.0
+alignment_horizontal = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
+
+[node name="WeaponSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer/PanelContainer" instance=ExtResource("3_imxn7")]
+unique_name_in_owner = true
+layout_mode = 2
+infinity_size = true
+
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+layout_mode = 2
+size_flags_vertical = 3
+ratio = 2.0
+alignment_horizontal = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_yt8kk")
+
+[node name="SideWeaponSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer3/PanelContainer3" instance=ExtResource("3_07exs")]
+unique_name_in_owner = true
+layout_mode = 2
+filter_item_property = null
+infinity_size = true
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme_override_styles/separator = SubResource("StyleBoxEmpty_2obg0")
+
+[node name="VSeparator" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxEmpty_07exs")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ReferenceRect" type="ReferenceRect" parent="PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+border_color = Color(0.77359074, 0.43807957, 0.12801072, 1)
+border_width = 8.0
+
+[node name="BagBg" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_07exs")
+
+[node name="Bag" type="Container" parent="PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer/BagBg"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("6_2obg0")
+inventory_slot_scene = ExtResource("3_imxn7")
+columns = 4
+rows = 4
+metadata/_custom_type_script = "uid://bbu1oyu4naqin"
+
+[node name="VSeparator2" type="VSeparator" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxEmpty_y5r71")
+
+[node name="Others" type="VBoxContainer" parent="PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Others"]
+layout_mode = 2
+size_flags_vertical = 3
+ratio = 2.0
+
+[node name="ReferenceRect" type="ReferenceRect" parent="PanelContainer/MarginContainer/HBoxContainer/Others/AspectRatioContainer"]
+layout_mode = 2
+border_color = Color(0.77359074, 0.43807957, 0.12801072, 1)
+border_width = 8.0
+
+[node name="QuickInvBg" type="PanelContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Others/AspectRatioContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y5r71")
+
+[node name="QuickInventory" type="Container" parent="PanelContainer/MarginContainer/HBoxContainer/Others/AspectRatioContainer/QuickInvBg"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("6_2obg0")
+inventory_slot_scene = ExtResource("3_imxn7")
+columns = 4
+rows = 2
+metadata/_custom_type_script = "uid://bbu1oyu4naqin"
+
+[node name="DropItemSlot" parent="PanelContainer/MarginContainer/HBoxContainer/Others" instance=ExtResource("6_y5r71")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="InventoryItems" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="InventoryItemsPopups" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2

@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://c45awuou43skt"]
+
+[ext_resource type="Script" uid="uid://bqirtt0oyb8a8" path="res://scripts/bullet.gd" id="1_t4vbm"]
+[ext_resource type="Shader" uid="uid://dvkx332vegn6i" path="res://resources/shaders/bullet.gdshader" id="1_v8qja"]
+[ext_resource type="Texture2D" uid="uid://bidf8wxw1wkkp" path="res://assets/icon.svg" id="2_t4vbm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2b2rl"]
+shader = ExtResource("1_v8qja")
+shader_parameter/clr = Vector3(1, 0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tpswj"]
+size = Vector2(56, 12)
+
+[node name="Bullet" type="Node2D"]
+script = ExtResource("1_t4vbm")
+speedref = 1500.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_2b2rl")
+texture = ExtResource("2_t4vbm")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_tpswj")
