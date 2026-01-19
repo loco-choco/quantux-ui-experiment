@@ -11,8 +11,7 @@ func _process(_delta: float) -> void:
 			inventory.set_focus()
 			InputMode.change_mode(InputMode.Modes.UI)
 		else:
-			inventory.hide()
-			inventory.handle_held_item()
+			inventory.hide_ui()
 			InputMode.change_mode(InputMode.Modes.PLAYER)
 
 func _on_player_item_collected(item: Item) -> void:

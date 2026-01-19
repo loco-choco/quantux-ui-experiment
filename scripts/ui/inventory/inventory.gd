@@ -23,6 +23,11 @@ func _ready() -> void:
 	connect_item_slot_updates()
 	connect_item_slot_popup()
 
+func hide_ui() -> void:
+	hide()
+	handle_held_item()
+	delete_item_popup()
+
 func connect_item_slot_updates() -> void:
 	weapon_slot.item_slot_update.connect(_weapon_slot_update)
 	drop_item_slot.item_slot_update.connect(_drop_item_slot_update)
@@ -102,14 +107,15 @@ func create_item_popup(slot: InventorySlot, item: InventoryItem) -> void:
 	item_popup.options = item_options
 	item_popup.item = item
 	item_popup.selected_option.connect(_on_item_popup_selected_option)
-	item_popup.request_deletion.connect(_on_item_popup_request_deletion)
+	item_popup.request_deletion.connect(delete_item_popup)
 	inventory_item_popup_parent.add_child(item_popup)
 
-func _on_item_popup_request_deletion() -> void:
+func delete_item_popup() -> void:
+	if !item_popup:
+		return
 	item_popup.queue_free() # Delete current popup
 	item_popup = null
 	
 func _on_item_popup_selected_option(option_function: Callable) -> void:
 	option_function.call()
-	item_popup.queue_free() # Delete current popup
-	item_popup = null
+	delete_item_popup()
