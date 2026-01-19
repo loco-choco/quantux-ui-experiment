@@ -5,7 +5,6 @@ var direction
 var clrCode
 var is_big
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	visible = false
 
@@ -27,7 +26,6 @@ func setClr(clrLetter : String):
 	var clr = [Vector3(1., 0., 0.), Vector3(0., 1., 0.), Vector3(0., 0.5, 1.)][index]
 	$Sprite2D.material.set_shader_parameter("clr", clr)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if visible and direction:
 		global_position += direction * speedref * delta

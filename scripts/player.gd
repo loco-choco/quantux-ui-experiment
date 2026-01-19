@@ -4,13 +4,11 @@ signal item_collected(item_data: Item)
 signal player_died
 signal health_changed(new_value)
 
-@export var speed = 200
-
 @onready var inventory : Inventory = $%Inventory
 var grabbable_items: Array[Item] = []
 @export var dropped_item_offset_radius : float = 25
 
-@onready var item_color := 'b'
+@onready var item_color := 'r'
 @onready var holding_gun := true
 
 @export var speed = 200
@@ -36,11 +34,6 @@ func _process(delta: float) -> void:
 		if grabbable_items.size() > 0:
 			var item : Item = grabbable_items.pop_back()
 			item.diselect()
-			
-			# TODO : use ItemProperty to encode weapon color and type
-			if str(item.name)[0] == 'r' or str(item.name)[0] == 'g' or str(item.name)[0] == 'b':
-				item_color = str(item.name)[0]
-
 			item_collected.emit(item)
 
 	# TODO : uncomment this once we have sprites instead of shapes
@@ -97,3 +90,14 @@ func take_damage(amount: int) -> void:
 func die() -> void:
 	player_died.emit()
 	queue_free()
+
+func set_weapon_color(weapon_data: ItemData) -> void:
+	if weapon_data == null:
+		return
+	var texture_path = weapon_data.texture.resource_path if weapon_data.texture else ""
+	if "red" in texture_path:
+		item_color = 'r'
+	elif "green" in texture_path:
+		item_color = 'g'
+	elif "blue" in texture_path:
+		item_color = 'b'

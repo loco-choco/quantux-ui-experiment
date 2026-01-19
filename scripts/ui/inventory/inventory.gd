@@ -76,9 +76,10 @@ func add_item(item: Item) -> bool:
 	return success
 
 func get_bagged_items() -> Array[ItemData]:
-	var lambda = func (i: InventoryItem) -> ItemData:
-		return i.data
-	return bag_grid.get_items().map(lambda)
+	var result: Array[ItemData] = []
+	for i in bag_grid.get_items():
+		result.append(i.data if i else null)
+	return result
 	
 func get_quick_inv_items() -> Array[ItemData]:
 	var lambda = func (i: InventoryItem) -> ItemData:
@@ -86,7 +87,10 @@ func get_quick_inv_items() -> Array[ItemData]:
 	return quick_inv_grid.get_items().map(lambda)
 
 func get_weapon() -> ItemData:
-	return weapon_slot.get_item().data
+	if weapon_slot.get_item():
+		return weapon_slot.get_item().data
+	else:
+		return null
 
 func create_item_popup(slot: InventorySlot, item: InventoryItem) -> void:
 	var item_popup : InventoryItemOptionsPopup  = inventory_item_popup_scene.instantiate()

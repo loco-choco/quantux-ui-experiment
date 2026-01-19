@@ -26,6 +26,8 @@ texture = ExtResource("2_onrkg")
 script = ExtResource("3_i3pqv")
 
 [node name="DamageCollider" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageCollider"]
 position = Vector2(0, -4.7683716e-07)
@@ -33,6 +35,7 @@ scale = Vector2(3, 3)
 shape = SubResource("CircleShape2D_hqtel")
 
 [node name="InteractableCollider" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
