@@ -4,10 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://cg55uk4s6qv0g" path="res://scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dfa3nrjnhe3mt" path="res://scenes/item.tscn" id="2_0xm2m"]
 [ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://scripts/item/item_data.gd" id="3_a8y0u"]
-[ext_resource type="Resource" uid="uid://6fm4hxsiuksq" path="res://resources/items/weapon_red.tres" id="4_jkv2x"]
-[ext_resource type="Resource" uid="uid://b61a3s00gs7ar" path="res://resources/items/weapon_blue.tres" id="5_jbj1t"]
+[ext_resource type="Resource" uid="uid://6fm4hxsiuksq" path="res://resources/items/weapons/weapon_red.tres" id="4_jkv2x"]
+[ext_resource type="Resource" uid="uid://b61a3s00gs7ar" path="res://resources/items/weapons/weapon_blue.tres" id="5_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://bnq00287k1il2" path="res://scenes/enemy.tscn" id="6_7mycd"]
-[ext_resource type="Resource" uid="uid://bfkkg2x47qstj" path="res://resources/items/weapon_green.tres" id="6_muem4"]
+[ext_resource type="Resource" uid="uid://bfkkg2x47qstj" path="res://resources/items/weapons/weapon_green.tres" id="6_muem4"]
 [ext_resource type="PackedScene" uid="uid://c45awuou43skt" path="res://scenes/bullet.tscn" id="8_5vw27"]
 [ext_resource type="PackedScene" uid="uid://pysiho2iiyxp" path="res://scenes/hud.tscn" id="8_choun"]
 
