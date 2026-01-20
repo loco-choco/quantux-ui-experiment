@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://6fm4hxsiuksq"]
+
+[ext_resource type="Script" uid="uid://cno3dtxvobxyw" path="res://scripts/item/properties/item_properties.gd" id="1_ot0st"]
+[ext_resource type="Script" uid="uid://cwrog8jdduphy" path="res://scripts/item/properties/weapon.gd" id="2_come7"]
+[ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://scripts/item/item_data.gd" id="3_scka1"]
+[ext_resource type="Texture2D" uid="uid://b1otvv6p0pcxt" path="res://assets/items/red_gun.png" id="4_ot0st"]
+
+[sub_resource type="Resource" id="Resource_88v7r"]
+script = ExtResource("2_come7")
+color = "r"
+metadata/_custom_type_script = "uid://cwrog8jdduphy"
+
+[resource]
+script = ExtResource("3_scka1")
+name = "WeaponRed"
+texture = ExtResource("4_ot0st")
+dimensions = Vector2i(2, 2)
+properties = Array[ExtResource("1_ot0st")]([SubResource("Resource_88v7r")])
+metadata/_custom_type_script = "uid://dnhj6mns60i8v"
