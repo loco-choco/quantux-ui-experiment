@@ -1,19 +1,24 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://bca71tkqojqgs"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://bca71tkqojqgs"]
 
 [ext_resource type="Script" uid="uid://cno3dtxvobxyw" path="res://scripts/item/properties/item_properties.gd" id="1_nf6mu"]
 [ext_resource type="Script" uid="uid://dscrrkgqafh0w" path="res://scripts/item/properties/consumable.gd" id="2_k2q3d"]
 [ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://scripts/item/item_data.gd" id="2_qtesh"]
-[ext_resource type="Texture2D" uid="uid://c4ovb6eqsu04x" path="res://assets/items/soup.png" id="4_k2q3d"]
+[ext_resource type="Script" uid="uid://c1kv774gln5nn" path="res://scripts/item/properties/valuable.gd" id="3_ts3mq"]
+[ext_resource type="Texture2D" uid="uid://cxbpplgmiq5pr" path="res://assets/items/soup.png" id="4_k2q3d"]
 
 [sub_resource type="Resource" id="Resource_ts3mq"]
 script = ExtResource("2_k2q3d")
 amount = 4
 metadata/_custom_type_script = "uid://dscrrkgqafh0w"
 
+[sub_resource type="Resource" id="Resource_p8obf"]
+script = ExtResource("3_ts3mq")
+metadata/_custom_type_script = "uid://c1kv774gln5nn"
+
 [resource]
 script = ExtResource("2_qtesh")
 name = "Soup"
 texture = ExtResource("4_k2q3d")
 dimensions = Vector2i(1, 2)
-properties = Array[ExtResource("1_nf6mu")]([SubResource("Resource_ts3mq")])
+properties = Array[ExtResource("1_nf6mu")]([SubResource("Resource_ts3mq"), SubResource("Resource_p8obf")])
 metadata/_custom_type_script = "uid://dnhj6mns60i8v"
