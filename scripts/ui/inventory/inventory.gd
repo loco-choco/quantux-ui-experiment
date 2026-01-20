@@ -21,9 +21,17 @@ signal item_returned(item: Item)
 var item_popup : InventoryItemOptionsPopup = null
 
 func _ready() -> void:
+	set_as_owner()
 	connect_item_slot_updates()
 	connect_item_slot_popup()
 
+func set_as_owner() -> void:
+	bag_grid.set_inventory_owner(self)
+	quick_inv_grid.set_inventory_owner(self)
+	shield_slot.inventory_owner = self
+	weapon_slot.inventory_owner = self
+	side_weapon_slot.inventory_owner = self
+	
 func hide_ui() -> void:
 	hide()
 	handle_held_item()
@@ -102,6 +110,7 @@ func get_weapon() -> ItemData:
 	return weapon_slot.get_item().data
 
 func create_item_popup(item: InventoryItem) -> void:
+	### TODO DECOUPLE THIS FROM INVENTORY
 	if item_popup: # Delete old popup
 		item_popup.queue_free()
 	var item_options : Dictionary[String, Callable] = \
@@ -112,7 +121,6 @@ func create_item_popup(item: InventoryItem) -> void:
 	item_popup = inventory_item_popup_scene.instantiate()
 	item_popup.options = item_options
 	item_popup.item = item
-	item_popup.selected_option.connect(_on_item_popup_selected_option)
 	item_popup.request_deletion.connect(delete_item_popup)
 	inventory_item_popup_parent.add_child(item_popup)
 
@@ -121,7 +129,3 @@ func delete_item_popup() -> void:
 		return
 	item_popup.queue_free() # Delete current popup
 	item_popup = null
-	
-func _on_item_popup_selected_option(option_function: Callable) -> void:
-	option_function.call()
-	delete_item_popup()

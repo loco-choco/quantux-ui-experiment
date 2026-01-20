@@ -2,11 +2,18 @@ class_name ItemGrid extends MatrixContainer
 
 @export var inventory_slot_scene: PackedScene
 
+var inventory_owner : Inventory = null
+
 signal item_slot_popup(item: InventoryItem)
 signal items_update(items: Array[InventoryItem])
 
 func _ready() -> void:
 	create_slots()
+
+func set_inventory_owner(owner: Inventory) -> void:
+	inventory_owner = owner
+	for s : InventorySlot in get_children():
+		s.inventory_owner = owner
 
 func create_slots() -> void:
 	var slots: Array[InventorySlot] = []
@@ -14,6 +21,7 @@ func create_slots() -> void:
 		for x in columns:
 			var inventory_slot : InventorySlot = inventory_slot_scene.instantiate()
 			add_child(inventory_slot)
+			inventory_slot.inventory_owner = inventory_owner
 			inventory_slot.item_slot_popup.connect(_on_item_slot_popup)
 			inventory_slot.item_slot_update.connect(_on_item_slot_update)
 			slots.push_back(inventory_slot)

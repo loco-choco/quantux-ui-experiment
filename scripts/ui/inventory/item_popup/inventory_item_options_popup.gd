@@ -1,6 +1,5 @@
 class_name InventoryItemOptionsPopup extends PanelContainer
 
-signal selected_option(option_function: Callable)
 signal request_deletion()
 @onready var options_list: VBoxContainer = $%OptionsList
 @export var item_option_scene : PackedScene
@@ -38,4 +37,6 @@ func _set_item() -> void:
 		options_list.add_child(item_option)
 
 func _on_option_selected(option_function: Callable) -> void:
-	selected_option.emit(option_function)
+	option_function.call()
+	## TODO MAKE THIS LOGIC BETTER >:(
+	item.current_slot.inventory_owner.delete_item_popup()

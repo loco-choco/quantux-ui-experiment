@@ -3,6 +3,8 @@ class_name InventorySlot extends PanelContainer
 signal item_slot_update(item: InventoryItem)
 signal item_slot_popup(item: InventoryItem)
 
+@export var inventory_owner : Inventory
+
 @export var top_neighbor : InventorySlot = null
 @export var bottom_neighbor : InventorySlot = null
 @export var right_neighbor : InventorySlot = null
