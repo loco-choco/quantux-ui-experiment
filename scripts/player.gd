@@ -13,7 +13,8 @@ var grabbable_items: Array[Item] = []
 @export var dropped_item_offset_radius : float = 25
 
 @onready var item_color : String = 'b'
-@onready var holding_gun := true
+var second_weapon_color : String
+@onready var sprite_clr := Vector3(0., 0., 1.)
 
 func _ready() -> void:
 	$SpriteBouncer2D.stop()
@@ -23,12 +24,18 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if InputMode.get_mode() != InputMode.Modes.PLAYER:
 		return
+	var slowed_delta = delta
+	if Input.is_action_just_pressed("hud_toggle_quick_inv"):
+		$BulletTime.start()
+	if not Input.is_action_pressed("hud_toggle_quick_inv"):
+		$BulletTime.stop()
+	slowed_delta *= max(0.01, 1. - $BulletTime.time_left / $BulletTime.wait_time)
 	var velocity = Input.get_vector("player_move_x_neg", \
 									"player_move_x_pos", \
 									"player_move_y_neg", \
 									"player_move_y_pos")
 	
-	global_position += velocity * delta * speed;
+	global_position += velocity * slowed_delta * speed;
 	
 	if Input.is_action_just_pressed("pickup_item"):
 		if grabbable_items.size() > 0:
@@ -36,13 +43,23 @@ func _process(delta: float) -> void:
 			item.diselect()
 			item_collected.emit(item)
 
+func spriteParam(value, property := "clr") -> void:
+	$SpriteBouncer2D.material.set_shader_parameter(property, value)
+
 func on_weapon_change(weapon: ItemData) -> void:
 	if not weapon:
-		item_color = 'b' #Default
+		item_color = 'b'
 		return
-	var weapon_data: WeaponItemProperty = weapon.get_property("weapon")
-	item_color = weapon_data.color
+	item_color = {"WeaponRed" : 'r',"WeaponGreen" : 'g',"WeaponBlue" : 'b' }[weapon.name]
+	var new_clr = {"r" : Vector3(1., 0., 0.), "g" : Vector3(0., 1., 0.), "b" : Vector3(0., 0.5, 1.)}[item_color]
+	create_tween().tween_method(spriteParam, sprite_clr, new_clr, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	sprite_clr = new_clr
 
+func on_side_weapon_change(weapon: ItemData):
+	if not weapon:
+		item_color = 'b'
+		return
+	second_weapon_color = {"WeaponRed" : 'r',"WeaponGreen" : 'g',"WeaponBlue" : 'b' }[weapon.name]
 
 func _on_interactable_enter(area: Area2D) -> void:
 	var item_coll : ItemInteractCollider = area as ItemInteractCollider

@@ -40,19 +40,31 @@ func _ready() -> void:
 func _on_player_health_changed(new_value: int) -> void:
 	health_bar.value = new_value
 
+func just_pressed_any(primary : bool):
+	var which
+	if primary:
+		which = $Player.item_color
+		can_big_shot = false
+	else:
+		if not $Player.second_weapon_color:
+			return
+		which = $Player.second_weapon_color
+	$BigShot.start()
+	get_node("Bullets/" + str(current_bullet)).shoot($Player.global_position, get_global_mouse_position(), which)
+	current_bullet += 1
+	if current_bullet > 6:
+		current_bullet = 1
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if get_tree().paused:
 		return
-	
+	if not Input.is_action_pressed("shoot"):
+		$BigShot.stop()
+		create_tween().tween_property($Player, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	if  InputMode.get_mode() == InputMode.Modes.PLAYER:
-		if Input.is_action_just_pressed("shoot"):
-			$BigShot.start()
-			get_node("Bullets/" + str(current_bullet)).shoot($Player.global_position, get_global_mouse_position(), $Player.item_color)
-			current_bullet += 1
-			if current_bullet > 6:
-				current_bullet = 1
-			can_big_shot = false
+		if Input.is_action_just_pressed("shoot") and not Input.is_action_pressed("hud_toggle_quick_inv"):
+			just_pressed_any(true)
 		if Input.is_action_just_released("shoot") and can_big_shot:
 			create_tween().tween_property($Player, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 			get_node("Bullets/" + str(current_bullet)).shoot($Player.global_position, get_global_mouse_position(), $Player.item_color, true)
@@ -61,6 +73,8 @@ func _process(_delta: float) -> void:
 			can_big_shot = false
 			if current_bullet > 6:
 				current_bullet = 1
+		if Input.is_action_just_pressed("shoot_secondary") and not Input.is_action_pressed("hud_toggle_quick_inv"):
+			just_pressed_any(false)
 		for ch in $Loot.get_children():
 			ch.visible = true
 
@@ -72,7 +86,7 @@ func DropNewLoot(whom : Node2D) -> Node2D:
 	loot.item_data = itemData
 	loot.global_position = whom.global_position
 	return loot
-	
+
 func wrong_color_popup(where : Vector2):
 	var new_label = Label.new()
 	new_label.text = "Wrong color !"
@@ -100,6 +114,7 @@ func _on_spawn_new_enemy_timeout() -> void:
 		return
 	var new_enemy = enemy_scene.instantiate()
 	new_enemy.name = "Enemy" + str(enemy_cpt)
+	new_enemy.inventory = $HUD/Inventory
 	enemy_cpt += 1
 	var where_to_spawn = [Vector2(randi_range(0, 1000), -60), Vector2(randi_range(0, 1000), 600), Vector2(-60, randi_range(0, 600)), Vector2(1030, randi_range(0, 600))]
 	new_enemy.global_position = where_to_spawn[randi() % 4]

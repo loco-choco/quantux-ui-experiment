@@ -7,6 +7,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sweqy"]
 shader = ExtResource("2_hqtel")
+shader_parameter/clr = Vector3(0, 0.5, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hqtel"]
 radius = 12.337838
@@ -45,6 +46,9 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableCollider"]
 shape = SubResource("CircleShape2D_sweqy")
+
+[node name="BulletTime" type="Timer" parent="."]
+wait_time = 2.0
 
 [connection signal="area_entered" from="InteractableCollider" to="." method="_on_interactable_enter"]
 [connection signal="area_exited" from="InteractableCollider" to="." method="_on_interactable_exit"]

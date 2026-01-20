@@ -32,4 +32,8 @@ offset_bottom = -11.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "+1000"
 
+[node name="BulletTime" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="area_entered" from="Hitbox" to="." method="_on_area_2d_area_entered"]

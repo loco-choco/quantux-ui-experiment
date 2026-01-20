@@ -2,6 +2,7 @@ class_name Inventory extends PanelContainer
 
 signal quick_inventory_update(items: Array[InventoryItem])
 signal weapon_slot_update(item: ItemData)
+signal side_weapon_slot_update(item: ItemData)
 signal item_dropped(item: Item)
 signal item_returned(item: Item)
 
@@ -39,6 +40,7 @@ func hide_ui() -> void:
 
 func connect_item_slot_updates() -> void:
 	weapon_slot.item_slot_update.connect(_weapon_slot_update)
+	side_weapon_slot.item_slot_update.connect(_side_weapon_slot_update)
 	drop_item_slot.item_slot_update.connect(_drop_item_slot_update)
 	quick_inv_grid.items_update.connect(_quick_inv_items_update)
 	
@@ -65,6 +67,12 @@ func _weapon_slot_update(item: InventoryItem) -> void:
 		weapon_slot_update.emit(item.data)
 	else:
 		weapon_slot_update.emit(null)
+		
+func _side_weapon_slot_update(item: InventoryItem):
+	if item:
+		side_weapon_slot_update.emit(item.data)
+	else:
+		side_weapon_slot_update.emit(null)
 	
 func _drop_item_slot_update(inv_item: InventoryItem) -> void:
 	if inv_item == null:

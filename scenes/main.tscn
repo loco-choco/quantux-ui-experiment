@@ -54,11 +54,8 @@ item_data = ExtResource("4_jkv2x")
 position = Vector2(367, 290)
 item_data = ExtResource("6_muem4")
 
-[node name="Enemy1" parent="." instance=ExtResource("6_7mycd")]
-position = Vector2(792, 99)
-
 [node name="SpawnNewEnemy" type="Timer" parent="."]
-wait_time = 2.5
+wait_time = 4.0
 autostart = true
 
 [node name="Score" type="Label" parent="."]
@@ -172,6 +169,7 @@ value = 50.0
 [connection signal="item_dropped" from="HUD/Inventory" to="Player" method="_on_inventory_item_dropped"]
 [connection signal="item_returned" from="HUD/Inventory" to="Player" method="_on_inventory_item_returned"]
 [connection signal="quick_inventory_update" from="HUD/Inventory" to="HUD/QuickInventory" method="update_radial_inventory"]
+[connection signal="side_weapon_slot_update" from="HUD/Inventory" to="Player" method="on_side_weapon_change"]
 [connection signal="weapon_slot_update" from="HUD/Inventory" to="Player" method="on_weapon_change"]
 [connection signal="timeout" from="SpawnNewEnemy" to="." method="_on_spawn_new_enemy_timeout"]
 [connection signal="timeout" from="BigShot" to="." method="_on_big_shot_timeout"]

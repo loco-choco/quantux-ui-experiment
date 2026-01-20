@@ -3,6 +3,7 @@ extends Node2D
 var player
 var clrCode
 var clrRef : Vector3
+@export var inventory : Inventory
 @export var follow_speed : float = 80.
 @onready var hp := 3
 signal died
@@ -17,12 +18,23 @@ func _ready() -> void:
 	died.connect(get_parent().killed_enemy)
 	wrong_color.connect(get_parent().wrong_color_popup)
 	follow_speed = randf_range(60., 100.)
-	$Sprite2D.material.set_shader_parameter("clr", Vector3(1., 0., 0.))
+	#$Sprite2D.material.set_shader_parameter("clr", Vector3(1., 0., 0.))
 
 func _process(delta: float) -> void:
+	var slowed_delta = delta
+	if Input.is_action_just_pressed("hud_toggle_quick_inv"):
+		$BulletTime.start()
+	if not Input.is_action_pressed("hud_toggle_quick_inv"):
+		$BulletTime.stop()
+	
+	slowed_delta *= max(0.01, 1. - $BulletTime.time_left / $BulletTime.wait_time)
+	
+	if inventory:
+		slowed_delta *= float(int(not inventory.visible))
+	
 	if is_instance_valid(player) and hp > 0:
 		look_at(player.global_position)
-		global_position += follow_speed * (player.global_position - global_position).normalized() * delta
+		global_position += follow_speed * (player.global_position - global_position).normalized() * slowed_delta
 		
 	if scale.x < 0.00001:
 		queue_free()
@@ -44,6 +56,7 @@ func trigger_death(killed_by_player: bool) -> void:
 		died.emit(self)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	if not area.get_parent().visible: return
 	var target = area
 	if not target.has_method("take_damage") and target.get_parent().has_method("take_damage"):
 		target = target.get_parent()
@@ -53,7 +66,6 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		trigger_death(false)
 		return
 
-	if not area.get_parent().visible: return
 
 	var recoil_dir = Vector2.ZERO
 	if is_instance_valid(player):
@@ -61,14 +73,14 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	
 	var new_pos = global_position - 30. * recoil_dir
 	
-	create_tween().tween_property(self, "global_position", new_pos, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	create_tween().tween_method(spriteFlash, Vector3(1., 1., 1.), Vector3(1., 0., 0.), 0.32).set_trans(Tween.TRANS_QUAD)
 	
 	if area.get_parent().clrCode != clrCode:
 		if not area.get_parent().is_big:
 			area.get_parent().visible = false
 		wrong_color.emit(global_position + Vector2(60, -30))
 		return
+	create_tween().tween_property(self, "global_position", new_pos, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	create_tween().tween_method(spriteFlash, Vector3(1., 1., 1.), clrRef, 0.32).set_trans(Tween.TRANS_QUAD)
 	
 	if not area.get_parent().is_big:
 		area.get_parent().visible = false
