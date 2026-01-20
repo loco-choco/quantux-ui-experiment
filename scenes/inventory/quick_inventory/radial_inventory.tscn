@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c221opmv2p7te" path="res://scripts/ui/inventory/radial_inventory/radial_inventory.gd" id="1_8b5nj"]
 [ext_resource type="PackedScene" uid="uid://b1ykrmc557ifc" path="res://scenes/inventory/quick_inventory/radial_inventory_entry.tscn" id="1_fx4eu"]
 [ext_resource type="Texture2D" uid="uid://bidf8wxw1wkkp" path="res://assets/icon.svg" id="3_djp4d"]
-[ext_resource type="Shader" uid="uid://cdjk6mlp737ic" path="res://scenes/inventory/quick_inventory/radial_inventory.gdshader" id="3_lrawg"]
+[ext_resource type="Shader" uid="uid://cnhc7mkqfipgu" path="res://resources/shaders/radial_inventory.gdshader" id="3_lrawg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8b5nj"]
 
