@@ -5,6 +5,7 @@ extends Node2D
 @onready var enemy_cpt = 2
 @onready var score := 0
 @onready var nb_loots := 0
+@export var possible_loots : Array[ItemData]
 
 const nb_bullets = 6
 @onready var current_bullet = 1
@@ -43,40 +44,33 @@ func _on_player_health_changed(new_value: int) -> void:
 func _process(_delta: float) -> void:
 	if get_tree().paused:
 		return
-
-	if Input.is_action_just_pressed("shoot") and not $HUD/Inventory.visible:
-		$BigShot.start()
-		get_node("Bullets/" + str(current_bullet)).shoot($Player.global_position, get_global_mouse_position(), $Player.item_color)
-		current_bullet += 1
-		if current_bullet > 6:
-			current_bullet = 1
-		can_big_shot = false
-	if Input.is_action_just_released("shoot") and not $HUD/Inventory.visible and can_big_shot:
-		create_tween().tween_property($Player, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		get_node("Bullets/" + str(current_bullet)).shoot($Player.global_position, get_global_mouse_position(), $Player.item_color, true)
-		current_bullet += 1
-		$BigShot.stop()
-		can_big_shot = false
-		if current_bullet > 6:
-			current_bullet = 1
-	for ch in $Loot.get_children():
-		ch.visible = true
+	
+	if  InputMode.get_mode() == InputMode.Modes.PLAYER:
+		if Input.is_action_just_pressed("shoot"):
+			$BigShot.start()
+			get_node("Bullets/" + str(current_bullet)).shoot($Player.global_position, get_global_mouse_position(), $Player.item_color)
+			current_bullet += 1
+			if current_bullet > 6:
+				current_bullet = 1
+			can_big_shot = false
+		if Input.is_action_just_released("shoot") and can_big_shot:
+			create_tween().tween_property($Player, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			get_node("Bullets/" + str(current_bullet)).shoot($Player.global_position, get_global_mouse_position(), $Player.item_color, true)
+			current_bullet += 1
+			$BigShot.stop()
+			can_big_shot = false
+			if current_bullet > 6:
+				current_bullet = 1
+		for ch in $Loot.get_children():
+			ch.visible = true
 
 func DropNewLoot(whom : Node2D) -> Node2D:
 	var clr_dice = randi() % 3	
-	var weapon_clr : String = ['r', 'g', 'b'][clr_dice]
-
-	var itemData = ItemData.new()
-	itemData.dimensions = Vector2i(1, 1)
-	itemData.texture = load([	"res://assets/items/red_gun.png",\
-								"res://assets/items/green_gun.png",\
-								"res://assets/items/blue_gun.png"][clr_dice])
+	var itemData : ItemData = possible_loots[clr_dice]
 
 	var loot = item_blueprint.instantiate()
 	loot.item_data = itemData
-	loot.name = weapon_clr + str(nb_loots)
 	loot.global_position = whom.global_position
-
 	return loot
 	
 func wrong_color_popup(where : Vector2):
