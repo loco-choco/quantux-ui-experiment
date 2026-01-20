@@ -4,6 +4,7 @@ extends CanvasLayer
 func _ready() -> void:
 	inventory.hide_ui()
 	quick_inv.hide()
+	quick_inv.menu_closed.connect(_on_quick_inv_closed)
 	InputMode.change_mode(InputMode.Modes.PLAYER)
 	
 func _process(_delta: float) -> void:
@@ -22,6 +23,10 @@ func _process(_delta: float) -> void:
 				quick_inv.show()
 			else:
 				quick_inv.hide()
+
+func _on_quick_inv_closed() -> void:
+	quick_inv.hide()
+	
 
 func _on_player_item_collected(item: Item) -> void:
 	inventory.add_item(item)
