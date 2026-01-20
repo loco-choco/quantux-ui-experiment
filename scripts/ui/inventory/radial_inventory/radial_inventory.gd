@@ -9,6 +9,8 @@ signal menu_closed()
 var last_entry : RadialInventoryEntry = null
 
 func _process(_delta: float) -> void:
+	if not visible:
+		return
 	if entries.get_child_count() == 0:
 		return
 	var selection_vec: Vector2 = (get_local_mouse_position() - size/2).normalized()
@@ -25,6 +27,10 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("inventory_select"):
 		print("Selected: ", selection)
+		var item : InventoryItem = entry_selected.item
+		var property : ItemProperty = item.data.get_property("consumable")
+		if property: ## TODO MAKE PARENT CLASS "USABLE" OR SMTH
+			(property as ConsumableItemProperty).consume()
 		menu_closed.emit()
 
 func update_radial_inventory(items: Array[InventoryItem]) -> void:
