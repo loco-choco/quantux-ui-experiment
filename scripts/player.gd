@@ -8,7 +8,6 @@ signal health_changed(new_value)
 @export var max_health = 3
 var current_health
 
-@export var inventory : Inventory
 var grabbable_items: Array[Item] = []
 @export var dropped_item_offset_radius : float = 25
 
@@ -95,7 +94,6 @@ func _on_inventory_item_returned(item: Item) -> void:
 func take_damage(amount: int) -> void:
 	current_health -= amount
 	health_changed.emit(current_health)
-	print("Player took damage! Health is now: ", current_health)
 	var tween = create_tween()
 	tween.set_parallel(true) 
 	modulate = Color(1, 0, 0)

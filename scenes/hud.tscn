@@ -15,4 +15,8 @@ visible = false
 unique_name_in_owner = true
 visible = false
 
+[connection signal="item_dropped" from="Inventory" to="." method="_on_inventory_item_dropped"]
+[connection signal="item_returned" from="Inventory" to="." method="_on_inventory_item_returned"]
 [connection signal="quick_inventory_update" from="Inventory" to="QuickInventory" method="update_radial_inventory"]
+[connection signal="side_weapon_slot_update" from="Inventory" to="." method="_on_inventory_side_weapon_slot_update"]
+[connection signal="weapon_slot_update" from="Inventory" to="." method="_on_inventory_weapon_slot_update"]
