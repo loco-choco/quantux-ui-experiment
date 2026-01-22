@@ -163,3 +163,4 @@ text = "Export Collected Data"
 [connection signal="pressed" from="RoundSumary/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/Return" to="." method="_on_return_pressed"]
 [connection signal="toggled" from="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EnableDataCollection" to="." method="_on_enable_data_collection_toggled"]
 [connection signal="pressed" from="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ExportData" to="." method="_on_export_data_pressed"]

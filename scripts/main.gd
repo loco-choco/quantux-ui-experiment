@@ -68,3 +68,7 @@ func _on_start_game_pressed() -> void:
 func _on_return_pressed() -> void:
 	main_menu.show()
 	round_sumary.hide()
+
+func _on_export_data_pressed() -> void:
+	for i in range(collected_round_data.size()):
+		ResourceSaver.save(collected_round_data[i], "user://{0}_round_{1}.tres".format([random_user_id, i + 1]))
