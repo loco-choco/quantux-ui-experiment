@@ -59,6 +59,7 @@ func drop_item_from_slot(inv_item: InventoryItem, slot: InventorySlot) -> void:
 	dropped_item.item_data = inv_item.data
 	inv_item.queue_free()
 	slot.clear_item()
+	LogInventory.log_inventory_state("DROP_ITEM: %s" % inv_item.data.name)
 	item_dropped.emit(dropped_item)
 
 func add_item(item: Item) -> bool:
@@ -73,6 +74,7 @@ func add_item(item: Item) -> bool:
 		item_returned.emit(item)
 	else:
 		item.queue_free()
+		LogInventory.log_inventory_state("ADD_ITEM: %s" % item_data.name)
 	return success
 
 func get_bagged_items() -> Array[ItemData]:
@@ -82,9 +84,10 @@ func get_bagged_items() -> Array[ItemData]:
 	return result
 	
 func get_quick_inv_items() -> Array[ItemData]:
-	var lambda = func (i: InventoryItem) -> ItemData:
-		return i.data
-	return quick_inv_grid.get_items().map(lambda)
+	var result: Array[ItemData] = []
+	for i in quick_inv_grid.get_items():
+		result.append(i.data if i else null)
+	return result
 
 func get_weapon() -> ItemData:
 	if weapon_slot.get_item():

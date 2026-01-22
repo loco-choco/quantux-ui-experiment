@@ -173,6 +173,9 @@ func _on_start_button_pressed() -> void:
 		print("Please enter a name!")
 		return 
 	LogInput.start_logging(player_name)
+	if has_node("HUD/Inventory"):
+		var inventory = $HUD/Inventory
+		LogInventory.start_logging(player_name, inventory)
 	score = 0
 	score_label.text = "Score : 0"
 	start_screen.visible = false
@@ -182,6 +185,7 @@ func _on_start_button_pressed() -> void:
 func game_over() -> void:
 	get_tree().paused = true
 	LogInput.stop_logging(str(score))
+	LogInventory.stop_logging()
 	game_over_screen.visible = true
 	final_score_label.text = "Final Score: [" + name_input.text + "] " + str(score)
 

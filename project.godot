@@ -19,6 +19,7 @@ config/icon="res://assets/icon.svg"
 
 InputMode="*res://scripts/global/input_mode.gd"
 LogInput="*res://scripts/global/log_input.gd"
+LogInventory="*res://scripts/global/log_inventory.gd"
 
 [display]
 
