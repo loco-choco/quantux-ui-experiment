@@ -7,11 +7,11 @@ signal wrong_color
 
 @export var target : Player
 
-@export var follow_speed : float = 80.
+@export var follow_speed : float = 80
 @export var color_code : String = 'r'
 @export var hp : float = 100
 @export var damage_per_hit : int = 10
-var time_since_last_hit : float = 0
+var time_since_last_hit : float
 @export var time_per_hit : float = 4
 
 var color : Vector3
@@ -19,6 +19,7 @@ var color : Vector3
 func _ready() -> void:
 	color = {'r': Vector3(1., 0., 0.), 'g': Vector3(0., 1., 0.), 'b': Vector3(0., 0.5, 1.)}[color_code]
 	$Sprite2D.material.set_shader_parameter("clr", color)
+	time_since_last_hit = randf_range(0, time_per_hit) # Offset when spawning to differ from other enemies
 	#$Sprite2D.material.set_shader_parameter("clr", Vector3(1., 0., 0.))
 
 func _process(delta: float) -> void:

@@ -18,6 +18,7 @@ var grabbable_items: Array[Item] = []
 @export var second_weapon_color : String
 var current_color : Vector3 = Vector3(0, 0, 1)
 var base_color : Vector3 = Vector3(0.9, 0.9, 0.9)
+var dead_color : Vector3 = Vector3(0.5, 0.5, 0.5)
 
 func _ready() -> void:
 	$SpriteBouncer2D.stop()
@@ -27,7 +28,7 @@ func _ready() -> void:
 	spriteParam(current_color)
 
 func _process(delta: float) -> void:
-	if InputMode.get_mode() != InputMode.Modes.PLAYER:
+	if InputMode.get_mode() != InputMode.Modes.PLAYER or current_health <= 0:
 		return
 	var slowed_delta = delta
 	#if Input.is_action_just_pressed("hud_toggle_quick_inv"):
@@ -111,6 +112,8 @@ func _on_inventory_item_returned(item: Item) -> void:
 	grabbable_items[-1].select()
 
 func take_damage(amount: int) -> void:
+	if current_health <= 0:
+		return
 	current_health -= amount
 	health_changed.emit(current_health)
 	var tween = create_tween()
@@ -126,4 +129,5 @@ func take_damage(amount: int) -> void:
 		die()
 
 func die() -> void:
+	spriteParam(dead_color)
 	player_died.emit()
