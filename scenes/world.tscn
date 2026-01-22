@@ -87,6 +87,7 @@ player = NodePath("../Player")
 [connection signal="item_returned" from="HUD" to="Player" method="_on_inventory_item_returned"]
 [connection signal="side_weapon_slot_update" from="HUD" to="Player" method="on_side_weapon_change"]
 [connection signal="weapon_slot_update" from="HUD" to="Player" method="on_weapon_change"]
+[connection signal="potion_used" from="HUD/Inventory" to="Player" method="heal"]
 
 [editable path="HUD"]
 [editable path="HUD/Inventory"]

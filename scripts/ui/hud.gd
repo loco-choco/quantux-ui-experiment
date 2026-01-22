@@ -48,7 +48,8 @@ func _process(_delta: float) -> void:
 	
 
 func _on_player_health_change(value: float) -> void:
-	heath_bar.value = value
+	create_tween().tween_method((func(v: float): heath_bar.value = v),\
+	 heath_bar.value, value, 0.5).set_ease(Tween.EASE_OUT)
 	
 func _on_player_item_collected(item: Item) -> void:
 	inventory.add_item(item)

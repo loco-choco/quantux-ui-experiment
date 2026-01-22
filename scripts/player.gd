@@ -113,6 +113,8 @@ func _on_inventory_item_returned(item: Item) -> void:
 
 func heal(amount: float) -> void:
 	current_health = current_health + amount
+	if current_health > max_health:
+		current_health = max_health
 	health_changed.emit(current_health)
 	
 func take_damage(amount: float) -> void:

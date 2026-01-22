@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://bca71tkqojqgs"]
 
 [ext_resource type="Script" uid="uid://cno3dtxvobxyw" path="res://scripts/item/properties/item_properties.gd" id="1_nf6mu"]
-[ext_resource type="Script" uid="uid://dscrrkgqafh0w" path="res://scripts/item/properties/consumable.gd" id="2_k2q3d"]
+[ext_resource type="Script" uid="uid://dscrrkgqafh0w" path="res://scripts/item/properties/potion.gd" id="2_k2q3d"]
 [ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://scripts/item/item_data.gd" id="2_qtesh"]
 [ext_resource type="Script" uid="uid://c1kv774gln5nn" path="res://scripts/item/properties/valuable.gd" id="3_ts3mq"]
 [ext_resource type="Texture2D" uid="uid://cxbpplgmiq5pr" path="res://assets/items/soup.png" id="4_k2q3d"]
