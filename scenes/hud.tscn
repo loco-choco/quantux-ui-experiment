@@ -15,11 +15,4 @@ visible = false
 unique_name_in_owner = true
 visible = false
 
-[node name="WrongColorLabels" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [connection signal="quick_inventory_update" from="Inventory" to="QuickInventory" method="update_radial_inventory"]

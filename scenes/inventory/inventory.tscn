@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://btu4ox8a5nhsk"]
+[gd_scene load_steps=19 format=3 uid="uid://btu4ox8a5nhsk"]
 
 [ext_resource type="Script" uid="uid://bao2oqno4ybbf" path="res://scripts/ui/inventory/inventory.gd" id="1_w7uli"]
 [ext_resource type="PackedScene" uid="uid://dfa3nrjnhe3mt" path="res://scenes/item.tscn" id="2_2obg0"]
@@ -14,6 +14,8 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsu7x"]
 bg_color = Color(0, 0, 0, 0.36862746)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l6cit"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yt8kk"]
 bg_color = Color(0, 0, 0, 1)
@@ -83,7 +85,14 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 8
 alignment = 2
 
+[node name="HSeparator2" type="HSeparator" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+theme_override_styles/separator = SubResource("StyleBoxEmpty_l6cit")
+
 [node name="AspectRatioContainer2" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Equipment2"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 alignment_horizontal = 2
@@ -177,6 +186,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="PanelContainer/MarginContainer/HBoxContainer/Others"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 ratio = 2.0

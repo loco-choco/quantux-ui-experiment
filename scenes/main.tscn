@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dy7fc8q4jmtgw"]
+[gd_scene load_steps=13 format=3 uid="uid://dy7fc8q4jmtgw"]
 
 [ext_resource type="Script" uid="uid://d0lfe13c8lca8" path="res://scripts/main.gd" id="1_272bh"]
 [ext_resource type="PackedScene" uid="uid://cg55uk4s6qv0g" path="res://scenes/player.tscn" id="1_ig7tw"]
@@ -10,6 +10,8 @@
 [ext_resource type="Resource" uid="uid://bfkkg2x47qstj" path="res://resources/items/weapons/weapon_green.tres" id="6_muem4"]
 [ext_resource type="PackedScene" uid="uid://c45awuou43skt" path="res://scenes/bullet.tscn" id="8_5vw27"]
 [ext_resource type="PackedScene" uid="uid://pysiho2iiyxp" path="res://scenes/hud.tscn" id="8_choun"]
+[ext_resource type="Resource" uid="uid://h2ts1vi0qsyx" path="res://resources/items/valuables/coins_7.tres" id="10_eb6dy"]
+[ext_resource type="Resource" uid="uid://bqsaxr8qmgbop" path="res://resources/items/valuables/coins_2.tres" id="11_trceg"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_272bh")
@@ -31,12 +33,12 @@ position = Vector2(241, 254)
 unique_name_in_owner = true
 
 [node name="Item" parent="." instance=ExtResource("2_0xm2m")]
-position = Vector2(367, 290)
-item_data = ExtResource("4_jkv2x")
+position = Vector2(421, 313)
+item_data = ExtResource("10_eb6dy")
 
 [node name="Item2" parent="." instance=ExtResource("2_0xm2m")]
-position = Vector2(367, 290)
-item_data = ExtResource("6_muem4")
+position = Vector2(337, 355)
+item_data = ExtResource("11_trceg")
 
 [node name="SpawnNewEnemy" type="Timer" parent="."]
 wait_time = 4.0

@@ -6,15 +6,15 @@ signal health_changed(new_value)
 
 @export var speed = 200
 @export var max_health = 3
-@onready var current_health = max_health
+var current_health
 
-@onready var inventory : Inventory = $%Inventory
+@export var inventory : Inventory
 var grabbable_items: Array[Item] = []
 @export var dropped_item_offset_radius : float = 25
 
-@onready var item_color : String = 'b'
-var second_weapon_color : String
-@onready var sprite_clr := Vector3(0., 0., 1.)
+@export var item_color : String = 'b'
+@export var second_weapon_color : String
+var sprite_clr = Vector3(0, 0, 1)
 
 func _ready() -> void:
 	$SpriteBouncer2D.stop()
@@ -25,11 +25,11 @@ func _process(delta: float) -> void:
 	if InputMode.get_mode() != InputMode.Modes.PLAYER:
 		return
 	var slowed_delta = delta
-	if Input.is_action_just_pressed("hud_toggle_quick_inv"):
-		$BulletTime.start()
-	if not Input.is_action_pressed("hud_toggle_quick_inv"):
-		$BulletTime.stop()
-	slowed_delta *= max(0.01, 1. - $BulletTime.time_left / $BulletTime.wait_time)
+	#if Input.is_action_just_pressed("hud_toggle_quick_inv"):
+	#	$BulletTime.start()
+	#if not Input.is_action_pressed("hud_toggle_quick_inv"):
+	#	$BulletTime.stop()
+	#slowed_delta *= max(0.01, 1. - $BulletTime.time_left / $BulletTime.wait_time)
 	var velocity = Input.get_vector("player_move_x_neg", \
 									"player_move_x_pos", \
 									"player_move_y_neg", \
@@ -43,23 +43,24 @@ func _process(delta: float) -> void:
 			item.diselect()
 			item_collected.emit(item)
 
-func spriteParam(value, property := "clr") -> void:
+func spriteParam(value, property = "clr") -> void:
 	$SpriteBouncer2D.material.set_shader_parameter(property, value)
 
-func on_weapon_change(weapon: ItemData) -> void:
+func get_weapon(weapon: ItemData) -> String:
 	if not weapon:
-		item_color = 'b'
-		return
-	item_color = {"WeaponRed" : 'r',"WeaponGreen" : 'g',"WeaponBlue" : 'b' }[weapon.name]
+		return 'b'
+	var weapon_prop : WeaponItemProperty = weapon.get_property("weapon")
+	return weapon_prop.color
+
+func on_weapon_change(weapon: ItemData) -> void:
+	item_color = get_weapon(weapon)
 	var new_clr = {"r" : Vector3(1., 0., 0.), "g" : Vector3(0., 1., 0.), "b" : Vector3(0., 0.5, 1.)}[item_color]
 	create_tween().tween_method(spriteParam, sprite_clr, new_clr, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	sprite_clr = new_clr
 
+
 func on_side_weapon_change(weapon: ItemData):
-	if not weapon:
-		item_color = 'b'
-		return
-	second_weapon_color = {"WeaponRed" : 'r',"WeaponGreen" : 'g',"WeaponBlue" : 'b' }[weapon.name]
+	second_weapon_color = get_weapon(weapon)
 
 func _on_interactable_enter(area: Area2D) -> void:
 	var item_coll : ItemInteractCollider = area as ItemInteractCollider
@@ -109,4 +110,3 @@ func take_damage(amount: int) -> void:
 
 func die() -> void:
 	player_died.emit()
-	queue_free()
