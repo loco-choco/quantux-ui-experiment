@@ -5,7 +5,7 @@ signal last_wave_completed()
 
 @export var enemy_scene : PackedScene
 
-@export var enemy_waves : Array[EnemyWave]
+@export var enemy_waves : EnemyRoundWaves
 @export var current_wave : int = 0
 
 @export var player : Player
@@ -18,9 +18,9 @@ func _ready() -> void:
 	next_wave_timer.timeout.connect(spawn_wave)
 
 func spawn_wave() -> void:
-	if current_wave >= enemy_waves.size():
+	if current_wave >= enemy_waves.waves.size():
 		return
-	var wave : EnemyWave = enemy_waves[current_wave]
+	var wave : EnemyWave = enemy_waves.waves[current_wave]
 	for i in range(wave.amount_of_enemies):
 		var enemy : Enemy = enemy_scene.instantiate()
 		var pos : Vector2 = Vector2.from_angle(randf_range(0, TAU)) * spawn_radius
@@ -42,6 +42,6 @@ func _on_enemy_died(enemy: Enemy) -> void:
 		wave_completed.emit(current_wave)
 		current_wave = current_wave + 1
 		next_wave_timer.start()
-		if current_wave >= enemy_waves.size():
+		if current_wave >= enemy_waves.waves.size():
 			print("All waves completed!")
 			last_wave_completed.emit()

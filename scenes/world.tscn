@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ct5lh45t375b1"]
+[gd_scene load_steps=10 format=3 uid="uid://ct5lh45t375b1"]
 
 [ext_resource type="Script" uid="uid://bahnyrvbiy4xf" path="res://scripts/round_data_collection.gd" id="1_4mrxx"]
 [ext_resource type="PackedScene" uid="uid://dvkqs1ejdovsf" path="res://scenes/map.tscn" id="1_4wyf3"]
@@ -8,23 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://pysiho2iiyxp" path="res://scenes/hud.tscn" id="2_4wyf3"]
 [ext_resource type="Script" uid="uid://cnwnruwhvc7jc" path="res://scripts/enemy_spawner.gd" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://bnq00287k1il2" path="res://scenes/enemy.tscn" id="5_71j4m"]
-[ext_resource type="Script" uid="uid://b2gw0thngrdl3" path="res://scripts/enemy_wave.gd" id="6_qfnet"]
-
-[sub_resource type="Resource" id="Resource_qfnet"]
-script = ExtResource("6_qfnet")
-possible_spawns = Array[String](["r"])
-amount_of_enemies = 1
-all_unique = true
-enemy_speed_mult = 1.0
-metadata/_custom_type_script = "uid://b2gw0thngrdl3"
-
-[sub_resource type="Resource" id="Resource_i7141"]
-script = ExtResource("6_qfnet")
-possible_spawns = Array[String](["r", "b"])
-amount_of_enemies = 2
-all_unique = true
-enemy_speed_mult = 1.5
-metadata/_custom_type_script = "uid://b2gw0thngrdl3"
+[ext_resource type="Resource" uid="uid://buf48tvdokc3t" path="res://resources/enemy_waves/main_waves.tres" id="7_7r4gi"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_7r4gi")
@@ -57,7 +41,7 @@ wave_logic = NodePath("../EnemyWaveLogic")
 unique_name_in_owner = true
 script = ExtResource("4_k0juu")
 enemy_scene = ExtResource("5_71j4m")
-enemy_waves = Array[ExtResource("6_qfnet")]([SubResource("Resource_qfnet"), SubResource("Resource_i7141")])
+enemy_waves = ExtResource("7_7r4gi")
 player = NodePath("../Player")
 spawn_radius = 1000.0
 metadata/_custom_type_script = "uid://cnwnruwhvc7jc"

@@ -1,14 +1,18 @@
 class_name Enemy extends Node2D
 
 signal died(enemy: Enemy)
-signal wrong_color
 
 @onready var hitbox : Area2D = $%Hitbox
+@onready var score : Label = $%Score
+var score_local_position : Vector2
+@onready var wrong_color : Label = $%WrongColor
+var wrong_color_local_position : Vector2
 
 @export var target : Player
 
 @export var follow_speed : float = 80
 @export var color_code : String = 'r'
+@export var wrong_color_demage_penalty : float = 0.1
 @export var hp : float = 100
 @export var damage_per_hit : int = 10
 var time_since_last_hit : float
@@ -17,6 +21,8 @@ var time_since_last_hit : float
 var color : Vector3
 
 func _ready() -> void:
+	score_local_position = score.position
+	wrong_color_local_position = wrong_color.position
 	color = {'r': Vector3(1., 0., 0.), 'g': Vector3(0., 1., 0.), 'b': Vector3(0., 0.5, 1.)}[color_code]
 	$Sprite2D.material.set_shader_parameter("clr", color)
 	time_since_last_hit = randf_range(0, time_per_hit) # Offset when spawning to differ from other enemies
@@ -44,18 +50,29 @@ func spriteFlash(value : Vector3) -> void:
 func trigger_death(killed_by_player: bool) -> void:
 	create_tween().tween_property(self, "scale", Vector2(0., 0.), 0.8).set_trans(Tween.TRANS_BACK)
 	if killed_by_player:
-		$Label.visible = true
-		$Label.global_position = global_position + Vector2(60, -30)
-		$Label.set_rotation(-rotation)
-		$Label.remove_theme_color_override("font_color")
-		$Label.add_theme_color_override("font_color", Color(1, 1, 1, 1))
-		create_tween().tween_property($Label, "global_position", $Label.global_position - Vector2(0., 50.), 0.5)
-		create_tween().tween_property($Label, "theme_override_colors/font_color", Color(1., 1., 1., 0.), 0.5)
+		score.show()
+		score.global_position = global_position + score_local_position
+		score.set_rotation(-rotation)
+		score.remove_theme_color_override("font_color")
+		score.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+		create_tween().tween_property(score, "global_position", score.global_position - Vector2(0., 50.), 0.5)
+		create_tween().tween_property(score, "theme_override_colors/font_color", Color(1., 1., 1., 0.), 0.5)
 
-func take_damage(damage: float) -> void:
+func take_damage(damage: float, bullet_color: String) -> void:
+	if bullet_color != color_code:
+		damage = damage * wrong_color_demage_penalty
+		_on_wrong_color()
 	if hp <= 0:
 		return
 	hp = hp - damage
 	if hp <= 0:
 		trigger_death(true)
 		died.emit(self)
+
+func _on_wrong_color() -> void:
+	wrong_color.show()
+	wrong_color.global_position = global_position + wrong_color_local_position
+	wrong_color.set_rotation(-rotation)
+	wrong_color.remove_theme_color_override("font_color")
+	wrong_color.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+	create_tween().tween_property(wrong_color, "theme_override_colors/font_color", Color(1., 1., 1., 0.), 0.5)

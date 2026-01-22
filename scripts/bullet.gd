@@ -10,6 +10,7 @@ var direction : Vector2
 @export var bullet_owner : Area2D
 @export var distance_until_despawn : float = 1000
 
+
 @onready var visual : ColorRect = $%Visual
 
 var color_dict : Dictionary[String, Color] = {"r" : Color.RED, "g" : Color.GREEN, "b" : Color.BLUE}
@@ -41,5 +42,5 @@ func _on_area_entered(area: Area2D) -> void:
 		return
 	var enemy : Enemy = area.get_parent() as Enemy
 	var damage : float = base_damage * 2 if is_big else base_damage
-	enemy.take_damage(damage)
+	enemy.take_damage(damage, color_code)
 	queue_free()

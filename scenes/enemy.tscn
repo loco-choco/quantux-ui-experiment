@@ -23,7 +23,8 @@ polygon = PackedVector2Array(-22, -39, -22, 38, 43, 0)
 material = SubResource("ShaderMaterial_iifgy")
 texture = ExtResource("2_qi2p4")
 
-[node name="Label" type="Label" parent="."]
+[node name="Score" type="Label" parent="."]
+unique_name_in_owner = true
 visible = false
 offset_left = 37.0
 offset_top = -34.0
@@ -31,5 +32,15 @@ offset_right = 86.0
 offset_bottom = -11.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "+1000"
+
+[node name="WrongColor" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = 15.0
+offset_top = -57.0
+offset_right = 112.0
+offset_bottom = -34.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Wrong Color"
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_area_2d_area_entered"]
