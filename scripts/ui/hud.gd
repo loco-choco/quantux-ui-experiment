@@ -46,17 +46,14 @@ func _process(_delta: float) -> void:
 func _on_player_item_collected(item: Item) -> void:
 	inventory.add_item(item)
 
-
 func _on_inventory_item_dropped(item: Item) -> void:
 	item_dropped.emit(item)
 
 func _on_inventory_item_returned(item: Item) -> void:
 	item_returned.emit(item)
 
-
-func _on_inventory_side_weapon_slot_update(item: ItemData) -> void:
-	weapon_slot_update.emit(item)
-
-
 func _on_inventory_weapon_slot_update(item: ItemData) -> void:
+	weapon_slot_update.emit(item)
+	
+func _on_inventory_side_weapon_slot_update(item: ItemData) -> void:
 	side_weapon_slot_update.emit(item)

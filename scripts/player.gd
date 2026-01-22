@@ -1,24 +1,30 @@
 class_name Player extends Node2D
 
+@onready var hitbox : Area2D = $%Hitbox
+
 signal item_collected(item_data: Item)
 signal player_died
 signal health_changed(new_value)
 
 @export var speed = 200
-@export var max_health = 3
+@export var max_health = 100
 var current_health
 
 var grabbable_items: Array[Item] = []
 @export var dropped_item_offset_radius : float = 25
 
-@export var item_color : String = 'b'
+@export var bullet_scene : PackedScene
+@export var weapon_color : String
 @export var second_weapon_color : String
-var sprite_clr = Vector3(0, 0, 1)
+var current_color : Vector3 = Vector3(0, 0, 1)
+var base_color : Vector3 = Vector3(0.9, 0.9, 0.9)
 
 func _ready() -> void:
 	$SpriteBouncer2D.stop()
 	current_health = max_health
 	health_changed.emit(current_health)
+	current_color = base_color
+	spriteParam(current_color)
 
 func _process(delta: float) -> void:
 	if InputMode.get_mode() != InputMode.Modes.PLAYER:
@@ -41,23 +47,36 @@ func _process(delta: float) -> void:
 			var item : Item = grabbable_items.pop_back()
 			item.diselect()
 			item_collected.emit(item)
+	
+	if Input.is_action_just_pressed("shoot") and not weapon_color.is_empty():
+		spawn_bullet(get_global_mouse_position(), weapon_color)
+	elif Input.is_action_just_pressed("shoot_secondary") and not second_weapon_color.is_empty():
+		spawn_bullet(get_global_mouse_position(), second_weapon_color)
+
+func spawn_bullet(target: Vector2, color: String) -> void:
+		var bullet : Bullet = bullet_scene.instantiate()
+		bullet.global_position = global_position
+		bullet.bullet_owner = hitbox
+		bullet.target = target
+		bullet.color_code = color
+		get_parent().add_child(bullet)
 
 func spriteParam(value, property = "clr") -> void:
 	$SpriteBouncer2D.material.set_shader_parameter(property, value)
 
 func get_weapon(weapon: ItemData) -> String:
 	if not weapon:
-		return 'b'
+		return ""
 	var weapon_prop : WeaponItemProperty = weapon.get_property("weapon")
 	return weapon_prop.color
 
 func on_weapon_change(weapon: ItemData) -> void:
-	item_color = get_weapon(weapon)
-	var new_clr = {"r" : Vector3(1., 0., 0.), "g" : Vector3(0., 1., 0.), "b" : Vector3(0., 0.5, 1.)}[item_color]
-	create_tween().tween_method(spriteParam, sprite_clr, new_clr, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	sprite_clr = new_clr
-
-
+	weapon_color = get_weapon(weapon)
+	var new_clr : Vector3 = base_color
+	if weapon_color:
+		new_clr = {"r" : Vector3(1., 0., 0.), "g" : Vector3(0., 1., 0.), "b" : Vector3(0., 0.5, 1.)}[weapon_color]
+	create_tween().tween_method(spriteParam, current_color, new_clr, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	current_color = new_clr
 func on_side_weapon_change(weapon: ItemData):
 	second_weapon_color = get_weapon(weapon)
 
@@ -102,7 +121,7 @@ func take_damage(amount: int) -> void:
 	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.4).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 	var shake_offset = Vector2(randf_range(-5, 5), randf_range(-5, 5))
 	global_position += shake_offset
-	
+	print("Player took damage: ", current_health)
 	if current_health <= 0:
 		die()
 

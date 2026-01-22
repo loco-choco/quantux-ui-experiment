@@ -1,41 +1,39 @@
-extends Node2D
+class_name Enemy extends Node2D
 
-var player
-var clrCode
-var clrRef : Vector3
-@export var inventory : Inventory
-@export var follow_speed : float = 80.
-@onready var hp := 3
-signal died
+signal died(enemy: Enemy)
 signal wrong_color
 
+@onready var hitbox : Area2D = $%Hitbox
+
+@export var target : Player
+
+@export var follow_speed : float = 80.
+@export var color_code : String = 'r'
+@export var hp : float = 100
+@export var damage_per_hit : int = 10
+var time_since_last_hit : float = 0
+@export var time_per_hit : float = 4
+
+var color : Vector3
+
 func _ready() -> void:
-	player = $"../Player"
-	var clrDice = randi() % 3
-	clrCode = ['r', 'g', 'b'][clrDice]
-	clrRef = [Vector3(1., 0., 0.), Vector3(0., 1., 0.), Vector3(0., 0.5, 1.)][clrDice]
-	$Sprite2D.material.set_shader_parameter("clr", clrRef)
-	died.connect(get_parent().killed_enemy)
-	wrong_color.connect(get_parent().wrong_color_popup)
-	follow_speed = randf_range(60., 100.)
+	color = {'r': Vector3(1., 0., 0.), 'g': Vector3(0., 1., 0.), 'b': Vector3(0., 0.5, 1.)}[color_code]
+	$Sprite2D.material.set_shader_parameter("clr", color)
 	#$Sprite2D.material.set_shader_parameter("clr", Vector3(1., 0., 0.))
 
 func _process(delta: float) -> void:
-	var slowed_delta = delta
-	if Input.is_action_just_pressed("hud_toggle_quick_inv"):
-		$BulletTime.start()
-	if not Input.is_action_pressed("hud_toggle_quick_inv"):
-		$BulletTime.stop()
+	if is_instance_valid(target) and hp > 0:
+		look_at(target.global_position)
+		var speed : Vector2 = follow_speed * (target.global_position - global_position).normalized()
+		if hitbox.overlaps_area(target.hitbox):
+			speed = Vector2.ZERO # We reached the player, we can stop moving
+			if time_since_last_hit >= time_per_hit:
+				target.take_damage(damage_per_hit)
+				time_since_last_hit = 0
+		global_position += speed * delta
 	
-	slowed_delta *= max(0.01, 1. - $BulletTime.time_left / $BulletTime.wait_time)
-	
-	if inventory:
-		slowed_delta *= float(int(not inventory.visible))
-	
-	if is_instance_valid(player) and hp > 0:
-		look_at(player.global_position)
-		global_position += follow_speed * (player.global_position - global_position).normalized() * slowed_delta
-		
+	time_since_last_hit = time_since_last_hit + delta if time_since_last_hit < time_per_hit else time_since_last_hit
+	# On death animation
 	if scale.x < 0.00001:
 		queue_free()
 
@@ -43,7 +41,6 @@ func spriteFlash(value : Vector3) -> void:
 	$Sprite2D.material.set_shader_parameter("clr", value)
 
 func trigger_death(killed_by_player: bool) -> void:
-	hp = 0
 	create_tween().tween_property(self, "scale", Vector2(0., 0.), 0.8).set_trans(Tween.TRANS_BACK)
 	if killed_by_player:
 		$Label.visible = true
@@ -53,39 +50,11 @@ func trigger_death(killed_by_player: bool) -> void:
 		$Label.add_theme_color_override("font_color", Color(1, 1, 1, 1))
 		create_tween().tween_property($Label, "global_position", $Label.global_position - Vector2(0., 50.), 0.5)
 		create_tween().tween_property($Label, "theme_override_colors/font_color", Color(1., 1., 1., 0.), 0.5)
-		died.emit(self)
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	if not area.get_parent().visible: return
-	var target = area
-	if not target.has_method("take_damage") and target.get_parent().has_method("take_damage"):
-		target = target.get_parent()
-		
-	if target.has_method("take_damage"):
-		target.take_damage(1)
-		trigger_death(false)
+func take_damage(damage: float) -> void:
+	if hp <= 0:
 		return
-
-
-	var recoil_dir = Vector2.ZERO
-	if is_instance_valid(player):
-		recoil_dir = (player.global_position - global_position).normalized()
-	
-	var new_pos = global_position - 30. * recoil_dir
-	
-	
-	if area.get_parent().clrCode != clrCode:
-		if not area.get_parent().is_big:
-			area.get_parent().visible = false
-		wrong_color.emit(global_position + Vector2(60, -30))
-		return
-	create_tween().tween_property(self, "global_position", new_pos, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	create_tween().tween_method(spriteFlash, Vector3(1., 1., 1.), clrRef, 0.32).set_trans(Tween.TRANS_QUAD)
-	
-	if not area.get_parent().is_big:
-		area.get_parent().visible = false
-		hp -= 1
-	else:
-		hp = 0
-	if hp == 0:
+	hp = hp - damage
+	if hp <= 0:
 		trigger_death(true)
+		died.emit(self)
