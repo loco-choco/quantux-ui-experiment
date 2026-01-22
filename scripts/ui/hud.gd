@@ -6,12 +6,14 @@ signal item_dropped(item: Item)
 signal item_returned(item: Item)
 
 @onready var inventory : Inventory = $%Inventory
+@onready var heath_bar : ProgressBar = $%HealthBar
 #@onready var quick_inv : RadialInventory = $%QuickInventory
 
 @export var player : Player
 
 func _ready() -> void:
 	inventory.hide_ui()
+	player.health_changed.connect(_on_player_health_change)
 	#quick_inv.hide()
 	#quick_inv.menu_closed.connect(_on_quick_inv_closed)
 	InputMode.change_mode(InputMode.Modes.PLAYER)
@@ -45,6 +47,9 @@ func _process(_delta: float) -> void:
 	#quick_inv.hide()
 	
 
+func _on_player_health_change(value: float) -> void:
+	heath_bar.value = value
+	
 func _on_player_item_collected(item: Item) -> void:
 	inventory.add_item(item)
 

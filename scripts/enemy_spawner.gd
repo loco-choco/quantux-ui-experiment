@@ -15,7 +15,6 @@ signal last_wave_completed()
 
 var current_alive_enemies : Array[Enemy]
 func _ready() -> void:
-	spawn_wave()
 	next_wave_timer.timeout.connect(spawn_wave)
 
 func spawn_wave() -> void:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://dy7fc8q4jmtgw"]
 
-[ext_resource type="Script" uid="uid://d0lfe13c8lca8" path="res://scripts/main.gd" id="1_jsaaq"]
+[ext_resource type="Script" uid="uid://d0lfe13c8lca8" path="res://scripts/main.old.gd" id="1_jsaaq"]
 [ext_resource type="PackedScene" uid="uid://bnq00287k1il2" path="res://scenes/enemy.tscn" id="2_qx2a2"]
 [ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://scripts/item/item_data.gd" id="3_ceqrr"]
 [ext_resource type="Resource" uid="uid://6fm4hxsiuksq" path="res://resources/items/weapons/weapon_red.tres" id="4_cv7b1"]

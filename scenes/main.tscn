@@ -1,0 +1,165 @@
+[gd_scene load_steps=5 format=3 uid="uid://dg2eoqojt8v1"]
+
+[ext_resource type="Script" uid="uid://dqcm57s62snqt" path="res://scenes/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://ct5lh45t375b1" path="res://scenes/world.tscn" id="2_0wfyh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tefeu"]
+font_size = 12
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tefeu"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_o5qli")
+regular_world = ExtResource("2_0wfyh")
+metadata/_edit_vertical_guides_ = [971.0, -288.0, 1027.0]
+metadata/_edit_horizontal_guides_ = [586.0, -107.0]
+
+[node name="RoundSumary" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="RoundSumary"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="RoundSumary/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="RoundSumary/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RoundSumary/PanelContainer/MarginContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="RoundSumary/PanelContainer/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 200
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RoundSumary/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="GameOver" type="Label" parent="RoundSumary/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "You died!
+Game Over!"
+horizontal_alignment = 1
+
+[node name="GameWon" type="VBoxContainer" parent="RoundSumary/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TextAbove" type="Label" parent="RoundSumary/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/GameWon"]
+layout_mode = 2
+text = "You won with"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="RoundSumary/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/GameWon"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100"
+horizontal_alignment = 1
+
+[node name="TextBellow" type="Label" parent="RoundSumary/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/GameWon"]
+layout_mode = 2
+text = "points!"
+horizontal_alignment = 1
+
+[node name="Return" type="Button" parent="RoundSumary/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Return to Menu"
+
+[node name="MainMenu" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+
+[node name="MainMenu" type="PanelContainer" parent="MainMenu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/MainMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MainMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_right = 150
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Quant UX Inventory Experiement"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "This is a game for the research project from the class Quant UX ( HSS_0EL42_TP) from Telecom Paris. In it, the user (you) is tasked to play the game as you seem fit. Metrics will be colected during the gameplay, as described in the document linked bellow. If you agree to share it for the research project, enable the data colection option bellow, otherwise it won't be stored."
+label_settings = SubResource("LabelSettings_tefeu")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+theme_override_styles/separator = SubResource("StyleBoxEmpty_tefeu")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 200
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="EnableDataCollection" type="CheckButton" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Enable Data Collection"
+
+[node name="DataCollectionDocument" type="Button" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Open Data Collection Document"
+
+[node name="PrePlayingQuestionaire" type="Button" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Open Pre Playing Questionaire"
+
+[node name="StartTutorial" type="Button" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start Tutorial"
+
+[node name="StartGame" type="Button" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start Game"
+
+[node name="PrePlayingQuestionaire2" type="Button" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Open Post Playing Questionaire"
+
+[node name="ExportData" type="Button" parent="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Export Collected Data"
+
+[connection signal="pressed" from="RoundSumary/PanelContainer/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/Return" to="." method="_on_return_pressed"]
+[connection signal="toggled" from="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EnableDataCollection" to="." method="_on_enable_data_collection_toggled"]
+[connection signal="pressed" from="MainMenu/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]

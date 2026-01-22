@@ -4,11 +4,11 @@ class_name Player extends Node2D
 
 signal item_collected(item_data: Item)
 signal player_died
-signal health_changed(new_value)
+signal health_changed(new_value: float)
 
 @export var speed = 200
-@export var max_health = 100
-var current_health
+@export var max_health : float = 100
+var current_health : float
 
 var grabbable_items: Array[Item] = []
 @export var dropped_item_offset_radius : float = 25

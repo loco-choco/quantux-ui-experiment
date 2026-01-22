@@ -27,6 +27,7 @@ metadata/_custom_type_script = "uid://b2gw0thngrdl3"
 [node name="World" type="Node2D"]
 
 [node name="RoundLogic" type="Node" parent="." node_paths=PackedStringArray("player", "hud", "wave_logic")]
+unique_name_in_owner = true
 script = ExtResource("1_i7141")
 player = NodePath("../Player")
 hud = NodePath("../HUD")
@@ -35,6 +36,7 @@ wave_logic = NodePath("../EnemyWaveLogic")
 [node name="Map" parent="." instance=ExtResource("1_4wyf3")]
 
 [node name="EnemyWaveLogic" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+unique_name_in_owner = true
 script = ExtResource("4_k0juu")
 enemy_scene = ExtResource("5_71j4m")
 enemy_waves = Array[ExtResource("6_qfnet")]([SubResource("Resource_qfnet"), SubResource("Resource_i7141")])
@@ -46,6 +48,7 @@ metadata/_custom_type_script = "uid://cnwnruwhvc7jc"
 unique_name_in_owner = true
 wait_time = 10.0
 one_shot = true
+autostart = true
 
 [node name="Player" parent="." instance=ExtResource("1_rwgxs")]
 unique_name_in_owner = true
@@ -56,7 +59,8 @@ position = Vector2(1, 0)
 position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 
-[node name="HUD" parent="." instance=ExtResource("2_4wyf3")]
+[node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_4wyf3")]
+player = NodePath("../Player")
 
 [connection signal="item_collected" from="Player" to="HUD" method="_on_player_item_collected"]
 [connection signal="item_dropped" from="HUD" to="Player" method="_on_inventory_item_dropped"]
