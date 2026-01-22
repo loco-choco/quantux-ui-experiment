@@ -5,9 +5,10 @@ var random_user_id : String
 
 @export var tutorial_world : PackedScene
 @export var regular_world : PackedScene
-var current_world : Node
+var current_world : RoundWorld
 
 var collect_data : bool
+var collected_round_data : Array[RoundData] = []
 
 @onready var main_menu : CanvasLayer = $%MainMenu
 
@@ -30,15 +31,22 @@ func generate_ruid() -> String:
 
 func go_to_round_world(world : PackedScene) -> void:
 	main_menu.hide()
-	current_world = world.instantiate()
+	current_world = world.instantiate() as RoundWorld
 	get_tree().root.add_child(current_world)
-	(current_world.find_child("RoundLogic") as RoundLogic).round_over.connect(_on_world_finish)
+	current_world.round_logic.round_over.connect(_on_world_finish)
 
 func _on_world_finish(points: int) -> void:
 	return_from_world(points)
 	current_world.queue_free()
 
 func return_from_world(points: int) -> void:	
+	if collect_data:
+		var data : RoundData = RoundData.new()
+		data.bag_frames = current_world.round_data_collection.bag_frames
+		data.inventory_events = current_world.round_data_collection.inventory_events
+		data.mouse_frames = current_world.round_data_collection.mouse_frames
+		data.wave_frames = current_world.round_data_collection.wave_frames
+		collected_round_data.append(data)
 	round_sumary.show()
 	if points >= 0:
 		game_over.hide()
@@ -51,7 +59,7 @@ func return_from_world(points: int) -> void:
 func _on_enable_data_collection_toggled(toggled_on: bool) -> void:
 	collect_data = toggled_on
 	if not collect_data:
-		pass #TODO DELETE ALL CURRENT COLECTED DATA
+		collected_round_data.clear()
 
 
 func _on_start_game_pressed() -> void:

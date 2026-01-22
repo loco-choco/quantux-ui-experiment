@@ -1,6 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://ct5lh45t375b1"]
+[gd_scene load_steps=12 format=3 uid="uid://ct5lh45t375b1"]
 
+[ext_resource type="Script" uid="uid://bahnyrvbiy4xf" path="res://scripts/round_data_collection.gd" id="1_4mrxx"]
 [ext_resource type="PackedScene" uid="uid://dvkqs1ejdovsf" path="res://scenes/map.tscn" id="1_4wyf3"]
+[ext_resource type="Script" uid="uid://c2itm3ginmwxf" path="res://scripts/round_world.gd" id="1_7r4gi"]
 [ext_resource type="Script" uid="uid://ck8nv36dwfxhk" path="res://scripts/round_logic.gd" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://cg55uk4s6qv0g" path="res://scenes/player.tscn" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://pysiho2iiyxp" path="res://scenes/hud.tscn" id="2_4wyf3"]
@@ -25,6 +27,22 @@ enemy_speed_mult = 1.5
 metadata/_custom_type_script = "uid://b2gw0thngrdl3"
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_7r4gi")
+
+[node name="RoundDataCollection" type="Node" parent="." node_paths=PackedStringArray("inventory", "bag_inventory", "enemy_wave_logic", "player")]
+unique_name_in_owner = true
+script = ExtResource("1_4mrxx")
+inventory = NodePath("../HUD/Inventory")
+bag_inventory = NodePath("../HUD/Inventory/PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer/BagBg/Bag")
+enemy_wave_logic = NodePath("../EnemyWaveLogic")
+player = NodePath("../Player")
+
+[node name="MouseFramingTimer" type="Timer" parent="RoundDataCollection"]
+wait_time = 0.1
+autostart = true
+
+[node name="EnemyWaveFramingTimer" type="Timer" parent="RoundDataCollection"]
+autostart = true
 
 [node name="RoundLogic" type="Node" parent="." node_paths=PackedStringArray("player", "hud", "wave_logic")]
 unique_name_in_owner = true
@@ -62,8 +80,13 @@ position_smoothing_speed = 20.0
 [node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_4wyf3")]
 player = NodePath("../Player")
 
+[connection signal="timeout" from="RoundDataCollection/MouseFramingTimer" to="RoundDataCollection" method="get_current_mouse_pos"]
+[connection signal="timeout" from="RoundDataCollection/EnemyWaveFramingTimer" to="RoundDataCollection" method="get_current_wave_status"]
 [connection signal="item_collected" from="Player" to="HUD" method="_on_player_item_collected"]
 [connection signal="item_dropped" from="HUD" to="Player" method="_on_inventory_item_dropped"]
 [connection signal="item_returned" from="HUD" to="Player" method="_on_inventory_item_returned"]
 [connection signal="side_weapon_slot_update" from="HUD" to="Player" method="on_side_weapon_change"]
 [connection signal="weapon_slot_update" from="HUD" to="Player" method="on_weapon_change"]
+
+[editable path="HUD"]
+[editable path="HUD/Inventory"]
