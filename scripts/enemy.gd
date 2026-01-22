@@ -23,7 +23,7 @@ func _ready() -> void:
 	#$Sprite2D.material.set_shader_parameter("clr", Vector3(1., 0., 0.))
 
 func _process(delta: float) -> void:
-	if is_instance_valid(target) and hp > 0:
+	if hp > 0 and is_instance_valid(target) and target.current_health > 0:
 		look_at(target.global_position)
 		var speed : Vector2 = follow_speed * (target.global_position - global_position).normalized()
 		if hitbox.overlaps_area(target.hitbox):

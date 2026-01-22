@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://ct5lh45t375b1"]
+[gd_scene load_steps=10 format=3 uid="uid://ct5lh45t375b1"]
 
 [ext_resource type="PackedScene" uid="uid://dvkqs1ejdovsf" path="res://scenes/map.tscn" id="1_4wyf3"]
+[ext_resource type="Script" uid="uid://ck8nv36dwfxhk" path="res://scripts/round_logic.gd" id="1_i7141"]
 [ext_resource type="PackedScene" uid="uid://cg55uk4s6qv0g" path="res://scenes/player.tscn" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://pysiho2iiyxp" path="res://scenes/hud.tscn" id="2_4wyf3"]
 [ext_resource type="Script" uid="uid://cnwnruwhvc7jc" path="res://scripts/enemy_spawner.gd" id="4_k0juu"]
@@ -10,23 +11,44 @@
 [sub_resource type="Resource" id="Resource_qfnet"]
 script = ExtResource("6_qfnet")
 possible_spawns = Array[String](["r"])
-amount_of_enemies = 100
-enemy_speed_mult = 4.0
+amount_of_enemies = 1
+all_unique = true
+enemy_speed_mult = 1.0
+metadata/_custom_type_script = "uid://b2gw0thngrdl3"
+
+[sub_resource type="Resource" id="Resource_i7141"]
+script = ExtResource("6_qfnet")
+possible_spawns = Array[String](["r", "b"])
+amount_of_enemies = 2
+all_unique = true
+enemy_speed_mult = 1.5
 metadata/_custom_type_script = "uid://b2gw0thngrdl3"
 
 [node name="World" type="Node2D"]
+
+[node name="RoundLogic" type="Node" parent="." node_paths=PackedStringArray("player", "hud", "wave_logic")]
+script = ExtResource("1_i7141")
+player = NodePath("../Player")
+hud = NodePath("../HUD")
+wave_logic = NodePath("../EnemyWaveLogic")
 
 [node name="Map" parent="." instance=ExtResource("1_4wyf3")]
 
 [node name="EnemyWaveLogic" type="Node2D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("4_k0juu")
 enemy_scene = ExtResource("5_71j4m")
-enemy_waves = Array[ExtResource("6_qfnet")]([SubResource("Resource_qfnet")])
+enemy_waves = Array[ExtResource("6_qfnet")]([SubResource("Resource_qfnet"), SubResource("Resource_i7141")])
 player = NodePath("../Player")
 spawn_radius = 1000.0
 metadata/_custom_type_script = "uid://cnwnruwhvc7jc"
 
+[node name="NextWaveTimer" type="Timer" parent="EnemyWaveLogic"]
+unique_name_in_owner = true
+wait_time = 10.0
+one_shot = true
+
 [node name="Player" parent="." instance=ExtResource("1_rwgxs")]
+unique_name_in_owner = true
 position = Vector2(457, 240)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

@@ -20,6 +20,8 @@ func _ready() -> void:
 	#quick_inv.get_node("MarginContainer/AspectRatioContainer/PanelContainer/Sprite").material.set_shader_parameter(property, value)
 	
 func _process(_delta: float) -> void:
+	if InputMode.get_mode() == InputMode.Modes.MENU:
+		return
 	#if quick_inv.visible:
 		#spriteParam(get_viewport().get_mouse_position() - quick_inv.get_node("MarginContainer/AspectRatioContainer/PanelContainer").global_position - Vector2(120., 120.), "mousePos")
 	if Input.is_action_just_pressed("hud_toggle_inventory"):
