@@ -45,7 +45,6 @@ func _process(_delta: float) -> void:
 
 #func _on_quick_inv_closed() -> void:
 	#quick_inv.hide()
-	
 
 func _on_player_health_change(value: float) -> void:
 	create_tween().tween_method((func(v: float): heath_bar.value = v),\

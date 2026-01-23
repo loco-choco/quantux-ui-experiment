@@ -118,7 +118,6 @@ func set_item(item: InventoryItem, pos: Vector2i = Vector2.ZERO) -> bool:
 			s.item_in_slot = item
 			s.item_slot_pos = slots_used[s]
 		item_slot_update.emit(item)
-		#LogInventory.log_inventory_state("SET_ITEM: %s at pos %s" % [item.data.name, pos])
 	return can_set
 
 func _set_item_recursive(item: InventoryItem, x: int, y: int, tested: Dictionary[InventorySlot, Vector2i]) -> bool:
@@ -162,10 +161,8 @@ func _set_item_recursive(item: InventoryItem, x: int, y: int, tested: Dictionary
 func clear_item() -> void:
 	if item_in_slot == null:
 		return
-	var item_name = item_in_slot.data.name
 	_clear_item_recursive(item_in_slot)
 	item_slot_update.emit(null)
-	#LogInventory.log_inventory_state("CLEAR_ITEM: %s" % item_name)
 	
 func _clear_item_recursive(item: InventoryItem) -> void:
 	if item_in_slot != item:
