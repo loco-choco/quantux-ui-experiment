@@ -2,23 +2,30 @@ class_name RoundDataCollection extends Node
 
 @export var inventory : Inventory
 @export var bag_inventory : ItemGrid
+@export var weapon_slot : InventorySlot
+@export var side_weapon_slot : InventorySlot
 @export var enemy_wave_logic : EnemyWaveLogic
 @export var player : Player
 
-var inventory_events : Dictionary[String, RoundData.InventoryEvent] = {}
-var bag_frames : Dictionary[String, BagFrame] = {}
-var wave_frames : Dictionary[String, WaveFrame] = {}
-var mouse_frames : Dictionary[String, Vector2] = {}
+var round_data : RoundData
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	round_data = RoundData.new()
+	weapon_slot.item_slot_update.connect(func(item: InventoryItem) : save_slot_update(round_data.weapon_slot_frames, item))
+	side_weapon_slot.item_slot_update.connect(func(item: InventoryItem) : save_slot_update(round_data.side_weapon_slot_frames, item))
 	bag_inventory.items_update.connect(_on_bag_items_update)
 	inventory.visibility_changed.connect(get_inventory_event)
 	
 func get_inventory_event() -> void:
 	var now: String = Time.get_datetime_string_from_system(true)
-	inventory_events[now] = RoundData.InventoryEvent.OPEN if inventory.visible\
+	round_data.inventory_events[now] = RoundData.InventoryEvent.OPEN if inventory.visible\
 					   else RoundData.InventoryEvent.CLOSE
+
+func save_slot_update(dict : Dictionary[String, SlotFrame], item: InventoryItem) -> void:
+	var now: String = Time.get_datetime_string_from_system(true)
+	var slot_frame : SlotFrame = SlotFrame.new()
+	slot_frame.item_name = item.data.item.name if item else "NONE"
+	dict[now] = slot_frame
 
 func _on_bag_items_update(items: Array[InventoryItem]) -> void:
 	var total_value : int = 0
@@ -43,7 +50,7 @@ func get_current_bag_frame(value : int) -> void:
 			bag_frame.frame[Vector2i(x,y)] = slot_frame
 		current_slot = current_slot + 1
 	bag_frame.current_value = value
-	bag_frames[now] = bag_frame
+	round_data.bag_frames[now] = bag_frame
 
 func get_current_wave_status() -> void:
 	var now: String = Time.get_datetime_string_from_system(true)
@@ -59,8 +66,8 @@ func get_current_wave_status() -> void:
 				closest = dist
 	frame.amount_of_enemies = amount
 	frame.closest_distance_to_player = closest
-	wave_frames[now] = frame
+	round_data.wave_frames[now] = frame
 	
 func get_current_mouse_pos() -> void:
 	var now: String = Time.get_datetime_string_from_system(true)
-	mouse_frames[now] = get_viewport().get_mouse_position()
+	round_data.mouse_frames[now] = get_viewport().get_mouse_position()

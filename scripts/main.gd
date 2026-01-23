@@ -41,12 +41,7 @@ func _on_world_finish(points: int) -> void:
 
 func return_from_world(points: int) -> void:	
 	if collect_data:
-		var data : RoundData = RoundData.new()
-		data.bag_frames = current_world.round_data_collection.bag_frames
-		data.inventory_events = current_world.round_data_collection.inventory_events
-		data.mouse_frames = current_world.round_data_collection.mouse_frames
-		data.wave_frames = current_world.round_data_collection.wave_frames
-		collected_round_data.append(data)
+		collected_round_data.append(current_world.round_data_collection.round_data)
 	round_sumary.show()
 	if points >= 0:
 		game_over.hide()
