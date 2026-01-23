@@ -1,4 +1,25 @@
-[gd_scene format=3 uid="uid://d0x0cwmmnybk3"]
+[gd_scene load_steps=7 format=3 uid="uid://d0x0cwmmnybk3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uxwsg"]
+font_size = 12
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_uxwsg"]
+color = Color(0.099985994, 0.099985994, 0.099985994, 1)
+grow_begin = 30.0
+grow_end = 30.0
+thickness = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_affyc"]
+color = Color(0.3741394, 0.37413922, 0.37413922, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_affyc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uxwsg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n1i5c"]
 
 [node name="PreGameQuestionaire" type="PanelContainer"]
 anchors_preset = 15
@@ -7,54 +28,200 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/CenterContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/ScrollContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/CenterContainer/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 200
-theme_override_constants/margin_right = 200
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/ScrollContainer/VBoxContainer/MarginContainer"]
+[node name="Questionaire" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="GameOver" type="Label" parent="MarginContainer/CenterContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
 layout_mode = 2
-text = "You died!
-Game Over!"
+text = "Pre Game Questionaire"
 horizontal_alignment = 1
 
-[node name="GameWon" type="VBoxContainer" parent="MarginContainer/CenterContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Description" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
+visible = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "This questionaire will ask you about your"
+label_settings = SubResource("LabelSettings_uxwsg")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxLine_uxwsg")
+
+[node name="GameHabits" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
 layout_mode = 2
 
-[node name="TextAbove" type="Label" parent="MarginContainer/CenterContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/GameWon"]
+[node name="Title" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits"]
 layout_mode = 2
-text = "You won with"
+text = "Game Habits"
 horizontal_alignment = 1
 
-[node name="Score" type="Label" parent="MarginContainer/CenterContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/GameWon"]
+[node name="HSeparator2" type="HSeparator" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits"]
 layout_mode = 2
-text = "100"
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxLine_affyc")
+
+[node name="Question1" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits"]
+layout_mode = 2
+text = "1. How regularly do you play video games?"
+
+[node name="PlayingFrequency" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits"]
+layout_mode = 2
+
+[node name="Start" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/PlayingFrequency"]
+layout_mode = 2
+text = "            Never"
+horizontal_alignment = 2
+
+[node name="GamingFrequency" type="HSlider" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/PlayingFrequency"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_affyc")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_uxwsg")
+min_value = -1.0
+max_value = 1.0
+step = 0.5
+tick_count = 5
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="End" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/PlayingFrequency"]
+layout_mode = 2
+text = "Every Week"
+
+[node name="Question2" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits"]
+layout_mode = 2
+text = "2. Which genre of games do you mainly play?"
+
+[node name="GameGenres" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits"]
+layout_mode = 2
+
+[node name="Action" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres"]
+layout_mode = 2
+text = "Action (Platformers, shooters, fighting, ...)"
+
+[node name="Puzzle" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres"]
+layout_mode = 2
+text = "Puzzle"
+
+[node name="Role-playing" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres"]
+layout_mode = 2
+text = "Role-playing"
+
+[node name="Strategy" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres"]
+layout_mode = 2
+text = "Strategy"
+
+[node name="Sports" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres"]
+layout_mode = 2
+text = "Sports"
+
+[node name="MMO" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres"]
+layout_mode = 2
+text = "MMO"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres"]
+layout_mode = 2
+
+[node name="Other" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres/HBoxContainer"]
+layout_mode = 2
+text = "Other"
+
+[node name="TextEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Write here other game genres that you also play."
+
+[node name="Question3" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits"]
+layout_mode = 2
+text = "3. How used are you with games that use an inventory system or simmilar?"
+
+[node name="InventoryUsed" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
+layout_mode = 2
+
+[node name="Start" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryUsed"]
+layout_mode = 2
+text = "I never 
+see them"
 horizontal_alignment = 1
 
-[node name="TextBellow" type="Label" parent="MarginContainer/CenterContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/GameWon"]
+[node name="InventoryFrequency" type="HSlider" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryUsed"]
 layout_mode = 2
-text = "points!"
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/grabber_area = SubResource("StyleBoxEmpty_affyc")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_uxwsg")
+min_value = -1.0
+max_value = 1.0
+step = 0.5
+tick_count = 5
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="End" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryUsed"]
+layout_mode = 2
+text = "Most games I play
+have them"
 horizontal_alignment = 1
 
-[node name="Return" type="Button" parent="MarginContainer/CenterContainer/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Question4" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
 layout_mode = 2
-text = "Return to Menu"
+text = "4. What types of inventory have you mainly interacted with?"
+
+[node name="InventoryTypes" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
+layout_mode = 2
+
+[node name="Grid" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryTypes"]
+layout_mode = 2
+text = "Grid (as in games like Minecraft, Arc Raiders, Hytale, Apex Legends)"
+
+[node name="List" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryTypes"]
+layout_mode = 2
+text = "List (as in games like Undertale, Deltarune, Project Zomboid) "
+
+[node name="VolumetricGrid" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryTypes"]
+layout_mode = 2
+text = "Volumetric Grid (as in games like Resident Evil, Dredge)"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryTypes"]
+layout_mode = 2
+
+[node name="Other" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryTypes/HBoxContainer"]
+layout_mode = 2
+text = "Other"
+
+[node name="TextEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryTypes/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Write here other inventory types you have encountered."
+
+[node name="HSeparator3" type="HSeparator" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
+layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_n1i5c")
+
+[node name="Finish" type="Button" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
+layout_mode = 2
+text = "Finish"
+
+[node name="HSeparator2" type="HSeparator" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
+layout_mode = 2
+theme_override_constants/separation = 100
+theme_override_styles/separator = SubResource("StyleBoxEmpty_n1i5c")
