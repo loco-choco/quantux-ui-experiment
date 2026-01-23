@@ -22,6 +22,7 @@ var collected_round_data : Array[RoundData] = []
 func _ready() -> void:
 	collect_data = false
 	random_user_id = generate_ruid()
+	main_menu.show()
 	tutorial.hide()
 	round_sumary.hide()
 	pre_game_questionnaire.hide()
@@ -49,10 +50,10 @@ func _on_finished_pregame_quest() -> void:
 	pre_game_questionnaire.hide()
 
 func _on_world_finish(points: int) -> void:
+	get_tree().paused = true
 	return_from_world(points)
-	current_world.queue_free()
 
-func return_from_world(points: int) -> void:	
+func return_from_world(points: int) -> void:
 	if collect_data:
 		collected_round_data.append(current_world.round_data_collection.round_data)
 	round_sumary.show()
@@ -70,11 +71,13 @@ func _on_enable_data_collection_toggled(toggled_on: bool) -> void:
 		collected_round_data.clear()
 
 func _on_start_game_pressed() -> void:
+	get_tree().paused = false
 	go_to_round_world(regular_world)
 
 func _on_round_summary_return_pressed() -> void:
 	main_menu.show()
 	round_sumary.hide()
+	current_world.queue_free()
 	
 func _on_tutorial_pressed() -> void:
 	main_menu.hide()

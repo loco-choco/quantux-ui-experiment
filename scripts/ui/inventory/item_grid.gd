@@ -10,10 +10,10 @@ signal items_update(items: Array[InventoryItem])
 func _ready() -> void:
 	create_slots()
 
-func set_inventory_owner(owner: Inventory) -> void:
-	inventory_owner = owner
+func set_inventory_owner(inv_owner: Inventory) -> void:
+	inventory_owner = inv_owner
 	for s : InventorySlot in get_children():
-		s.inventory_owner = owner
+		s.inventory_owner = inv_owner
 
 func create_slots() -> void:
 	var slots: Array[InventorySlot] = []

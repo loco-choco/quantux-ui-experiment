@@ -20,7 +20,7 @@ func _ready() -> void:
 	enemy_wave_logic.wave_completed.connect(func(wave : int): _on_wave_state_change(wave, "COMPLETED"))
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouse: # Ignore mouse inputs, we collect it elsewhere
+	if event is InputEventMouseMotion: # Ignore mouse motion, we collect it elsewhere
 		return
 	var now: String = Time.get_datetime_string_from_system(true)
 	var input_frame : InputFrame = InputFrame.new()
