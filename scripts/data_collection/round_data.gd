@@ -2,17 +2,28 @@ class_name RoundData extends Resource
 
 enum InventoryEvent {OPEN, CLOSE}
 
+## Input related metrics
+@export var input_events : Array[InputFrame] = []
+@export var mouse_frames : Dictionary[String, Vector2] = {}
+
+## Inventory related metrics
 @export var inventory_events : Dictionary[String, InventoryEvent] = {}
 @export var bag_frames : Dictionary[String, BagFrame] = {}
 @export var weapon_slot_frames : Dictionary[String, SlotFrame] = {}
 @export var side_weapon_slot_frames : Dictionary[String, SlotFrame] = {}
-@export var wave_frames : Dictionary[String, WaveFrame] = {}
-@export var mouse_frames : Dictionary[String, Vector2] = {}
+
+## Player status related metrics
 @export var health_frames : Dictionary[String, int] = {}
+
+## Round state related metrics
+@export var wave_frames : Dictionary[String, WaveFrame] = {}
+@export var enemies_frames : Dictionary[String, EnemiesFrame] = {}
 
 
 func save_to_zip_archive(zip : ZIPPacker, file_prefix : String = "") -> void:	
+	save_csv_in_zip(zip, _csv_input_events(), file_prefix + "inputs.csv")
 	save_csv_in_zip(zip, _csv_inventory_events(), file_prefix + "inventory.csv")
+	save_csv_in_zip(zip, _csv_enemies_frames(), file_prefix + "enemies.csv")
 	save_csv_in_zip(zip, _csv_wave_frames(), file_prefix + "waves.csv")
 	save_csv_in_zip(zip, _csv_mouse_frames(), file_prefix + "mouse.csv")
 	save_csv_in_zip(zip, _csv_bag_frame_values(), file_prefix + "bag_values.csv")
@@ -29,6 +40,13 @@ func save_csv_in_zip(zip : ZIPPacker, content : String, file_name : String = "cs
 func _to_csv_line(line: PackedStringArray, del : String = ",") -> String:
 	return del.join(line) + "\n"
 
+func _csv_input_events() -> String:
+	var csv : String = ""
+	csv = csv + _to_csv_line(["timestamp", "event"])
+	for frame : InputFrame in input_events:
+		csv = csv + _to_csv_line([frame.timestamp, frame.event_name])
+	return csv
+	
 func _csv_inventory_events() -> String:
 	var csv : String = ""
 	csv = csv + _to_csv_line(["timestamp", "event"])
@@ -39,10 +57,18 @@ func _csv_inventory_events() -> String:
 
 func _csv_wave_frames() -> String:
 	var csv : String = ""
-	csv = csv + _to_csv_line(["timestamp", "amount", "closest_distance"])
+	csv = csv + _to_csv_line(["timestamp", "wave", "status"])
 	for time : String in wave_frames:
 		var wave : WaveFrame = wave_frames[time]
-		csv = csv + _to_csv_line([time, "%d" % [wave.amount_of_enemies], "%.2f" % [wave.closest_distance_to_player]])
+		csv = csv + _to_csv_line([time, "%d" % [wave.wave_index], wave.status])
+	return csv
+
+func _csv_enemies_frames() -> String:
+	var csv : String = ""
+	csv = csv + _to_csv_line(["timestamp", "amount", "closest_distance"])
+	for time : String in enemies_frames:
+		var enemies : EnemiesFrame = enemies_frames[time]
+		csv = csv + _to_csv_line([time, "%d" % [enemies.amount_of_enemies], "%.2f" % [enemies.closest_distance_to_player]])
 	return csv
 
 func _csv_mouse_frames() -> String:

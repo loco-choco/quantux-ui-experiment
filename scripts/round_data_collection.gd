@@ -16,7 +16,18 @@ func _ready() -> void:
 	bag_inventory.items_update.connect(_on_bag_items_update)
 	inventory.visibility_changed.connect(get_inventory_event)
 	player.health_changed.connect(_on_player_health_change)
-	
+	enemy_wave_logic.wave_started.connect(func(wave : int): _on_wave_state_change(wave, "STARTED"))
+	enemy_wave_logic.wave_completed.connect(func(wave : int): _on_wave_state_change(wave, "COMPLETED"))
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouse: # Ignore mouse inputs, we collect it elsewhere
+		return
+	var now: String = Time.get_datetime_string_from_system(true)
+	var input_frame : InputFrame = InputFrame.new()
+	input_frame.timestamp = now
+	input_frame.event_name = event.as_text()
+	round_data.input_events.append(input_frame)
+
 func get_inventory_event() -> void:
 	var now: String = Time.get_datetime_string_from_system(true)
 	round_data.inventory_events[now] = RoundData.InventoryEvent.OPEN if inventory.visible\
@@ -27,6 +38,13 @@ func save_slot_update(dict : Dictionary[String, SlotFrame], item: InventoryItem)
 	var slot_frame : SlotFrame = SlotFrame.new()
 	slot_frame.item_name = item.data.name if item else "NONE"
 	dict[now] = slot_frame
+
+func _on_wave_state_change(wave : int, status : String) -> void:
+	var now: String = Time.get_datetime_string_from_system(true)
+	var wave_frame : WaveFrame = WaveFrame.new()
+	wave_frame.wave_index = wave
+	wave_frame.status = status
+	round_data.wave_frames[now] = wave_frame
 
 func _on_player_health_change(new_value: float) -> void:
 	var now: String = Time.get_datetime_string_from_system(true)
@@ -57,9 +75,9 @@ func get_current_bag_frame(value : int) -> void:
 	bag_frame.current_value = value
 	round_data.bag_frames[now] = bag_frame
 
-func get_current_wave_status() -> void:
+func get_current_enemies_status() -> void:
 	var now: String = Time.get_datetime_string_from_system(true)
-	var frame : WaveFrame = WaveFrame.new()
+	var frame : EnemiesFrame = EnemiesFrame.new()
 	var amount : int = 0
 	var closest : float = INF
 	for c in enemy_wave_logic.get_children():
@@ -71,7 +89,7 @@ func get_current_wave_status() -> void:
 				closest = dist
 	frame.amount_of_enemies = amount
 	frame.closest_distance_to_player = closest
-	round_data.wave_frames[now] = frame
+	round_data.enemies_frames[now] = frame
 	
 func get_current_mouse_pos() -> void:
 	var now: String = Time.get_datetime_string_from_system(true)

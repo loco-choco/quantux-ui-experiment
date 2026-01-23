@@ -15,6 +15,7 @@ script = ExtResource("1_7r4gi")
 
 [node name="RoundDataCollection" type="Node" parent="." node_paths=PackedStringArray("inventory", "bag_inventory", "weapon_slot", "side_weapon_slot", "enemy_wave_logic", "player")]
 unique_name_in_owner = true
+process_mode = 3
 script = ExtResource("1_4mrxx")
 inventory = NodePath("../HUD/Inventory")
 bag_inventory = NodePath("../HUD/Inventory/PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer/BagBg/Bag")
@@ -24,10 +25,12 @@ enemy_wave_logic = NodePath("../EnemyWaveLogic")
 player = NodePath("../Player")
 
 [node name="MouseFramingTimer" type="Timer" parent="RoundDataCollection"]
+process_mode = 1
 wait_time = 0.1
 autostart = true
 
 [node name="EnemyWaveFramingTimer" type="Timer" parent="RoundDataCollection"]
+process_mode = 1
 autostart = true
 
 [node name="RoundLogic" type="Node" parent="." node_paths=PackedStringArray("player", "hud", "wave_logic")]
@@ -68,7 +71,7 @@ process_mode = 3
 player = NodePath("../Player")
 
 [connection signal="timeout" from="RoundDataCollection/MouseFramingTimer" to="RoundDataCollection" method="get_current_mouse_pos"]
-[connection signal="timeout" from="RoundDataCollection/EnemyWaveFramingTimer" to="RoundDataCollection" method="get_current_wave_status"]
+[connection signal="timeout" from="RoundDataCollection/EnemyWaveFramingTimer" to="RoundDataCollection" method="get_current_enemies_status"]
 [connection signal="item_collected" from="Player" to="HUD" method="_on_player_item_collected"]
 [connection signal="item_dropped" from="HUD" to="Player" method="_on_inventory_item_dropped"]
 [connection signal="item_returned" from="HUD" to="Player" method="_on_inventory_item_returned"]

@@ -1,5 +1,6 @@
 class_name EnemyWaveLogic extends Node2D
 
+signal wave_started(wave: int)
 signal wave_completed(wave: int)
 signal last_wave_completed()
 
@@ -33,6 +34,7 @@ func spawn_wave() -> void:
 		current_alive_enemies.append(enemy)
 		enemy.died.connect(_on_enemy_died)
 		add_child(enemy)
+	wave_started.emit(current_wave)
 	print("spawned wave")
 
 func _on_enemy_died(enemy: Enemy) -> void:
