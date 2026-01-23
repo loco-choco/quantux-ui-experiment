@@ -1,4 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0x0cwmmnybk3"]
+[gd_scene load_steps=8 format=3 uid="uid://d0x0cwmmnybk3"]
+
+[ext_resource type="Script" uid="uid://doktijksj4yxc" path="res://scripts/mainmenu/pre_game_questionaire.gd" id="1_affyc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uxwsg"]
 font_size = 12
@@ -21,12 +23,20 @@ thickness = 3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n1i5c"]
 
-[node name="PreGameQuestionaire" type="PanelContainer"]
+[node name="PreGameQuestionnaire" type="PanelContainer" node_paths=PackedStringArray("age_group", "gaming_frequency", "game_genres", "game_genres_other", "inventory_used_frequency", "inventory_types", "inventory_types_other")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_affyc")
+age_group = NodePath("ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation/AgeGroup")
+gaming_frequency = NodePath("ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/PlayingFrequency/GamingFrequency")
+game_genres = NodePath("ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres")
+game_genres_other = NodePath("ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres/TextEdit")
+inventory_used_frequency = NodePath("ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryUsed/InventoryFrequency")
+inventory_types = NodePath("ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryTypes")
+inventory_types_other = NodePath("ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryTypes/TextEdit")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
@@ -47,7 +57,7 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
 layout_mode = 2
-text = "Pre Game Questionaire"
+text = "Pre Game Questionnaire"
 horizontal_alignment = 1
 
 [node name="Description" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
@@ -81,32 +91,21 @@ theme_override_styles/separator = SubResource("StyleBoxLine_affyc")
 layout_mode = 2
 text = "1. What is your age group?"
 
-[node name="AgeGroups" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation"]
+[node name="AgeGroup" type="OptionButton" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation"]
 layout_mode = 2
-
-[node name="less15" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation/AgeGroups"]
-layout_mode = 2
-text = "0 to 15"
-
-[node name="16to19" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation/AgeGroups"]
-layout_mode = 2
-text = "16 to 19"
-
-[node name="20to29" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation/AgeGroups"]
-layout_mode = 2
-text = "20 to 29"
-
-[node name="30to39" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation/AgeGroups"]
-layout_mode = 2
-text = "30 to 39"
-
-[node name="40plus" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation/AgeGroups"]
-layout_mode = 2
-text = "40 or plus"
-
-[node name="dontshare" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation/AgeGroups"]
-layout_mode = 2
-text = "I don't want to share this information"
+item_count = 6
+popup/item_0/text = "Don't share"
+popup/item_0/id = 0
+popup/item_1/text = "0 to 15"
+popup/item_1/id = 1
+popup/item_2/text = "16 to 19"
+popup/item_2/id = 2
+popup/item_3/text = "20 to 29"
+popup/item_3/id = 3
+popup/item_4/text = "30 to 39"
+popup/item_4/id = 4
+popup/item_5/text = "40 or plus"
+popup/item_5/id = 6
 
 [node name="GameHabits" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
 layout_mode = 2
@@ -181,14 +180,8 @@ text = "Sports"
 layout_mode = 2
 text = "MMO"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres"]
-layout_mode = 2
-
-[node name="Other" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres/HBoxContainer"]
-layout_mode = 2
-text = "Other"
-
-[node name="TextEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres/HBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits/GameGenres"]
+custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Write here other game genres that you also play."
@@ -257,14 +250,8 @@ text = "List (as in games like Undertale, Skyrim, Fallout 4, Pokemon, Final Fant
 layout_mode = 2
 text = "Volumetric Grid (as in games like Resident Evil, Dredge)"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryTypes"]
-layout_mode = 2
-
-[node name="Other" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryTypes/HBoxContainer"]
-layout_mode = 2
-text = "Other"
-
-[node name="TextEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryTypes/HBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryTypes"]
+custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Write here other inventory types you have encountered."
@@ -275,6 +262,7 @@ theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_n1i5c")
 
 [node name="Finish" type="Button" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Finish"
 

@@ -78,9 +78,9 @@ text = "Enable Data Collection"
 layout_mode = 2
 text = "Open Data Collection Document"
 
-[node name="PrePlayingQuestionaire" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="PrePlayingQuestionnaire" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Open Pre Playing Questionaire"
+text = "Open Pre Game Questionnaire"
 
 [node name="StartTutorial" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -100,6 +100,7 @@ text = "Export Collected Data"
 
 [node name="RoundSumary" type="PanelContainer" parent="MainMenuCanvas"]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -158,11 +159,12 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Return to Menu"
 
-[node name="PreGameQuestionaire" parent="MainMenuCanvas" instance=ExtResource("3_sugp2")]
+[node name="PreGameQuestionnaire" parent="MainMenuCanvas" instance=ExtResource("3_sugp2")]
 unique_name_in_owner = true
 visible = false
 
 [connection signal="toggled" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EnableDataCollection" to="." method="_on_enable_data_collection_toggled"]
+[connection signal="pressed" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/PrePlayingQuestionnaire" to="." method="_on_start_pregame_quest"]
 [connection signal="pressed" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ExportData" to="." method="_on_export_data_pressed"]
 [connection signal="pressed" from="MainMenuCanvas/RoundSumary/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/Return" to="." method="_on_return_pressed"]

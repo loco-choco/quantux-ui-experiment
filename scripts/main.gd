@@ -11,6 +11,7 @@ var collect_data : bool
 var collected_round_data : Array[RoundData] = []
 
 @onready var main_menu : Control = $%MainMenu
+@onready var pre_game_questionnaire : PreGameQuestionnaire = $%PreGameQuestionnaire
 
 @onready var round_sumary : Control = $%RoundSumary
 @onready var game_over : Label = $%GameOver
@@ -21,6 +22,8 @@ func _ready() -> void:
 	collect_data = false
 	random_user_id = generate_ruid()
 	round_sumary.hide()
+	pre_game_questionnaire.hide()
+	pre_game_questionnaire.finished_questionnaire.connect(_on_finished_pregame_quest)
 	InputMode.change_mode(InputMode.Modes.MENU)
 
 func generate_ruid() -> String:
@@ -34,6 +37,14 @@ func go_to_round_world(world : PackedScene) -> void:
 	current_world = world.instantiate() as RoundWorld
 	get_tree().root.add_child(current_world)
 	current_world.round_logic.round_over.connect(_on_world_finish)
+
+func _on_start_pregame_quest() -> void:
+	main_menu.hide()
+	pre_game_questionnaire.show()
+	
+func _on_finished_pregame_quest() -> void:
+	main_menu.show()
+	pre_game_questionnaire.hide()
 
 func _on_world_finish(points: int) -> void:
 	return_from_world(points)
