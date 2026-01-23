@@ -13,6 +13,8 @@ var is_rotated: bool = false
 @onready var selected: Control = $%Selected
 @onready var held: Control = $%Held
 
+var current_slot: InventorySlot = null
+
 var dimensions: Vector2i:
 	get():
 		return Vector2i(data.dimensions.y, data.dimensions.x) if is_rotated \
@@ -28,17 +30,19 @@ func get_picked_up(pos: Vector2i = Vector2i.ZERO) -> void:
 	show_held()
 	is_picked = true
 	picked_pos = pos
+	current_slot = null
 	z_index = 10
 
 func update_size(rect: Rect2) -> void:
 	global_position = rect.position
 	panel.size = rect.size
 	
-func get_placed(rect: Rect2) -> void:
+func get_placed(rect: Rect2, slot: InventorySlot) -> void:
 	update_size(rect)
 	remove_from_group("held_item")
 	is_picked = false
 	picked_pos = Vector2.ZERO
+	current_slot = slot
 	z_index = 0
 	
 func show_focus() -> void:

@@ -1,9 +1,11 @@
 extends Node2D
 
 @export var enemy_scene : PackedScene
-@onready var enemy_cpt = 0
+# --- Dependencies & Variables ---
+@onready var enemy_cpt = 2
 @onready var score := 0
 @onready var nb_loots := 0
+@export var possible_loots : Array[ItemData]
 
 const nb_bullets = 6
 @onready var current_bullet = 1
@@ -35,35 +37,47 @@ func _ready() -> void:
 			
 		if not player.player_died.is_connected(game_over):
 			player.player_died.connect(game_over)
-	
-	_add_starting_weapon()
-	
-	if has_node("HUD/Inventory"):
-		var inventory = $HUD/Inventory
-		if not inventory.weapon_slot_update.is_connected(_on_weapon_slot_update):
-			inventory.weapon_slot_update.connect(_on_weapon_slot_update)
 
+func _on_player_health_changed(new_value: int) -> void:
+	health_bar.value = new_value
+
+func just_pressed_any(primary : bool):
+	var which
+	if primary:
+		which = $Player.item_color
+		can_big_shot = false
+	else:
+		if not $Player.second_weapon_color:
+			return
+		which = $Player.second_weapon_color
+	$BigShot.start()
+	get_node("Bullets/" + str(current_bullet)).shoot($Player.global_position, get_global_mouse_position(), which)
+	current_bullet += 1
+	if current_bullet > 6:
+		current_bullet = 1
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if get_tree().paused:
 		return
-
-	if Input.is_action_just_pressed("shoot") and not $HUD/Inventory.visible:
-		#$BigShot.start() #temporary disabled
-		get_node("Bullets/" + str(current_bullet)).shoot($Player.global_position, get_global_mouse_position(), $Player.item_color)
-		current_bullet += 1
-		if current_bullet > 6:
-			current_bullet = 1
-		can_big_shot = false
-	if Input.is_action_just_released("shoot") and not $HUD/Inventory.visible and can_big_shot:
-		create_tween().tween_property($Player, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		get_node("Bullets/" + str(current_bullet)).shoot($Player.global_position, get_global_mouse_position(), $Player.item_color, true)
-		current_bullet += 1
+	if not Input.is_action_pressed("shoot"):
 		$BigShot.stop()
-		can_big_shot = false
-		if current_bullet > 6:
-			current_bullet = 1
-	for ch in $Loot.get_children():
-		ch.visible = true
+		create_tween().tween_property($Player, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	if  InputMode.get_mode() == InputMode.Modes.PLAYER:
+		if Input.is_action_just_pressed("shoot") and not Input.is_action_pressed("hud_toggle_quick_inv"):
+			just_pressed_any(true)
+		if Input.is_action_just_released("shoot") and can_big_shot:
+			create_tween().tween_property($Player, "scale", Vector2.ONE, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			get_node("Bullets/" + str(current_bullet)).shoot($Player.global_position, get_global_mouse_position(), $Player.item_color, true)
+			current_bullet += 1
+			$BigShot.stop()
+			can_big_shot = false
+			if current_bullet > 6:
+				current_bullet = 1
+		if Input.is_action_just_pressed("shoot_secondary") and not Input.is_action_pressed("hud_toggle_quick_inv"):
+			just_pressed_any(false)
+		for ch in $Loot.get_children():
+			ch.visible = true
 
 func _on_weapon_slot_update(weapon_data: ItemData) -> void:
 	if has_node("Player"):
@@ -121,11 +135,9 @@ func DropNewLoot(whom : Node2D, forced_index : int) -> Node2D:
 
 	var loot = item_blueprint.instantiate()
 	loot.item_data = itemData
-	loot.name = weapon_clr + str(nb_loots)
 	loot.global_position = whom.global_position
-
 	return loot
-	
+
 func wrong_color_popup(where : Vector2):
 	var new_label = Label.new()
 	new_label.text = "Wrong color !"
@@ -148,6 +160,8 @@ func killed_enemy(whom : Node2D):
 	$Loot.add_child(DropNewLoot(whom, (whom.force_color_index+1)%3))
 
 func _on_spawn_new_enemy_timeout() -> void:
+	if get_tree().paused:
+		return
 	var new_enemy = enemy_scene.instantiate()
 	new_enemy.name = "Enemy" + str(enemy_cpt)
 	if enemy_cpt < 5:

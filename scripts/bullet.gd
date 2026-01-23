@@ -22,8 +22,7 @@ func shoot(source : Vector2, target : Vector2, mclrCode : String, big := false) 
 
 func setClr(clrLetter : String):
 	clrCode = clrLetter
-	var index = {"r" : 0, "g" : 1, "b" : 2}[clrLetter]
-	var clr = [Vector3(1., 0., 0.), Vector3(0., 1., 0.), Vector3(0., 0.5, 1.)][index]
+	var clr = {"r" : Vector3(1., 0., 0.), "g" : Vector3(0., 1., 0.), "b" : Vector3(0., 0.5, 1.)}[clrLetter]
 	$Sprite2D.material.set_shader_parameter("clr", clr)
 
 func _process(delta: float) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cg55uk4s6qv0g"]
+[gd_scene load_steps=9 format=3 uid="uid://cg55uk4s6qv0g"]
 
 [ext_resource type="Script" uid="uid://sy1qjygxknt0" path="res://scripts/player.gd" id="1_4flbx"]
 [ext_resource type="Shader" uid="uid://bgbqefwcusl52" path="res://resources/shaders/player.gdshader" id="2_hqtel"]
@@ -7,14 +7,18 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sweqy"]
 shader = ExtResource("2_hqtel")
+shader_parameter/clr = Vector3(0, 0.5, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hqtel"]
 radius = 12.337838
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hqtel"]
+size = Vector2(56, 12)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_sweqy"]
 radius = 57.035076
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="Area2D"]
 script = ExtResource("1_4flbx")
 
 [node name="SpriteBouncer2D" type="Sprite2D" parent="."]
@@ -25,14 +29,16 @@ scale = Vector2(9.1640625, 9.0703125)
 texture = ExtResource("2_onrkg")
 script = ExtResource("3_i3pqv")
 
-[node name="DamageCollider" type="Area2D" parent="."]
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageCollider"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -4.7683716e-07)
 scale = Vector2(3, 3)
 shape = SubResource("CircleShape2D_hqtel")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_hqtel")
 
 [node name="InteractableCollider" type="Area2D" parent="."]
 visible = false
@@ -41,6 +47,9 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableCollider"]
 shape = SubResource("CircleShape2D_sweqy")
+
+[node name="BulletTime" type="Timer" parent="."]
+wait_time = 2.0
 
 [connection signal="area_entered" from="InteractableCollider" to="." method="_on_interactable_enter"]
 [connection signal="area_exited" from="InteractableCollider" to="." method="_on_interactable_exit"]

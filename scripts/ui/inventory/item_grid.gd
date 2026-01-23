@@ -2,10 +2,18 @@ class_name ItemGrid extends MatrixContainer
 
 @export var inventory_slot_scene: PackedScene
 
-signal item_slot_popup(slot: InventorySlot, item: InventoryItem)
+var inventory_owner : Inventory = null
+
+signal item_slot_popup(item: InventoryItem)
+signal items_update(items: Array[InventoryItem])
 
 func _ready() -> void:
 	create_slots()
+
+func set_inventory_owner(owner: Inventory) -> void:
+	inventory_owner = owner
+	for s : InventorySlot in get_children():
+		s.inventory_owner = owner
 
 func create_slots() -> void:
 	var slots: Array[InventorySlot] = []
@@ -13,7 +21,9 @@ func create_slots() -> void:
 		for x in columns:
 			var inventory_slot : InventorySlot = inventory_slot_scene.instantiate()
 			add_child(inventory_slot)
+			inventory_slot.inventory_owner = inventory_owner
 			inventory_slot.item_slot_popup.connect(_on_item_slot_popup)
+			inventory_slot.item_slot_update.connect(_on_item_slot_update)
 			slots.push_back(inventory_slot)
 	for y in rows:
 		for x in columns:
@@ -38,17 +48,19 @@ func _attempt_to_add_item_data(item: InventoryItem) -> bool:
 			if s.set_item(item):
 				var item_rect : Rect2 = Rect2(s.global_position, \
 											  s.size * Vector2(item.dimensions))
-				item.get_placed(item_rect)
+				item.get_placed(item_rect, s)
 				return true
 	return false
-
 
 func get_items() -> Array[InventoryItem]:
 	var items: Array[InventoryItem] = []
 	for s : InventorySlot in get_children():
-		if not items.has(s.get_item()):
+		if s.get_item() and not items.has(s.get_item()):
 			items.append(s.get_item())
 	return items
 
-func _on_item_slot_popup(slot: InventorySlot, item: InventoryItem) -> void:
-	item_slot_popup.emit(slot, item)
+func _on_item_slot_popup(item: InventoryItem) -> void:
+	item_slot_popup.emit(item)
+	
+func _on_item_slot_update(_item: InventoryItem) -> void:
+	items_update.emit(get_items())

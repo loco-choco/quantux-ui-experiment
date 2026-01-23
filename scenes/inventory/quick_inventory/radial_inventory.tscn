@@ -1,39 +1,49 @@
-[gd_scene load_steps=3 format=3 uid="uid://bexv6mdsuct4j"]
+[gd_scene load_steps=7 format=3 uid="uid://bexv6mdsuct4j"]
 
-[ext_resource type="Shader" uid="uid://bfu2maqr5e04g" path="res://resources/shaders/radial_slot.gdshader" id="1_eyaj8"]
+[ext_resource type="Script" uid="uid://c221opmv2p7te" path="res://scripts/ui/inventory/radial_inventory/radial_inventory.gd" id="1_8b5nj"]
+[ext_resource type="PackedScene" uid="uid://b1ykrmc557ifc" path="res://scenes/inventory/quick_inventory/radial_inventory_entry.tscn" id="1_fx4eu"]
+[ext_resource type="Texture2D" uid="uid://bidf8wxw1wkkp" path="res://assets/icon.svg" id="3_djp4d"]
+[ext_resource type="Shader" uid="uid://cnhc7mkqfipgu" path="res://resources/shaders/radial_inventory.gdshader" id="3_lrawg"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qqqpe"]
-shader = ExtResource("1_eyaj8")
-shader_parameter/inner_radius = 0.400000019
-shader_parameter/outer_radius = 0.800000038
-shader_parameter/arc_angle = 80.0000038
-shader_parameter/angle_offset = 0.0
-shader_parameter/fill_color = Color(1, 1, 1, 1)
-shader_parameter/outline_color = Color(0, 0, 0, 1)
-shader_parameter/border_width = 0.05
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8b5nj"]
 
-[node name="RadialInventory" type="Control"]
-layout_mode = 3
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hwb3v"]
+shader = ExtResource("3_lrawg")
+shader_parameter/mousePos = Vector2(1, 1)
+shader_parameter/wheelScale = 1.0
+
+[node name="RadialInventory" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -791.0
-offset_bottom = -363.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(480, 270)
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8b5nj")
+script = ExtResource("1_8b5nj")
+radial_inv_entry = ExtResource("1_fx4eu")
+metadata/_edit_horizontal_guides_ = [282.0, 152.0]
 
-[node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_qqqpe")
-layout_mode = 0
-offset_top = 200.0
-offset_right = 200.0
-offset_bottom = 400.0
-rotation = -1.5707964
-color = Color(1, 0.22000003, 0.22000003, 1)
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_top = 150
+theme_override_constants/margin_right = 300
+theme_override_constants/margin_bottom = 150
 
-[node name="ColorRect2" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_qqqpe")
-layout_mode = 0
-offset_right = 200.0
-offset_bottom = 200.0
-color = Color(1, 0.22000003, 0.22000003, 1)
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/AspectRatioContainer"]
+layout_mode = 2
+
+[node name="Sprite" type="Sprite2D" parent="MarginContainer/AspectRatioContainer/PanelContainer"]
+material = SubResource("ShaderMaterial_hwb3v")
+position = Vector2(120, 121)
+scale = Vector2(3.1484375, 3.148438)
+texture = ExtResource("3_djp4d")
+
+[node name="Entries" type="Container" parent="MarginContainer/AspectRatioContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2

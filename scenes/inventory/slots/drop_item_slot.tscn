@@ -13,7 +13,8 @@ infinity_size = true
 color = Color(0.8, 0.8, 0.8, 0)
 
 [node name="ColorRect" parent="Available" index="0"]
-color = Color(0.6, 0.6, 0.6, 0.15686275)
+visible = true
+color = Color(1, 1, 1, 0.5568628)
 
 [node name="CenterContainer" type="AspectRatioContainer" parent="Available" index="1"]
 layout_mode = 2

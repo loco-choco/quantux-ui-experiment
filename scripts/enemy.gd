@@ -27,9 +27,20 @@ func _ready() -> void:
 		died.connect(get_parent().killed_enemy)
 
 func _process(delta: float) -> void:
+	var slowed_delta = delta
+	if Input.is_action_just_pressed("hud_toggle_quick_inv"):
+		$BulletTime.start()
+	if not Input.is_action_pressed("hud_toggle_quick_inv"):
+		$BulletTime.stop()
+	
+	slowed_delta *= max(0.01, 1. - $BulletTime.time_left / $BulletTime.wait_time)
+	
+	if inventory:
+		slowed_delta *= float(int(not inventory.visible))
+	
 	if is_instance_valid(player) and hp > 0:
 		look_at(player.global_position)
-		global_position += follow_speed * (player.global_position - global_position).normalized() * delta
+		global_position += follow_speed * (player.global_position - global_position).normalized() * slowed_delta
 		
 	if scale.x < 0.00001:
 		queue_free()
@@ -63,7 +74,6 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		trigger_death(false)
 		return
 
-	if not area.get_parent().visible: return
 
 	var recoil_dir = Vector2.ZERO
 	if is_instance_valid(player):
@@ -77,6 +87,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	var new_pos = global_position - 30. * (player.global_position - global_position).normalized()
 	create_tween().tween_property(self, "global_position", new_pos, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	create_tween().tween_method(spriteFlash, Vector3(1., 1., 1.), clrRef, 0.32).set_trans(Tween.TRANS_QUAD)
+	
 	if not area.get_parent().is_big:
 		area.get_parent().visible = false
 		hp -= 1
