@@ -1,6 +1,6 @@
 extends Node
 
-enum Modes {PLAYER, UI}
+enum Modes {MENU, PLAYER, UI}
 
 var mode : Modes = Modes.PLAYER
 

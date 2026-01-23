@@ -6,6 +6,8 @@ signal side_weapon_slot_update(item: ItemData)
 signal item_dropped(item: Item)
 signal item_returned(item: Item)
 
+signal potion_used(heal: float)
+
 @export var item_scene: PackedScene
 @onready var inventory_item_parent: Control =$%InventoryItems
 @export var inventory_item_scene: PackedScene
@@ -106,15 +108,11 @@ func add_item(item: Item) -> bool:
 		#LogInventory.log_inventory_state("ADD_ITEM: %s" % item_data.name)
 	return success
 
-func get_bagged_items() -> Array:
-	var lambda = func (i: InventoryItem) -> ItemData:
-		return i.data
-	return bag_grid.get_items().map(lambda)
+func get_bagged_items() -> Array[InventoryItem]:
+	return bag_grid.get_items()
 	
 func get_quick_inv_items() -> Array[InventoryItem]:
-	var lambda = func (i: InventoryItem) -> ItemData:
-		return i.data
-	return quick_inv_grid.get_items().map(lambda)
+	return quick_inv_grid.get_items()
 
 func get_weapon() -> ItemData:
 	if weapon_slot.get_item():
@@ -128,14 +126,21 @@ func create_item_popup(item: InventoryItem) -> void:
 		item_popup.queue_free()
 	var item_options : Dictionary[String, Callable] = \
 	{"drop": (func(): drop_item_from_slot(item, item.current_slot))}
-	var consumable_property : ConsumableItemProperty = item.data.get_property("consumable")
-	if consumable_property:
-		item_options["consume"] = (func(): consumable_property.consume())
+	var potion_property : PotionItemProperty = item.data.get_property("potion")
+	if potion_property:
+		item_options["heal"] = (func():_on_potion_used(potion_property.heal_amount, item))
 	item_popup = inventory_item_popup_scene.instantiate()
 	item_popup.options = item_options
 	item_popup.item = item
 	item_popup.request_deletion.connect(delete_item_popup)
 	inventory_item_popup_parent.add_child(item_popup)
+
+func _on_potion_used(heal_amount: float, item: InventoryItem) -> void:
+	potion_used.emit(heal_amount)
+	# Remove item from inventory as it was used!
+	item.current_slot.clear_item()
+	item.queue_free()
+	
 
 func delete_item_popup() -> void:
 	if !item_popup:

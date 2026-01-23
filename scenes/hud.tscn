@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://pysiho2iiyxp"]
+
+[ext_resource type="Script" uid="uid://d0b7g03iss0pa" path="res://scripts/ui/hud.gd" id="1_5ysmq"]
+[ext_resource type="PackedScene" uid="uid://btu4ox8a5nhsk" path="res://scenes/inventory/inventory.tscn" id="2_6fi6k"]
+[ext_resource type="PackedScene" uid="uid://bexv6mdsuct4j" path="res://scenes/inventory/quick_inventory/radial_inventory.tscn" id="3_uo2fv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6fi6k"]
+bg_color = Color(0.26, 0.26, 0.26, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ysmq"]
+bg_color = Color(0.39470178, 0.6843289, 0.32645866, 1)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_5ysmq")
+
+[node name="Inventory" parent="." instance=ExtResource("2_6fi6k")]
+unique_name_in_owner = true
+visible = false
+
+[node name="QuickInventory" parent="." instance=ExtResource("3_uo2fv")]
+unique_name_in_owner = true
+visible = false
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -55.0
+offset_right = 45.0
+offset_bottom = 27.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_6fi6k")
+theme_override_styles/fill = SubResource("StyleBoxFlat_5ysmq")
+value = 100.0
+
+[connection signal="item_dropped" from="Inventory" to="." method="_on_inventory_item_dropped"]
+[connection signal="item_returned" from="Inventory" to="." method="_on_inventory_item_returned"]
+[connection signal="quick_inventory_update" from="Inventory" to="QuickInventory" method="update_radial_inventory"]
+[connection signal="side_weapon_slot_update" from="Inventory" to="." method="_on_inventory_side_weapon_slot_update"]
+[connection signal="weapon_slot_update" from="Inventory" to="." method="_on_inventory_weapon_slot_update"]

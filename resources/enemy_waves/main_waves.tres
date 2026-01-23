@@ -1,0 +1,70 @@
+[gd_resource type="Resource" script_class="EnemyRoundWaves" load_steps=11 format=3 uid="uid://buf48tvdokc3t"]
+
+[ext_resource type="Script" uid="uid://ymctfni7dwa1" path="res://scripts/enemy_round_waves.gd" id="1_l17p0"]
+[ext_resource type="Script" uid="uid://b2gw0thngrdl3" path="res://scripts/enemy_wave.gd" id="2_y8ude"]
+
+[sub_resource type="Resource" id="Resource_l17p0"]
+script = ExtResource("2_y8ude")
+possible_spawns = Array[String](["r"])
+amount_of_enemies = 1
+all_unique = true
+enemy_speed_mult = 1.0
+metadata/_custom_type_script = "uid://b2gw0thngrdl3"
+
+[sub_resource type="Resource" id="Resource_y8ude"]
+script = ExtResource("2_y8ude")
+possible_spawns = Array[String](["r"])
+amount_of_enemies = 3
+enemy_speed_mult = 1.5
+metadata/_custom_type_script = "uid://b2gw0thngrdl3"
+
+[sub_resource type="Resource" id="Resource_ijnmf"]
+script = ExtResource("2_y8ude")
+possible_spawns = Array[String](["r"])
+amount_of_enemies = 10
+enemy_speed_mult = 0.8
+metadata/_custom_type_script = "uid://b2gw0thngrdl3"
+
+[sub_resource type="Resource" id="Resource_ihelr"]
+script = ExtResource("2_y8ude")
+possible_spawns = Array[String](["r", "g"])
+amount_of_enemies = 2
+all_unique = true
+enemy_speed_mult = 0.8
+metadata/_custom_type_script = "uid://b2gw0thngrdl3"
+
+[sub_resource type="Resource" id="Resource_1h8xf"]
+script = ExtResource("2_y8ude")
+possible_spawns = Array[String](["r", "g"])
+amount_of_enemies = 6
+all_unique = true
+enemy_speed_mult = 1.2
+metadata/_custom_type_script = "uid://b2gw0thngrdl3"
+
+[sub_resource type="Resource" id="Resource_tsjsc"]
+script = ExtResource("2_y8ude")
+possible_spawns = Array[String](["r", "g", "b"])
+amount_of_enemies = 3
+all_unique = true
+enemy_speed_mult = 0.8
+metadata/_custom_type_script = "uid://b2gw0thngrdl3"
+
+[sub_resource type="Resource" id="Resource_g7ja3"]
+script = ExtResource("2_y8ude")
+possible_spawns = Array[String](["r", "g", "b"])
+amount_of_enemies = 9
+enemy_speed_mult = 1.0
+metadata/_custom_type_script = "uid://b2gw0thngrdl3"
+
+[sub_resource type="Resource" id="Resource_qhxeb"]
+script = ExtResource("2_y8ude")
+possible_spawns = Array[String](["r", "g", "b"])
+amount_of_enemies = 24
+all_unique = true
+enemy_speed_mult = 0.6
+metadata/_custom_type_script = "uid://b2gw0thngrdl3"
+
+[resource]
+script = ExtResource("1_l17p0")
+waves = Array[ExtResource("2_y8ude")]([SubResource("Resource_l17p0"), SubResource("Resource_y8ude"), SubResource("Resource_ijnmf"), SubResource("Resource_ihelr"), SubResource("Resource_1h8xf"), SubResource("Resource_tsjsc"), SubResource("Resource_g7ja3"), SubResource("Resource_qhxeb")])
+metadata/_custom_type_script = "uid://ymctfni7dwa1"

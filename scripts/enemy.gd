@@ -1,48 +1,46 @@
-extends Node2D
+class_name Enemy extends Node2D
 
-var player
-var clrCode
-var clrRef : Vector3
-var isDead : bool = false
-var force_color_index: int = 0 # -1 means "Random", 0=Red, 1=Green, 2=Blue
-@export var follow_speed := 80.
-@onready var hp := 3
-@export var inventory : Inventory
-signal died
-signal wrong_color
+signal died(enemy: Enemy)
+
+@onready var hitbox : Area2D = $%Hitbox
+@onready var score : Label = $%Score
+var score_local_position : Vector2
+@onready var wrong_color : Label = $%WrongColor
+var wrong_color_local_position : Vector2
+
+@export var target : Player
+
+@export var follow_speed : float = 80
+@export var color_code : String = 'r'
+@export var wrong_color_demage_penalty : float = 0.1
+@export var hp : float = 100
+@export var damage_per_hit : int = 10
+var time_since_last_hit : float
+@export var time_per_hit : float = 4
+
+var color : Vector3
 
 func _ready() -> void:
-	player = $"../Player"
-	var clrDice: int
-	if force_color_index != -1:
-		clrDice = force_color_index
-	else:
-		clrDice = randi() % 3
-	clrCode = ['r', 'g', 'b'][clrDice]
-	clrRef = [Vector3(1., 0., 0.), Vector3(0., 1., 0.), Vector3(0., 0.5, 1.)][clrDice]
-	$Sprite2D.material.set_shader_parameter("clr", clrRef)
-	wrong_color.connect(get_parent().wrong_color_popup)
-	follow_speed = randf_range(60., 100.)
-
-	if get_parent().has_method("killed_enemy"):
-		died.connect(get_parent().killed_enemy)
+	score_local_position = score.position
+	wrong_color_local_position = wrong_color.position
+	color = {'r': Vector3(1., 0., 0.), 'g': Vector3(0., 1., 0.), 'b': Vector3(0., 0.5, 1.)}[color_code]
+	$Sprite2D.material.set_shader_parameter("clr", color)
+	time_since_last_hit = randf_range(0, time_per_hit) # Offset when spawning to differ from other enemies
+	#$Sprite2D.material.set_shader_parameter("clr", Vector3(1., 0., 0.))
 
 func _process(delta: float) -> void:
-	var slowed_delta = delta
-	if Input.is_action_just_pressed("hud_toggle_quick_inv"):
-		$BulletTime.start()
-	if not Input.is_action_pressed("hud_toggle_quick_inv"):
-		$BulletTime.stop()
+	if hp > 0 and is_instance_valid(target) and target.current_health > 0:
+		look_at(target.global_position)
+		var speed : Vector2 = follow_speed * (target.global_position - global_position).normalized()
+		if hitbox.overlaps_area(target.hitbox):
+			speed = Vector2.ZERO # We reached the player, we can stop moving
+			if time_since_last_hit >= time_per_hit:
+				target.take_damage(damage_per_hit)
+				time_since_last_hit = 0
+		global_position += speed * delta
 	
-	slowed_delta *= max(0.01, 1. - $BulletTime.time_left / $BulletTime.wait_time)
-	
-	if inventory:
-		slowed_delta *= float(int(not inventory.visible))
-	
-	if is_instance_valid(player) and hp > 0:
-		look_at(player.global_position)
-		global_position += follow_speed * (player.global_position - global_position).normalized() * slowed_delta
-		
+	time_since_last_hit = time_since_last_hit + delta if time_since_last_hit < time_per_hit else time_since_last_hit
+	# On death animation
 	if scale.x < 0.00001:
 		queue_free()
 
@@ -50,49 +48,31 @@ func spriteFlash(value : Vector3) -> void:
 	$Sprite2D.material.set_shader_parameter("clr", value)
 
 func trigger_death(killed_by_player: bool) -> void:
-	isDead = true
-	hp = 0
 	create_tween().tween_property(self, "scale", Vector2(0., 0.), 0.8).set_trans(Tween.TRANS_BACK)
 	if killed_by_player:
-		$Label.visible = true
-		$Label.global_position = global_position + Vector2(60, -30)
-		$Label.set_rotation(-rotation)
-		$Label.remove_theme_color_override("font_color")
-		$Label.add_theme_color_override("font_color", Color(1, 1, 1, 1))
-		create_tween().tween_property($Label, "global_position", $Label.global_position - Vector2(0., 50.), 0.5)
-		create_tween().tween_property($Label, "theme_override_colors/font_color", Color(1., 1., 1., 0.), 0.5)
-		died.emit(self)
-		
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	if isDead or not area.get_parent().visible: return
-	
-	var target = area
-	if target.get_parent().has_method("take_damage"):
-		target = target.get_parent()
-		
-	if target.has_method("take_damage"):
-		target.take_damage(1)
-		trigger_death(false)
-		return
+		score.show()
+		score.global_position = global_position + score_local_position
+		score.set_rotation(-rotation)
+		score.remove_theme_color_override("font_color")
+		score.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+		create_tween().tween_property(score, "global_position", score.global_position - Vector2(0., 50.), 0.5)
+		create_tween().tween_property(score, "theme_override_colors/font_color", Color(1., 1., 1., 0.), 0.5)
 
-
-	var recoil_dir = Vector2.ZERO
-	if is_instance_valid(player):
-		recoil_dir = (player.global_position - global_position).normalized()
-	if area.get_parent().clrCode != clrCode:
-		if not area.get_parent().is_big:
-			area.get_parent().visible = false
-		wrong_color.emit(global_position + Vector2(60, -30))
+func take_damage(damage: float, bullet_color: String) -> void:
+	if bullet_color != color_code:
+		damage = damage * wrong_color_demage_penalty
+		_on_wrong_color()
+	if hp <= 0:
 		return
-		
-	var new_pos = global_position - 30. * (player.global_position - global_position).normalized()
-	create_tween().tween_property(self, "global_position", new_pos, 0.16).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	create_tween().tween_method(spriteFlash, Vector3(1., 1., 1.), clrRef, 0.32).set_trans(Tween.TRANS_QUAD)
-	
-	if not area.get_parent().is_big:
-		area.get_parent().visible = false
-		hp -= 1
-	else:
-		hp = 0
-	if hp == 0:
+	hp = hp - damage
+	if hp <= 0:
 		trigger_death(true)
+		died.emit(self)
+
+func _on_wrong_color() -> void:
+	wrong_color.show()
+	wrong_color.global_position = global_position + wrong_color_local_position
+	wrong_color.set_rotation(-rotation)
+	wrong_color.remove_theme_color_override("font_color")
+	wrong_color.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+	create_tween().tween_property(wrong_color, "theme_override_colors/font_color", Color(1., 1., 1., 0.), 0.5)

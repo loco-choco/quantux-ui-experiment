@@ -11,14 +11,13 @@ config_version=5
 [application]
 
 config/name="ui-experiment"
-run/main_scene="uid://dy7fc8q4jmtgw"
+run/main_scene="uid://dg2eoqojt8v1"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://assets/icon.svg"
 
 [autoload]
 
 InputMode="*res://scripts/global/input_mode.gd"
-LogInput="*res://scripts/global/log_input.gd"
 
 [display]
 

@@ -6,6 +6,8 @@ signal menu_closed()
 
 @onready var entries : Container = $%Entries
 
+@export var inventory : Inventory
+
 var last_entry : RadialInventoryEntry = null
 
 func compute_item_pos(i : int, nb : int):
@@ -34,9 +36,9 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("inventory_select"):
 		print("Selected: ", selection)
 		var item : InventoryItem = entry_selected.item
-		var property : ItemProperty = item.data.get_property("consumable")
-		if property: ## TODO MAKE PARENT CLASS "USABLE" OR SMTH
-			(property as ConsumableItemProperty).consume()
+		var potion : PotionItemProperty = item.data.get_property("potion")
+		if potion:
+			inventory._on_potion_used(potion.heal_amount, item)
 		menu_closed.emit()
 
 func update_radial_inventory(items: Array[InventoryItem]) -> void:

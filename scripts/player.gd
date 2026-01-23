@@ -1,35 +1,41 @@
 class_name Player extends Node2D
 
+@onready var hitbox : Area2D = $%Hitbox
+
 signal item_collected(item_data: Item)
 signal player_died
-signal health_changed(new_value)
+signal health_changed(new_value: float)
 
 @export var speed = 200
-@export var max_health = 3
-@onready var current_health = max_health
+@export var max_health : float = 100
+var current_health : float
 
-@onready var inventory : Inventory = $%Inventory
 var grabbable_items: Array[Item] = []
 @export var dropped_item_offset_radius : float = 25
 
-@onready var item_color : String = 'b'
-var second_weapon_color : String
-@onready var sprite_clr := Vector3(0., 0., 1.)
+@export var bullet_scene : PackedScene
+@export var weapon_color : String
+@export var second_weapon_color : String
+var current_color : Vector3 = Vector3(0, 0, 1)
+var base_color : Vector3 = Vector3(0.9, 0.9, 0.9)
+var dead_color : Vector3 = Vector3(0.5, 0.5, 0.5)
 
 func _ready() -> void:
 	$SpriteBouncer2D.stop()
 	current_health = max_health
 	health_changed.emit(current_health)
+	current_color = base_color
+	spriteParam(current_color)
 
 func _process(delta: float) -> void:
-	if InputMode.get_mode() != InputMode.Modes.PLAYER:
+	if InputMode.get_mode() != InputMode.Modes.PLAYER or current_health <= 0:
 		return
 	var slowed_delta = delta
-	if Input.is_action_just_pressed("hud_toggle_quick_inv"):
-		$BulletTime.start()
-	if not Input.is_action_pressed("hud_toggle_quick_inv"):
-		$BulletTime.stop()
-	slowed_delta *= max(0.01, 1. - $BulletTime.time_left / $BulletTime.wait_time)
+	#if Input.is_action_just_pressed("hud_toggle_quick_inv"):
+	#	$BulletTime.start()
+	#if not Input.is_action_pressed("hud_toggle_quick_inv"):
+	#	$BulletTime.stop()
+	#slowed_delta *= max(0.01, 1. - $BulletTime.time_left / $BulletTime.wait_time)
 	var velocity = Input.get_vector("player_move_x_neg", \
 									"player_move_x_pos", \
 									"player_move_y_neg", \
@@ -42,24 +48,38 @@ func _process(delta: float) -> void:
 			var item : Item = grabbable_items.pop_back()
 			item.diselect()
 			item_collected.emit(item)
+	
+	if Input.is_action_just_pressed("shoot") and not weapon_color.is_empty():
+		spawn_bullet(get_global_mouse_position(), weapon_color)
+	elif Input.is_action_just_pressed("shoot_secondary") and not second_weapon_color.is_empty():
+		spawn_bullet(get_global_mouse_position(), second_weapon_color)
 
-func spriteParam(value, property := "clr") -> void:
+func spawn_bullet(target: Vector2, color: String) -> void:
+		var bullet : Bullet = bullet_scene.instantiate()
+		bullet.global_position = global_position
+		bullet.bullet_owner = hitbox
+		bullet.target = target
+		bullet.color_code = color
+		get_parent().add_child(bullet)
+
+func spriteParam(value, property = "clr") -> void:
 	$SpriteBouncer2D.material.set_shader_parameter(property, value)
 
-func on_weapon_change(weapon: ItemData) -> void:
+func get_weapon(weapon: ItemData) -> String:
 	if not weapon:
-		item_color = 'b'
-		return
-	item_color = {"WeaponRed" : 'r',"WeaponGreen" : 'g',"WeaponBlue" : 'b' }[weapon.name]
-	var new_clr = {"r" : Vector3(1., 0., 0.), "g" : Vector3(0., 1., 0.), "b" : Vector3(0., 0.5, 1.)}[item_color]
-	create_tween().tween_method(spriteParam, sprite_clr, new_clr, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	sprite_clr = new_clr
+		return ""
+	var weapon_prop : WeaponItemProperty = weapon.get_property("weapon")
+	return weapon_prop.color
 
+func on_weapon_change(weapon: ItemData) -> void:
+	weapon_color = get_weapon(weapon)
+	var new_clr : Vector3 = base_color
+	if weapon_color:
+		new_clr = {"r" : Vector3(1., 0., 0.), "g" : Vector3(0., 1., 0.), "b" : Vector3(0., 0.5, 1.)}[weapon_color]
+	create_tween().tween_method(spriteParam, current_color, new_clr, 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	current_color = new_clr
 func on_side_weapon_change(weapon: ItemData):
-	if not weapon:
-		item_color = 'b'
-		return
-	second_weapon_color = {"WeaponRed" : 'r',"WeaponGreen" : 'g',"WeaponBlue" : 'b' }[weapon.name]
+	second_weapon_color = get_weapon(weapon)
 
 func _on_interactable_enter(area: Area2D) -> void:
 	var item_coll : ItemInteractCollider = area as ItemInteractCollider
@@ -91,10 +111,17 @@ func _on_inventory_item_returned(item: Item) -> void:
 	grabbable_items.push_front(item)
 	grabbable_items[-1].select()
 
-func take_damage(amount: int) -> void:
+func heal(amount: float) -> void:
+	current_health = current_health + amount
+	if current_health > max_health:
+		current_health = max_health
+	health_changed.emit(current_health)
+	
+func take_damage(amount: float) -> void:
+	if current_health <= 0:
+		return
 	current_health -= amount
 	health_changed.emit(current_health)
-	print("Player took damage! Health is now: ", current_health)
 	var tween = create_tween()
 	tween.set_parallel(true) 
 	modulate = Color(1, 0, 0)
@@ -103,21 +130,10 @@ func take_damage(amount: int) -> void:
 	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.4).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
 	var shake_offset = Vector2(randf_range(-5, 5), randf_range(-5, 5))
 	global_position += shake_offset
-	
+	print("Player took damage: ", current_health)
 	if current_health <= 0:
 		die()
 
 func die() -> void:
+	spriteParam(dead_color)
 	player_died.emit()
-	queue_free()
-
-func set_weapon_color(weapon_data: ItemData) -> void:
-	if weapon_data == null:
-		return
-	var texture_path = weapon_data.texture.resource_path if weapon_data.texture else ""
-	if "red" in texture_path:
-		item_color = 'r'
-	elif "green" in texture_path:
-		item_color = 'g'
-	elif "blue" in texture_path:
-		item_color = 'b'

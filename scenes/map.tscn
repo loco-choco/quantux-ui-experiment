@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://dvkqs1ejdovsf"]
+
+[ext_resource type="Script" uid="uid://bkrwpauhwrkpy" path="res://scripts/loot_spawner.gd" id="1_4xfga"]
+[ext_resource type="PackedScene" uid="uid://dfa3nrjnhe3mt" path="res://scenes/item.tscn" id="2_2lpho"]
+[ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://scripts/item/item_data.gd" id="3_nakos"]
+[ext_resource type="Resource" uid="uid://h2ts1vi0qsyx" path="res://resources/items/valuables/coins_7.tres" id="4_jh32y"]
+[ext_resource type="Resource" uid="uid://6fm4hxsiuksq" path="res://resources/items/weapons/weapon_red.tres" id="5_be0no"]
+[ext_resource type="Resource" uid="uid://bca71tkqojqgs" path="res://resources/items/soup.tres" id="6_blm8a"]
+[ext_resource type="Resource" uid="uid://bfkkg2x47qstj" path="res://resources/items/weapons/weapon_green.tres" id="7_nakos"]
+
+[node name="Map" type="Node2D"]
+
+[node name="BackGround" type="CanvasLayer" parent="."]
+layer = -1
+follow_viewport_enabled = true
+
+[node name="ColorRect" type="ColorRect" parent="BackGround"]
+offset_left = 359.0
+offset_top = 138.0
+offset_right = 551.0
+offset_bottom = 344.0
+color = Color(0.67840135, 0.411248, 0.12265039, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="BackGround"]
+offset_left = -135.0
+offset_top = 217.0
+offset_right = 359.0
+offset_bottom = 263.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="BackGround"]
+offset_left = 551.0
+offset_top = 217.0
+offset_right = 1045.0
+offset_bottom = 263.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="BackGround"]
+offset_left = 86.000015
+offset_top = 487.0
+offset_right = 580.0
+offset_bottom = 533.0
+rotation = -1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="BackGround"]
+offset_left = 772.0
+offset_top = 487.0
+offset_right = 1266.0
+offset_bottom = 533.0
+rotation = -1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+
+[node name="LootSpawner" type="Node2D" parent="."]
+position = Vector2(109, 460)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("4_jh32y"), ExtResource("5_be0no"), ExtResource("6_blm8a")])
+loot_amount = 2
+
+[node name="LootSpawner2" type="Node2D" parent="."]
+position = Vector2(108, 27)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("5_be0no"), ExtResource("7_nakos")])
+loot_amount = 2
