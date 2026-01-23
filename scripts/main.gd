@@ -50,7 +50,6 @@ func _on_finished_pregame_quest() -> void:
 	pre_game_questionnaire.hide()
 
 func _on_world_finish(points: int) -> void:
-	get_tree().paused = true
 	return_from_world(points)
 
 func return_from_world(points: int) -> void:
@@ -71,7 +70,6 @@ func _on_enable_data_collection_toggled(toggled_on: bool) -> void:
 		collected_round_data.clear()
 
 func _on_start_game_pressed() -> void:
-	get_tree().paused = false
 	go_to_round_world(regular_world)
 
 func _on_round_summary_return_pressed() -> void:
