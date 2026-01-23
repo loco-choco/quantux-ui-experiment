@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://d0x0cwmmnybk3"]
 
-[ext_resource type="Script" uid="uid://doktijksj4yxc" path="res://scripts/mainmenu/pre_game_questionaire.gd" id="1_affyc"]
+[ext_resource type="Script" uid="uid://doktijksj4yxc" path="res://scripts/mainmenu/pre_game_questionnaire.gd" id="1_affyc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_uxwsg"]
 font_size = 12

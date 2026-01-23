@@ -2,7 +2,7 @@ class_name PreGameQuestionnaire extends PanelContainer
 
 signal finished_questionnaire()
 
-var questionnaire_data : PreGameQuestionnaireData = PreGameQuestionnaireData.new()
+var questionnaire_data : PreGameQuestionnaireData 
 
 ### Personal Information
 @export var age_group: OptionButton
@@ -20,7 +20,8 @@ var questionnaire_data : PreGameQuestionnaireData = PreGameQuestionnaireData.new
 @onready var finish : Button = $%Finish
 
 func _ready() -> void:
-	finish.pressed.connect(func(): finished_questionnaire.emit(); print("finished!"))
+	questionnaire_data = PreGameQuestionnaireData.new()
+	finish.pressed.connect(func(): finished_questionnaire.emit())
 	
 	### Personal Information
 	age_group.item_selected.connect(func(index : int) : \
@@ -34,9 +35,9 @@ func _ready() -> void:
 		var box : CheckBox = c as CheckBox
 		box.toggled.connect(func(toggled : bool) : \
 		if toggled:
-			questionnaire_data.game_genres.append(box.text)
+			questionnaire_data.game_genres.append(box.name)
 		else:
-			questionnaire_data.game_genres.erase(box.text))
+			questionnaire_data.game_genres.erase(box.name))
 	game_genres_other.text_changed.connect(func(): \
 		questionnaire_data.game_genres_other = game_genres_other.text)
 	### Inventory Contact
@@ -48,8 +49,8 @@ func _ready() -> void:
 		var box : CheckBox = c as CheckBox
 		box.toggled.connect(func(toggled : bool) : \
 		if toggled:
-			questionnaire_data.inventory_types.append(box.text)
+			questionnaire_data.inventory_types.append(box.name)
 		else:
-			questionnaire_data.inventory_types.erase(box.text))
+			questionnaire_data.inventory_types.erase(box.name))
 	inventory_types_other.text_changed.connect(func(): \
 		questionnaire_data.inventory_types_other = inventory_types_other.text)

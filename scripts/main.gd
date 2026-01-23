@@ -84,7 +84,9 @@ func _export_data_as_zip() -> void:
 	if error != OK:
 		push_error("Couldn't open path for saving ZIP archive (error code: %s)." % error_string(error))
 		return
-		
+	## Saving questionnaires
+	pre_game_questionnaire.questionnaire_data.save_json_in_zip(zip, "pre_game_quest.json")
+	## Saving round data
 	for i : int in range(collected_round_data.size()):
 		collected_round_data[i].save_to_zip_archive(zip, "round_%d/" % [i])
 	
