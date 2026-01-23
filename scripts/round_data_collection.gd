@@ -25,7 +25,7 @@ func get_inventory_event() -> void:
 func save_slot_update(dict : Dictionary[String, SlotFrame], item: InventoryItem) -> void:
 	var now: String = Time.get_datetime_string_from_system(true)
 	var slot_frame : SlotFrame = SlotFrame.new()
-	slot_frame.item_name = item.data.item.name if item else "NONE"
+	slot_frame.item_name = item.data.name if item else "NONE"
 	dict[now] = slot_frame
 
 func _on_player_health_change(new_value: float) -> void:

@@ -13,11 +13,13 @@
 [node name="World" type="Node2D"]
 script = ExtResource("1_7r4gi")
 
-[node name="RoundDataCollection" type="Node" parent="." node_paths=PackedStringArray("inventory", "bag_inventory", "enemy_wave_logic", "player")]
+[node name="RoundDataCollection" type="Node" parent="." node_paths=PackedStringArray("inventory", "bag_inventory", "weapon_slot", "side_weapon_slot", "enemy_wave_logic", "player")]
 unique_name_in_owner = true
 script = ExtResource("1_4mrxx")
 inventory = NodePath("../HUD/Inventory")
 bag_inventory = NodePath("../HUD/Inventory/PanelContainer/MarginContainer/HBoxContainer/AspectRatioContainer/BagBg/Bag")
+weapon_slot = NodePath("../HUD/Inventory/PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer/PanelContainer/WeaponSlot")
+side_weapon_slot = NodePath("../HUD/Inventory/PanelContainer/MarginContainer/HBoxContainer/Equipment2/AspectRatioContainer3/PanelContainer3/SideWeaponSlot")
 enemy_wave_logic = NodePath("../EnemyWaveLogic")
 player = NodePath("../Player")
 
