@@ -7,6 +7,7 @@ var isDead : bool = false
 var force_color_index: int = 0 # -1 means "Random", 0=Red, 1=Green, 2=Blue
 @export var follow_speed := 80.
 @onready var hp := 3
+@export var inventory : Inventory
 signal died
 signal wrong_color
 
@@ -63,7 +64,7 @@ func trigger_death(killed_by_player: bool) -> void:
 		died.emit(self)
 		
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if isDead: return
+	if isDead or not area.get_parent().visible: return
 	
 	var target = area
 	if target.get_parent().has_method("take_damage"):

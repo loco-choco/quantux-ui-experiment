@@ -144,13 +144,6 @@ item_data = ExtResource("6_muem4")
 wait_time = 4.0
 autostart = true
 
-[node name="Score" type="Label" parent="."]
-offset_left = 12.0
-offset_top = 7.0
-offset_right = 156.0
-offset_bottom = 50.0
-text = "Score : 0"
-
 [node name="Loot" type="Node2D" parent="."]
 
 [node name="BigShot" type="Timer" parent="."]
@@ -171,92 +164,12 @@ one_shot = true
 
 [node name="6" parent="Bullets" instance=ExtResource("8_5vw27")]
 
-[node name="KeyInstructions" type="Label" parent="."]
-offset_left = 12.0
-offset_top = 50.0
-offset_right = 280.0
-offset_bottom = 99.0
-text = "Press \"E\" to shoot.
-Press \"Spcebar\" to open inventory."
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-process_mode = 3
-
-[node name="StartScreen" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/StartScreen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/StartScreen/CenterContainer"]
-layout_mode = 2
-
-[node name="NameInput" type="LineEdit" parent="CanvasLayer/StartScreen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="StartButton" type="Button" parent="CanvasLayer/StartScreen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Start"
-
-[node name="Label" type="Label" parent="CanvasLayer/StartScreen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Enter your name"
-
-[node name="GameOverScreen" type="Control" parent="CanvasLayer"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/GameOverScreen"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverScreen/CenterContainer"]
-layout_mode = 2
-
-[node name="FinalScoreLabel" type="Label" parent="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Final Score:"
-
-[node name="RestartButton" type="Button" parent="CanvasLayer/GameOverScreen/CenterContainer/VBoxContainer"]
-layout_mode = 2
-text = "Try again!"
-
-[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -55.0
-offset_right = 45.0
-offset_bottom = 27.0
-grow_horizontal = 2
-max_value = 50.0
-value = 50.0
-
 [connection signal="item_collected" from="Player" to="HUD" method="_on_player_item_collected"]
 [connection signal="item_dropped" from="HUD/Inventory" to="Player" method="_on_inventory_item_dropped"]
 [connection signal="item_returned" from="HUD/Inventory" to="Player" method="_on_inventory_item_returned"]
 [connection signal="quick_inventory_update" from="HUD/Inventory" to="HUD/QuickInventory" method="update_radial_inventory"]
-
 [connection signal="side_weapon_slot_update" from="HUD/Inventory" to="Player" method="on_side_weapon_change"]
 [connection signal="weapon_slot_update" from="HUD/Inventory" to="Player" method="on_weapon_change"]
+[connection signal="pressed" from="HUD/StartScreen/CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="timeout" from="SpawnNewEnemy" to="." method="_on_spawn_new_enemy_timeout"]
 [connection signal="timeout" from="BigShot" to="." method="_on_big_shot_timeout"]

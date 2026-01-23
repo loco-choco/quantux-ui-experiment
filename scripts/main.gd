@@ -83,9 +83,6 @@ func _on_weapon_slot_update(weapon_data: ItemData) -> void:
 	if has_node("Player"):
 		$Player.set_weapon_color(weapon_data)
 
-func _on_player_health_changed(new_value: int) -> void:
-	health_bar.value = new_value
-	
 func _player_has_weapon_color(color: String) -> bool:
 	if not has_node("HUD/Inventory"):
 		return false
@@ -189,7 +186,7 @@ func _on_start_button_pressed() -> void:
 	LogInput.start_logging(player_name)
 	if has_node("HUD/Inventory"):
 		var inventory = $HUD/Inventory
-		LogInventory.start_logging(player_name, inventory)
+		#LogInventory.start_logging(player_name, inventory)
 	score = 0
 	score_label.text = "Score : 0"
 	start_screen.visible = false
@@ -199,7 +196,7 @@ func _on_start_button_pressed() -> void:
 func game_over() -> void:
 	get_tree().paused = true
 	LogInput.stop_logging(str(score))
-	LogInventory.stop_logging()
+	#LogInventory.stop_logging()
 	game_over_screen.visible = true
 	final_score_label.text = "Final Score: [" + name_input.text + "] " + str(score)
 
