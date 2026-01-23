@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dg2eoqojt8v1"]
+[gd_scene load_steps=11 format=3 uid="uid://dg2eoqojt8v1"]
 
 [ext_resource type="Script" uid="uid://dqcm57s62snqt" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://ct5lh45t375b1" path="res://scenes/world.tscn" id="2_0wfyh"]
@@ -8,6 +8,25 @@
 font_size = 12
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tefeu"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_jyhfs"]
+color = Color(0.099985994, 0.099985994, 0.099985994, 1)
+grow_begin = 30.0
+grow_end = 30.0
+thickness = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_sugp2"]
+color = Color(0.3741394, 0.37413922, 0.37413922, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 3
+
+[sub_resource type="LabelSettings" id="LabelSettings_sugp2"]
+font_size = 12
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sugp2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tbgi4"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_o5qli")
@@ -88,7 +107,7 @@ text = "Open Tutorial"
 
 [node name="StartGame" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Start Game"
+text = "Play Round"
 
 [node name="PrePlayingQuestionaire2" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -155,7 +174,7 @@ layout_mode = 2
 text = "points!"
 horizontal_alignment = 1
 
-[node name="Return" type="Button" parent="MainMenuCanvas/RoundSumary/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="RoundSumaryReturn" type="Button" parent="MainMenuCanvas/RoundSumary/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Return to Menu"
 
@@ -168,54 +187,155 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MainMenuCanvas/Tutorial"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainMenuCanvas/Tutorial"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="MainMenuCanvas/Tutorial/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuCanvas/Tutorial/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuCanvas/Tutorial/MarginContainer/CenterContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 100
 
-[node name="MarginContainer" type="MarginContainer" parent="MainMenuCanvas/Tutorial/MarginContainer/CenterContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 200
-theme_override_constants/margin_right = 200
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuCanvas/Tutorial/MarginContainer/CenterContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="GameOver" type="Label" parent="MainMenuCanvas/Tutorial/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "You died!
-Game Over!"
+text = "Tutorial"
 horizontal_alignment = 1
 
-[node name="GameWon" type="VBoxContainer" parent="MainMenuCanvas/Tutorial/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxLine_jyhfs")
+
+[node name="Objective" type="VBoxContainer" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="TextAbove" type="Label" parent="MainMenuCanvas/Tutorial/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/GameWon"]
+[node name="Title" type="Label" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Objective"]
 layout_mode = 2
-text = "You won with"
+text = "Objective"
 horizontal_alignment = 1
 
-[node name="Score" type="Label" parent="MainMenuCanvas/Tutorial/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/GameWon"]
+[node name="HSeparator2" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Objective"]
 layout_mode = 2
-text = "100"
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxLine_sugp2")
+
+[node name="Description" type="Label" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Objective"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "TALK ABOUT THE PLAYER'S OBJECTIVE"
+label_settings = SubResource("LabelSettings_sugp2")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Objective"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxEmpty_sugp2")
+
+[node name="Controls" type="VBoxContainer" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Controls"]
+layout_mode = 2
+text = "Controls"
 horizontal_alignment = 1
 
-[node name="TextBellow" type="Label" parent="MainMenuCanvas/Tutorial/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/GameWon"]
+[node name="HSeparator2" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Controls"]
 layout_mode = 2
-text = "points!"
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxLine_sugp2")
+
+[node name="Description" type="Label" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Controls"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "EXPLAIN HOW TO MOVE AND OPERATE THE INVENTORY"
+label_settings = SubResource("LabelSettings_sugp2")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Controls"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxEmpty_sugp2")
+
+[node name="Enemies" type="VBoxContainer" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Enemies"]
+layout_mode = 2
+text = "Enemies"
 horizontal_alignment = 1
 
-[node name="Return" type="Button" parent="MainMenuCanvas/Tutorial/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Enemies"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxLine_sugp2")
+
+[node name="Description" type="Label" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Enemies"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "TALK ABOUT ENEMIES AND THEIR DIFFERENT COLORS"
+label_settings = SubResource("LabelSettings_sugp2")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Enemies"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxEmpty_sugp2")
+
+[node name="Items" type="VBoxContainer" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Items"]
+layout_mode = 2
+text = "Items"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Items"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxLine_sugp2")
+
+[node name="Description" type="Label" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Items"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "WRITE ABOUT THE DIFFERENT ITEMS:
+- WEAPONS / COLORS
+- POTIONS
+- COINS"
+label_settings = SubResource("LabelSettings_sugp2")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HSeparator3" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Items"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxEmpty_sugp2")
+
+[node name="HSeparator3" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_tbgi4")
+
+[node name="TutorialReturn" type="Button" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Return to Menu"
+
+[node name="HSeparator2" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+theme_override_styles/separator = SubResource("StyleBoxEmpty_tbgi4")
 
 [node name="PreGameQuestionnaire" parent="MainMenuCanvas" instance=ExtResource("3_sugp2")]
 unique_name_in_owner = true
@@ -223,7 +343,8 @@ visible = false
 
 [connection signal="toggled" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EnableDataCollection" to="." method="_on_enable_data_collection_toggled"]
 [connection signal="pressed" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/PrePlayingQuestionnaire" to="." method="_on_start_pregame_quest"]
+[connection signal="pressed" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/OpenTutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ExportData" to="." method="_on_export_data_pressed"]
-[connection signal="pressed" from="MainMenuCanvas/RoundSumary/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/Return" to="." method="_on_return_pressed"]
-[connection signal="pressed" from="MainMenuCanvas/Tutorial/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/Return" to="." method="_on_return_pressed"]
+[connection signal="pressed" from="MainMenuCanvas/RoundSumary/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer/RoundSumaryReturn" to="." method="_on_round_summary_return_pressed"]
+[connection signal="pressed" from="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/TutorialReturn" to="." method="_on_tutorial_return_pressed"]

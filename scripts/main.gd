@@ -13,6 +13,7 @@ var collected_round_data : Array[RoundData] = []
 @onready var main_menu : Control = $%MainMenu
 @onready var pre_game_questionnaire : PreGameQuestionnaire = $%PreGameQuestionnaire
 
+@onready var tutorial : Control = $%Tutorial
 @onready var round_sumary : Control = $%RoundSumary
 @onready var game_over : Label = $%GameOver
 @onready var game_won : VBoxContainer = $%GameWon
@@ -21,6 +22,7 @@ var collected_round_data : Array[RoundData] = []
 func _ready() -> void:
 	collect_data = false
 	random_user_id = generate_ruid()
+	tutorial.hide()
 	round_sumary.hide()
 	pre_game_questionnaire.hide()
 	pre_game_questionnaire.finished_questionnaire.connect(_on_finished_pregame_quest)
@@ -70,9 +72,17 @@ func _on_enable_data_collection_toggled(toggled_on: bool) -> void:
 func _on_start_game_pressed() -> void:
 	go_to_round_world(regular_world)
 
-func _on_return_pressed() -> void:
+func _on_round_summary_return_pressed() -> void:
 	main_menu.show()
 	round_sumary.hide()
+	
+func _on_tutorial_pressed() -> void:
+	main_menu.hide()
+	tutorial.show()
+
+func _on_tutorial_return_pressed() -> void:
+	main_menu.show()
+	tutorial.hide()
 
 func _on_export_data_pressed() -> void:
 	_export_data_as_zip()
