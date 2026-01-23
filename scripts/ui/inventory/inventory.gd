@@ -124,9 +124,14 @@ func create_item_popup(item: InventoryItem) -> void:
 		item_popup.queue_free()
 	var item_options : Dictionary[String, Callable] = \
 	{"drop": (func(): drop_item_from_slot(item, item.current_slot))}
+	## Potion section
 	var potion_property : PotionItemProperty = item.data.get_property("potion")
 	if potion_property:
-		item_options["heal"] = (func():_on_potion_used(potion_property.heal_amount, item))
+		item_options["heal (+%d)" % [potion_property.heal_amount]] = (func():_on_potion_used(potion_property.heal_amount, item))
+	## Valuable section
+	var valuable_property : ValuableItemProperty = item.data.get_property("valuable")
+	if valuable_property:
+		item_options["value: %d" % [valuable_property.value]] = (func(): print("nothing"))
 	item_popup = inventory_item_popup_scene.instantiate()
 	item_popup.options = item_options
 	item_popup.item = item
