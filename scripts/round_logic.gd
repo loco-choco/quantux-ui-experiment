@@ -6,9 +6,17 @@ signal round_over(points: int)
 @export var hud : PlayerHUD
 @export var wave_logic : EnemyWaveLogic
 
+@export var wave_label : Label
+@export var enemies_label : Label
+
 func _ready() -> void:
 	player.player_died.connect(on_game_over)
 	wave_logic.last_wave_completed.connect(on_game_won)
+	wave_logic.wave_started.connect(func(wave : int): \
+		wave_label.text = "Wave: %d / %d" % [wave + 1, wave_logic.enemy_waves.waves.size()])
+	wave_logic.wave_completed.connect(func(wave : int): wave_label.text = "Waiting for next wave")
+	wave_logic.wave_progression.connect(func(alive: int, total: int): \
+		enemies_label.text = "Enemies: %d / %d" % [alive, total])
 func on_game_over() -> void:
 	_round_end_logic()
 	print("Game over!")

@@ -2,6 +2,8 @@ class_name EnemyWaveLogic extends Node2D
 
 signal wave_started(wave: int)
 signal wave_completed(wave: int)
+signal wave_progression(alive: int, total: int)
+
 signal last_wave_completed()
 
 @export var enemy_scene : PackedScene
@@ -35,11 +37,13 @@ func spawn_wave() -> void:
 		enemy.died.connect(_on_enemy_died)
 		add_child(enemy)
 	wave_started.emit(current_wave)
+	wave_progression.emit(wave.amount_of_enemies, wave.amount_of_enemies)
 	print("spawned wave")
 
 func _on_enemy_died(enemy: Enemy) -> void:
 	current_alive_enemies.erase(enemy)
 	if current_alive_enemies.size() <= 0:
+		wave_progression.emit(current_alive_enemies.size(), enemy_waves.waves[current_wave].amount_of_enemies)
 		print("Wave ", current_wave, " completed!")
 		wave_completed.emit(current_wave)
 		current_wave = current_wave + 1

@@ -33,12 +33,14 @@ autostart = true
 process_mode = 1
 autostart = true
 
-[node name="RoundLogic" type="Node" parent="." node_paths=PackedStringArray("player", "hud", "wave_logic")]
+[node name="RoundLogic" type="Node" parent="." node_paths=PackedStringArray("player", "hud", "wave_logic", "wave_label", "enemies_label")]
 unique_name_in_owner = true
 script = ExtResource("1_i7141")
 player = NodePath("../Player")
 hud = NodePath("../HUD")
 wave_logic = NodePath("../EnemyWaveLogic")
+wave_label = NodePath("../HUD/HealthBar/Wave")
+enemies_label = NodePath("../HUD/HealthBar/Enemies")
 
 [node name="Map" parent="." instance=ExtResource("1_4wyf3")]
 
@@ -69,6 +71,25 @@ position_smoothing_speed = 20.0
 [node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_4wyf3")]
 process_mode = 3
 player = NodePath("../Player")
+
+[node name="Wave" type="Label" parent="HUD/HealthBar" index="0"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -17.0
+offset_top = 27.0
+offset_right = 116.0
+offset_bottom = 51.0
+text = "Starting Round ..."
+horizontal_alignment = 1
+
+[node name="Enemies" type="Label" parent="HUD/HealthBar" index="1"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -17.0
+offset_top = 48.0
+offset_right = 116.0
+offset_bottom = 72.0
+horizontal_alignment = 1
 
 [connection signal="timeout" from="RoundDataCollection/MouseFramingTimer" to="RoundDataCollection" method="get_current_mouse_pos"]
 [connection signal="timeout" from="RoundDataCollection/EnemyWaveFramingTimer" to="RoundDataCollection" method="get_current_enemies_status"]
