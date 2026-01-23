@@ -97,6 +97,8 @@ func _export_data_as_zip() -> void:
 	if error != OK:
 		push_error("Couldn't open path for saving ZIP archive (error code: %s)." % error_string(error))
 		return
+	## Saving RUID
+	save_ruid_to_zip_archive(zip, "ruid.txt")
 	## Saving questionnaires
 	pre_game_questionnaire.questionnaire_data.save_json_in_zip(zip, "pre_game_quest.json")
 	## Saving round data
@@ -105,3 +107,7 @@ func _export_data_as_zip() -> void:
 	
 	zip.close()
 	
+func save_ruid_to_zip_archive(zip : ZIPPacker, file_name : String) -> void:
+	zip.start_file(file_name)
+	zip.write_file(("%s\n" % [random_user_id]).to_ascii_buffer())
+	zip.close_file()
