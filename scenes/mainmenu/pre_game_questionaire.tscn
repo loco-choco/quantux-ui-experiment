@@ -64,6 +64,50 @@ layout_mode = 2
 theme_override_constants/separation = 30
 theme_override_styles/separator = SubResource("StyleBoxLine_uxwsg")
 
+[node name="PersonalInformation" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation"]
+layout_mode = 2
+text = "Basic Personal Information"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxLine_affyc")
+
+[node name="Question1" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation"]
+layout_mode = 2
+text = "1. What is your age group?"
+
+[node name="AgeGroups" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation"]
+layout_mode = 2
+
+[node name="less15" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation/AgeGroups"]
+layout_mode = 2
+text = "0 to 15"
+
+[node name="16to19" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation/AgeGroups"]
+layout_mode = 2
+text = "16 to 19"
+
+[node name="20to29" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation/AgeGroups"]
+layout_mode = 2
+text = "20 to 29"
+
+[node name="30to39" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation/AgeGroups"]
+layout_mode = 2
+text = "30 to 39"
+
+[node name="40plus" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation/AgeGroups"]
+layout_mode = 2
+text = "40 or plus"
+
+[node name="dontshare" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/PersonalInformation/AgeGroups"]
+layout_mode = 2
+text = "I don't want to share this information"
+
 [node name="GameHabits" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
 layout_mode = 2
 
@@ -149,20 +193,33 @@ layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Write here other game genres that you also play."
 
-[node name="Question3" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/GameHabits"]
-layout_mode = 2
-text = "3. How used are you with games that use an inventory system or simmilar?"
-
-[node name="InventoryUsed" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
+[node name="InventoryContact" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
 layout_mode = 2
 
-[node name="Start" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryUsed"]
+[node name="Title" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact"]
+layout_mode = 2
+text = "Contact with inventory systems"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxLine_affyc")
+
+[node name="Question1" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact"]
+layout_mode = 2
+text = "1. How used are you with games that use an inventory system or simmilar?"
+
+[node name="InventoryUsed" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact"]
+layout_mode = 2
+
+[node name="Start" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryUsed"]
 layout_mode = 2
 text = "I never 
 see them"
 horizontal_alignment = 1
 
-[node name="InventoryFrequency" type="HSlider" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryUsed"]
+[node name="InventoryFrequency" type="HSlider" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryUsed"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -175,39 +232,39 @@ tick_count = 5
 ticks_on_borders = true
 ticks_position = 3
 
-[node name="End" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryUsed"]
+[node name="End" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryUsed"]
 layout_mode = 2
 text = "Most games I play
 have them"
 horizontal_alignment = 1
 
-[node name="Question4" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
+[node name="Question2" type="Label" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact"]
 layout_mode = 2
-text = "4. What types of inventory have you mainly interacted with?"
+text = "2. What types of inventory have you mainly interacted with?"
 
-[node name="InventoryTypes" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire"]
+[node name="InventoryTypes" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact"]
 layout_mode = 2
 
-[node name="Grid" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryTypes"]
+[node name="Grid" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryTypes"]
 layout_mode = 2
 text = "Grid (as in games like Minecraft, Arc Raiders, Hytale, Apex Legends)"
 
-[node name="List" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryTypes"]
+[node name="List" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryTypes"]
 layout_mode = 2
-text = "List (as in games like Undertale, Deltarune, Project Zomboid) "
+text = "List (as in games like Undertale, Skyrim, Fallout 4, Pokemon, Final Fantasy) "
 
-[node name="VolumetricGrid" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryTypes"]
+[node name="VolumetricGrid" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryTypes"]
 layout_mode = 2
 text = "Volumetric Grid (as in games like Resident Evil, Dredge)"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryTypes"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryTypes"]
 layout_mode = 2
 
-[node name="Other" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryTypes/HBoxContainer"]
+[node name="Other" type="CheckBox" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryTypes/HBoxContainer"]
 layout_mode = 2
 text = "Other"
 
-[node name="TextEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryTypes/HBoxContainer"]
+[node name="TextEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/MarginContainer/Questionaire/InventoryContact/InventoryTypes/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Write here other inventory types you have encountered."
