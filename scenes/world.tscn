@@ -62,6 +62,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 
 [node name="HUD" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_4wyf3")]
+process_mode = 3
 player = NodePath("../Player")
 
 [connection signal="timeout" from="RoundDataCollection/MouseFramingTimer" to="RoundDataCollection" method="get_current_mouse_pos"]

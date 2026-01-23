@@ -29,10 +29,12 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("hud_toggle_inventory"):
 		#if not quick_inv.visible:
 			if not inventory.visible: 
+				get_tree().paused = true
 				inventory.show()
 				inventory.set_focus()
 				InputMode.change_mode(InputMode.Modes.UI)
 			else:
+				get_tree().paused = false
 				inventory.hide_ui()
 				InputMode.change_mode(InputMode.Modes.PLAYER)
 	#if Input.is_action_pressed("hud_toggle_quick_inv"):
