@@ -10,9 +10,9 @@ var current_world : RoundWorld
 var collect_data : bool
 var collected_round_data : Array[RoundData] = []
 
-@onready var main_menu : CanvasLayer = $%MainMenu
+@onready var main_menu : Control = $%MainMenu
 
-@onready var round_sumary : CanvasLayer = $%RoundSumary
+@onready var round_sumary : Control = $%RoundSumary
 @onready var game_over : Label = $%GameOver
 @onready var game_won : VBoxContainer = $%GameWon
 @onready var score : Label = $%Score
