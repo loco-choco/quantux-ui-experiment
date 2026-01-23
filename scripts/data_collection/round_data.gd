@@ -8,20 +8,12 @@ enum InventoryEvent {OPEN, CLOSE}
 @export var mouse_frames : Dictionary[String, Vector2] = {}
 
 
-func save_zip_archive(file_name : String = "user://archive.zip") -> void:
-	var zip : ZIPPacker = ZIPPacker.new()
-	var error = zip.open(file_name, ZIPPacker.ZipAppend.APPEND_CREATE)
-	if error != OK:
-		push_error("Couldn't open path for saving ZIP archive (error code: %s)." % error_string(error))
-		return
-		
-	save_csv_in_zip(zip, _csv_inventory_events(), "inventory.csv")
-	save_csv_in_zip(zip, _csv_wave_frames(), "waves.csv")
-	save_csv_in_zip(zip, _csv_mouse_frames(), "mouse.csv")
-	save_csv_in_zip(zip, _csv_bag_frame_values(), "bag_values.csv")
-	save_csv_in_zip(zip, _csv_bag_frame_items(), "bag_items.csv")
-
-	zip.close()
+func save_to_zip_archive(zip : ZIPPacker, file_prefix : String = "") -> void:	
+	save_csv_in_zip(zip, _csv_inventory_events(), file_prefix + "inventory.csv")
+	save_csv_in_zip(zip, _csv_wave_frames(), file_prefix + "waves.csv")
+	save_csv_in_zip(zip, _csv_mouse_frames(), file_prefix + "mouse.csv")
+	save_csv_in_zip(zip, _csv_bag_frame_values(), file_prefix + "bag_values.csv")
+	save_csv_in_zip(zip, _csv_bag_frame_items(), file_prefix + "bag_items.csv")
 
 func save_csv_in_zip(zip : ZIPPacker, content : String, file_name : String = "csv.csv") -> void:
 	zip.start_file(file_name)

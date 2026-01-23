@@ -69,5 +69,18 @@ func _on_return_pressed() -> void:
 	round_sumary.hide()
 
 func _on_export_data_pressed() -> void:
-	for i in range(collected_round_data.size()):
-		collected_round_data[i].save_zip_archive("user://{0}_round_{1}.zip".format([random_user_id, i]))
+	_export_data_as_zip()
+
+func _export_data_as_zip() -> void:
+	var file_name : String = "user://%s.zip" % [random_user_id]
+	var zip : ZIPPacker = ZIPPacker.new()
+	var error = zip.open(file_name, ZIPPacker.ZipAppend.APPEND_CREATE)
+	if error != OK:
+		push_error("Couldn't open path for saving ZIP archive (error code: %s)." % error_string(error))
+		return
+		
+	for i : int in range(collected_round_data.size()):
+		collected_round_data[i].save_to_zip_archive(zip, "round_%d/" % [i])
+	
+	zip.close()
+	
