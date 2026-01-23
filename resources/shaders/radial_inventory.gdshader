@@ -15,7 +15,9 @@ void fragment()
 	if(length(mouseDir) > 1.) mouseDir = normalize(mouseDir);
 	float distortion = dot(mouseDir, normalize(uv));
 	distortion = smoothstep(0.0, 1., distortion);
-	distortion = pow(distortion, 1.);
+	//distortion = pow(distortion, 1.);
+	
+	//distortion = min(0.1, sin(30. * distortion));
 	
 	float sq = uv.x * uv.x + uv.y * uv.y - radius;
 	if(sq <= width - 0.2 && sq >= -width - 0.3 + 0.063 * distortion)
