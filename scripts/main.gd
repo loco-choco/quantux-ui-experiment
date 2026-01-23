@@ -91,7 +91,7 @@ func _on_export_data_pressed() -> void:
 	_export_data_as_zip()
 
 func _export_data_as_zip() -> void:
-	var file_name : String = "user://%s.zip" % [random_user_id]
+	var file_name : String = "user://collected_data.zip"
 	var zip : ZIPPacker = ZIPPacker.new()
 	var error = zip.open(file_name, ZIPPacker.ZipAppend.APPEND_CREATE)
 	if error != OK:
