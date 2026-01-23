@@ -8,6 +8,7 @@ enum InventoryEvent {OPEN, CLOSE}
 @export var side_weapon_slot_frames : Dictionary[String, SlotFrame] = {}
 @export var wave_frames : Dictionary[String, WaveFrame] = {}
 @export var mouse_frames : Dictionary[String, Vector2] = {}
+@export var health_frames : Dictionary[String, int] = {}
 
 
 func save_to_zip_archive(zip : ZIPPacker, file_prefix : String = "") -> void:	
@@ -18,6 +19,7 @@ func save_to_zip_archive(zip : ZIPPacker, file_prefix : String = "") -> void:
 	save_csv_in_zip(zip, _csv_bag_frame_items(), file_prefix + "bag_items.csv")
 	save_csv_in_zip(zip, _csv_slot_items(weapon_slot_frames), file_prefix + "weapon_slot.csv")
 	save_csv_in_zip(zip, _csv_slot_items(side_weapon_slot_frames), file_prefix + "side_weapon.csv")
+	save_csv_in_zip(zip, _csv_health_frames(), file_prefix + "player_health.csv")
 
 func save_csv_in_zip(zip : ZIPPacker, content : String, file_name : String = "csv.csv") -> void:
 	zip.start_file(file_name)
@@ -74,4 +76,11 @@ func _csv_slot_items(dict : Dictionary[String, SlotFrame]) -> String:
 	for time : String in dict:
 		var slot_frame : SlotFrame = dict[time]
 		csv = csv + _to_csv_line([time, slot_frame.item_name])
+	return csv
+
+func _csv_health_frames() -> String:
+	var csv : String = ""
+	csv = csv + _to_csv_line(["timestamp", "health"])
+	for time : String in health_frames:
+		csv = csv + _to_csv_line([time, "%d" % health_frames[time]])
 	return csv

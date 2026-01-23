@@ -15,6 +15,7 @@ func _ready() -> void:
 	side_weapon_slot.item_slot_update.connect(func(item: InventoryItem) : save_slot_update(round_data.side_weapon_slot_frames, item))
 	bag_inventory.items_update.connect(_on_bag_items_update)
 	inventory.visibility_changed.connect(get_inventory_event)
+	player.health_changed.connect(_on_player_health_change)
 	
 func get_inventory_event() -> void:
 	var now: String = Time.get_datetime_string_from_system(true)
@@ -26,6 +27,10 @@ func save_slot_update(dict : Dictionary[String, SlotFrame], item: InventoryItem)
 	var slot_frame : SlotFrame = SlotFrame.new()
 	slot_frame.item_name = item.data.item.name if item else "NONE"
 	dict[now] = slot_frame
+
+func _on_player_health_change(new_value: float) -> void:
+	var now: String = Time.get_datetime_string_from_system(true)
+	round_data.health_frames[now] = roundi(new_value)
 
 func _on_bag_items_update(items: Array[InventoryItem]) -> void:
 	var total_value : int = 0
