@@ -1,12 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvkqs1ejdovsf"]
+[gd_scene load_steps=10 format=3 uid="uid://dvkqs1ejdovsf"]
 
 [ext_resource type="Script" uid="uid://bkrwpauhwrkpy" path="res://scripts/loot_spawner.gd" id="1_4xfga"]
 [ext_resource type="PackedScene" uid="uid://dfa3nrjnhe3mt" path="res://scenes/item.tscn" id="2_2lpho"]
 [ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://scripts/item/item_data.gd" id="3_nakos"]
-[ext_resource type="Resource" uid="uid://h2ts1vi0qsyx" path="res://resources/items/valuables/coins_7.tres" id="4_jh32y"]
 [ext_resource type="Resource" uid="uid://6fm4hxsiuksq" path="res://resources/items/weapons/weapon_red.tres" id="5_be0no"]
+[ext_resource type="Resource" uid="uid://bqsaxr8qmgbop" path="res://resources/items/valuables/coins_2.tres" id="5_blm8a"]
 [ext_resource type="Resource" uid="uid://bca71tkqojqgs" path="res://resources/items/soup.tres" id="6_blm8a"]
+[ext_resource type="Resource" uid="uid://daqxkox125g3w" path="res://resources/items/valuables/coins_1.tres" id="6_mlgqr"]
 [ext_resource type="Resource" uid="uid://bfkkg2x47qstj" path="res://resources/items/weapons/weapon_green.tres" id="7_nakos"]
+[ext_resource type="Resource" uid="uid://b61a3s00gs7ar" path="res://resources/items/weapons/weapon_blue.tres" id="8_jh32y"]
 
 [node name="Map" type="Node2D"]
 
@@ -14,53 +16,420 @@
 layer = -1
 follow_viewport_enabled = true
 
-[node name="ColorRect" type="ColorRect" parent="BackGround"]
+[node name="Center" type="Control" parent="BackGround"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="BackGround/Center"]
+layout_mode = 0
 offset_left = 359.0
 offset_top = 138.0
 offset_right = 551.0
 offset_bottom = 344.0
 color = Color(0.67840135, 0.411248, 0.12265039, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect3" type="ColorRect" parent="BackGround"]
+[node name="ColorRect3" type="ColorRect" parent="BackGround/Center"]
+layout_mode = 0
 offset_left = -135.0
 offset_top = 217.0
 offset_right = 359.0
 offset_bottom = 263.0
 color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect2" type="ColorRect" parent="BackGround"]
+[node name="ColorRect2" type="ColorRect" parent="BackGround/Center"]
+layout_mode = 0
 offset_left = 551.0
 offset_top = 217.0
 offset_right = 1045.0
 offset_bottom = 263.0
 color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect4" type="ColorRect" parent="BackGround"]
+[node name="ColorRect4" type="ColorRect" parent="BackGround/Center"]
+layout_mode = 0
 offset_left = 86.000015
 offset_top = 487.0
 offset_right = 580.0
 offset_bottom = 533.0
 rotation = -1.5707964
 color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect5" type="ColorRect" parent="BackGround"]
+[node name="ColorRect5" type="ColorRect" parent="BackGround/Center"]
+layout_mode = 0
 offset_left = 772.0
 offset_top = 487.0
 offset_right = 1266.0
 offset_bottom = 533.0
 rotation = -1.5707964
 color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="UR" type="Control" parent="BackGround"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="BackGround/UR"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 29.5
+anchor_top = -18.8
+anchor_right = 29.5
+anchor_bottom = -18.8
+offset_left = 359.0
+offset_top = 138.0
+offset_right = 551.0
+offset_bottom = 344.0
+color = Color(0.21188942, 0.566782, 0.2939615, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect3" type="ColorRect" parent="BackGround/UR"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 29.5
+anchor_top = -18.8
+anchor_right = 29.5
+anchor_bottom = -18.8
+offset_left = -135.0
+offset_top = 217.0
+offset_right = 359.0
+offset_bottom = 263.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="BackGround/UR"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 29.5
+anchor_top = -18.8
+anchor_right = 29.5
+anchor_bottom = -18.8
+offset_left = 551.0
+offset_top = 217.0
+offset_right = 1045.0
+offset_bottom = 263.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect4" type="ColorRect" parent="BackGround/UR"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 29.5
+anchor_top = -18.8
+anchor_right = 29.5
+anchor_bottom = -18.8
+offset_left = 86.000015
+offset_top = 487.0
+offset_right = 580.0
+offset_bottom = 533.0
+rotation = -1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect5" type="ColorRect" parent="BackGround/UR"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 29.5
+anchor_top = -18.8
+anchor_right = 29.5
+anchor_bottom = -18.8
+offset_left = 772.0
+offset_top = 487.0
+offset_right = 1266.0
+offset_bottom = 533.0
+rotation = -1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="UL" type="Control" parent="BackGround"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="BackGround/UL"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -29.825
+anchor_top = -18.8
+anchor_right = -29.825
+anchor_bottom = -18.8
+offset_left = 359.0
+offset_top = 138.0
+offset_right = 551.0
+offset_bottom = 344.0
+color = Color(0.79128784, 0.29896477, 0.23015544, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect3" type="ColorRect" parent="BackGround/UL"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -29.825
+anchor_top = -18.8
+anchor_right = -29.825
+anchor_bottom = -18.8
+offset_left = -135.0
+offset_top = 217.0
+offset_right = 359.0
+offset_bottom = 263.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="BackGround/UL"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -29.825
+anchor_top = -18.8
+anchor_right = -29.825
+anchor_bottom = -18.8
+offset_left = 551.0
+offset_top = 217.0
+offset_right = 1045.0
+offset_bottom = 263.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect4" type="ColorRect" parent="BackGround/UL"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -29.825
+anchor_top = -18.8
+anchor_right = -29.825
+anchor_bottom = -18.8
+offset_left = 86.000015
+offset_top = 487.0
+offset_right = 580.0
+offset_bottom = 533.0
+rotation = -1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect5" type="ColorRect" parent="BackGround/UL"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -29.825
+anchor_top = -18.8
+anchor_right = -29.825
+anchor_bottom = -18.8
+offset_left = 772.0
+offset_top = 487.0
+offset_right = 1266.0
+offset_bottom = 533.0
+rotation = -1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="DR" type="Control" parent="BackGround"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="BackGround/DR"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 29.5
+anchor_top = 16.425
+anchor_right = 29.5
+anchor_bottom = 16.425
+offset_left = 359.0
+offset_top = 138.0
+offset_right = 551.0
+offset_bottom = 344.0
+color = Color(0.68681806, 0.37837678, 0.41513792, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect3" type="ColorRect" parent="BackGround/DR"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 29.5
+anchor_top = 16.425
+anchor_right = 29.5
+anchor_bottom = 16.425
+offset_left = -135.0
+offset_top = 217.0
+offset_right = 359.0
+offset_bottom = 263.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="BackGround/DR"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 29.5
+anchor_top = 16.425
+anchor_right = 29.5
+anchor_bottom = 16.425
+offset_left = 551.0
+offset_top = 217.0
+offset_right = 1045.0
+offset_bottom = 263.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect4" type="ColorRect" parent="BackGround/DR"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 29.5
+anchor_top = 16.425
+anchor_right = 29.5
+anchor_bottom = 16.425
+offset_left = 86.000015
+offset_top = 487.0
+offset_right = 580.0
+offset_bottom = 533.0
+rotation = -1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect5" type="ColorRect" parent="BackGround/DR"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 29.5
+anchor_top = 16.425
+anchor_right = 29.5
+anchor_bottom = 16.425
+offset_left = 772.0
+offset_top = 487.0
+offset_right = 1266.0
+offset_bottom = 533.0
+rotation = -1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="DL" type="Control" parent="BackGround"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="BackGround/DL"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -29.825
+anchor_top = 16.325
+anchor_right = -29.825
+anchor_bottom = 16.325
+offset_left = 359.0
+offset_top = 138.0
+offset_right = 551.0
+offset_bottom = 344.0
+color = Color(0.26171386, 0.49419922, 0.75227267, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect3" type="ColorRect" parent="BackGround/DL"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -29.825
+anchor_top = 16.325
+anchor_right = -29.825
+anchor_bottom = 16.325
+offset_left = -135.0
+offset_top = 217.0
+offset_right = 359.0
+offset_bottom = 263.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect2" type="ColorRect" parent="BackGround/DL"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -29.825
+anchor_top = 16.325
+anchor_right = -29.825
+anchor_bottom = 16.325
+offset_left = 551.0
+offset_top = 217.0
+offset_right = 1045.0
+offset_bottom = 263.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect4" type="ColorRect" parent="BackGround/DL"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -29.825
+anchor_top = 16.325
+anchor_right = -29.825
+anchor_bottom = 16.325
+offset_left = 86.000015
+offset_top = 487.0
+offset_right = 580.0
+offset_bottom = 533.0
+rotation = -1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect5" type="ColorRect" parent="BackGround/DL"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -29.825
+anchor_top = 16.325
+anchor_right = -29.825
+anchor_bottom = 16.325
+offset_left = 772.0
+offset_top = 487.0
+offset_right = 1266.0
+offset_bottom = 533.0
+rotation = -1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="LootSpawner" type="Node2D" parent="."]
 position = Vector2(109, 460)
 script = ExtResource("1_4xfga")
 item_scene = ExtResource("2_2lpho")
-loot_table = Array[ExtResource("3_nakos")]([ExtResource("4_jh32y"), ExtResource("5_be0no"), ExtResource("6_blm8a")])
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("6_blm8a"), ExtResource("5_blm8a"), ExtResource("6_mlgqr"), ExtResource("6_mlgqr"), ExtResource("6_mlgqr")])
 loot_amount = 2
 
 [node name="LootSpawner2" type="Node2D" parent="."]
 position = Vector2(108, 27)
 script = ExtResource("1_4xfga")
 item_scene = ExtResource("2_2lpho")
-loot_table = Array[ExtResource("3_nakos")]([ExtResource("5_be0no"), ExtResource("7_nakos")])
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("6_blm8a"), ExtResource("5_blm8a"), ExtResource("6_mlgqr"), ExtResource("6_mlgqr"), ExtResource("6_mlgqr")])
 loot_amount = 2
+
+[node name="LootSpawner3" type="Node2D" parent="."]
+position = Vector2(795, 460)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("6_blm8a"), ExtResource("5_blm8a"), ExtResource("6_mlgqr"), ExtResource("6_mlgqr"), ExtResource("6_mlgqr")])
+loot_amount = 2
+
+[node name="LootSpawner4" type="Node2D" parent="."]
+position = Vector2(794, 27)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("6_blm8a"), ExtResource("5_blm8a"), ExtResource("6_mlgqr"), ExtResource("6_mlgqr"), ExtResource("6_mlgqr")])
+loot_amount = 2
+
+[node name="LootSpawner5" type="Node2D" parent="."]
+position = Vector2(-744, 893)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("8_jh32y")])
+
+[node name="LootSpawner6" type="Node2D" parent="."]
+position = Vector2(1627, 893)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("6_blm8a")])
+loot_amount = 3
+
+[node name="LootSpawner7" type="Node2D" parent="."]
+position = Vector2(1635, -519)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("7_nakos")])
+
+[node name="LootSpawner8" type="Node2D" parent="."]
+position = Vector2(-754, -523)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("5_be0no")])
