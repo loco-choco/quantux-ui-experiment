@@ -19,19 +19,211 @@
 layer = -1
 follow_viewport_enabled = true
 
-[node name="ColorRect2" type="ColorRect" parent="BackGround"]
+[node name="Background" type="Control" parent="BackGround"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect2" type="ColorRect" parent="BackGround/Background"]
+layout_mode = 0
 offset_left = -4841.0
 offset_top = -3592.0
 offset_right = 5625.0
 offset_bottom = 3949.0
 color = Color(0, 0, 0, 1)
 
-[node name="ColorRect" type="ColorRect" parent="BackGround"]
+[node name="ColorRect" type="ColorRect" parent="BackGround/Background"]
+layout_mode = 0
 offset_left = -2132.0
 offset_top = -1517.0
 offset_right = 3125.0
 offset_bottom = 1981.0
 color = Color(0.38928655, 0.38928664, 0.38928658, 1)
+
+[node name="Control" type="Control" parent="BackGround"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -430.0
+offset_top = -356.0
+offset_right = 673.0
+offset_bottom = 489.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect6" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.51666665
+offset_left = -1655.0
+offset_top = 221.0
+offset_right = -1161.0
+offset_bottom = 267.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect14" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.63735265
+anchor_top = -0.53846157
+anchor_right = 0.35448775
+anchor_bottom = -0.3739645
+offset_left = -1214.0
+offset_top = 73.00003
+offset_right = -719.9999
+offset_bottom = 119.00003
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+
+[node name="ColorRect15" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35448775
+anchor_top = -0.53846157
+anchor_right = 0.35448775
+anchor_bottom = -0.3739645
+offset_left = -879.0
+offset_top = 1271.0
+offset_right = -700.9999
+offset_bottom = 1317.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+
+[node name="ColorRect16" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35448775
+anchor_top = -0.53846157
+anchor_right = 0.35448775
+anchor_bottom = -0.3739645
+offset_left = 826.0
+offset_top = 1223.0
+offset_right = 1004.0001
+offset_bottom = 1269.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+
+[node name="ColorRect17" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35448775
+anchor_top = -0.53846157
+anchor_right = 0.35448775
+anchor_bottom = -0.3739645
+offset_left = 761.0
+offset_top = 135.00003
+offset_right = 939.0001
+offset_bottom = 181.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+
+[node name="ColorRect18" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35448775
+anchor_top = -0.53846157
+anchor_right = 0.35448775
+anchor_bottom = -0.3739645
+offset_left = -2414.0
+offset_top = 622.0
+offset_right = -2236.0
+offset_bottom = 668.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+
+[node name="ColorRect19" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.35448775
+anchor_top = -0.53846157
+anchor_right = 0.35448775
+anchor_bottom = -0.3739645
+offset_left = 2447.0
+offset_top = 512.0
+offset_right = 2625.0
+offset_bottom = 558.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+
+[node name="ColorRect7" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.51666665
+offset_left = -1153.0
+offset_top = -237.0
+offset_right = -659.0
+offset_bottom = -191.0
+rotation = 1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect8" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.51666665
+offset_left = -14.0
+offset_top = 1212.0
+offset_right = 479.99997
+offset_bottom = 1258.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect9" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.51666665
+offset_left = 488.0
+offset_top = 754.0
+offset_right = 982.0
+offset_bottom = 800.0
+rotation = 1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect10" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.51666665
+offset_left = 1664.0
+offset_top = 122.0
+offset_right = 2158.0
+offset_bottom = 168.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect11" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.51666665
+offset_left = 2166.0
+offset_top = -336.0
+offset_right = 2660.0
+offset_bottom = -290.0
+rotation = 1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect12" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.51666665
+offset_left = -7.0
+offset_top = -808.0
+offset_right = 486.99997
+offset_bottom = -762.0
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect13" type="ColorRect" parent="BackGround/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.51666665
+offset_left = 495.0
+offset_top = -1266.0
+offset_right = 989.0
+offset_bottom = -1220.0
+rotation = 1.5707964
+color = Color(0.737193, 0.7371929, 0.7371929, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="Center" type="Control" parent="BackGround"]
 layout_mode = 3
