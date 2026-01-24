@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dg2eoqojt8v1"]
+[gd_scene load_steps=9 format=3 uid="uid://dg2eoqojt8v1"]
 
 [ext_resource type="Script" uid="uid://dqcm57s62snqt" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://ct5lh45t375b1" path="res://scenes/world.tscn" id="2_0wfyh"]
@@ -20,9 +20,6 @@ grow_begin = 0.0
 grow_end = 0.0
 thickness = 3
 
-[sub_resource type="LabelSettings" id="LabelSettings_sugp2"]
-font_size = 12
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sugp2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tbgi4"]
@@ -38,6 +35,7 @@ process_mode = 3
 
 [node name="MainMenu" type="PanelContainer" parent="MainMenuCanvas"]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -176,7 +174,6 @@ text = "Return to Menu"
 
 [node name="Tutorial" type="PanelContainer" parent="MainMenuCanvas"]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -185,7 +182,6 @@ grow_vertical = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MainMenuCanvas/Tutorial"]
 layout_mode = 2
-scroll_vertical = 1359
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
@@ -225,13 +221,18 @@ layout_mode = 2
 theme_override_constants/separation = 30
 theme_override_styles/separator = SubResource("StyleBoxLine_sugp2")
 
-[node name="Description" type="Label" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Objective"]
+[node name="Description" type="RichTextLabel" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Objective"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 14
+theme_override_font_sizes/bold_italics_font_size = 14
+theme_override_font_sizes/italics_font_size = 14
+theme_override_font_sizes/mono_font_size = 14
 text = "Your objective is to get the highest amount of valuable items inside your inventory (also called \"bag\") while surviving to the end of the round. 
 A round is composed of several waves of enemies that will swarm you, with each wave getting increasily more difficult.
 Each item has an amount of points associated with it, and it is your job to decide which ones are better to be kept or to be left on the floor."
-label_settings = SubResource("LabelSettings_sugp2")
+fit_content = true
 autowrap_mode = 2
 
 [node name="HSeparator3" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Objective"]
@@ -252,30 +253,32 @@ layout_mode = 2
 theme_override_constants/separation = 30
 theme_override_styles/separator = SubResource("StyleBoxLine_sugp2")
 
-[node name="Description" type="Label" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Controls"]
+[node name="Description" type="RichTextLabel" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Controls"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "IN GAME -----------------
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 14
+theme_override_font_sizes/bold_italics_font_size = 14
+theme_override_font_sizes/italics_font_size = 14
+theme_override_font_sizes/mono_font_size = 14
+bbcode_enabled = true
+text = "[center][b]IN GAME[/b][/center]
 
-MOVEMENT:
+[center]MOVEMENT[/center]
 Use WASD/ZQSD to move the player.
 
-SHOOTING:
-
+[center]SHOOTING[/center]
 While using your mouse to aim (from the center of the screen, the bullet goes in the direction of the mouse pointer), press LEFT MOUSE to fire your primary weapon, and RIGHT MOUSE to fire your secondary weapon.
 
-INTERACTING WITH ITEMS:
+[center]INTERACTING WITH ITEMS[/center]
+You will find items scattered on the ground as small squares that will be highlighted once you are close enough to interact with. By pressing E they will be automatically placed in your bag, if there is enough space left. If there isn't enough space, the item will stay on the ground, and you will have to either drop or rearange your current inventory to have it fit.
 
-You will find items scattered on the group as small squares that will be highlighted once you are close enough to interact with. By pressing E they
-will be automatically placed in your bag, if there is enough space left. If there isn't enough space, the item will stay on the ground, and you will have to 
-either drop or rearange your current inventory to have it fit.
-
-OPENING THE INVENTORY:
+[center]OPENING THE INVENTORY[/center]
 Press SPACE to open the inventory.
 
-IN THE INVENTORY  -----------------
+[center][b]IN THE INVENTORY[/b][/center]
 
-INTERACTING WITH ITEMS:
+[center]INTERACTING WITH ITEMS[/center]
 With your mouse, hover the item and press LEFT MOUSE to grab it. You can then press RIGHT MOUSE to rotate it, and RIGHT MOUSE to 
 place it in a new position that depends on where you move your mouse. Invalid slots will be marked with red and won't allow you to place items
 in there.
@@ -285,21 +288,19 @@ You can also press RIGHT MOUSE before grabbing an item to see other interaction 
 - Heal (x): Heals the player for a x amount
 - Value (x): The value (x) of the item
 
-EQUIPING WEAPONS:
-Once you have a weapon, you can equip it in your primary or secondary weapon slots. Those slots are big white rectangles located to the left
-of the inventory, with the first at the top being the primary weapons, and the second for secondary weapons.
+[center]EQUIPING WEAPONS[/center]
+Once you have a weapon, you can equip it in your primary or secondary weapon slots. Those slots are big white rectangles located to the left of the inventory, with the first at the top being the primary weapons, and the second for secondary weapons.
 These slots only accept weapons, and will turn red if the item you are holding isn't one.
 
-DROPPING ITEMS:
-You can drop an item by either pressing RIGHT MOUSE and then Drop or, or by grabbing it with LEFT MOUSE and placing it in the \"Drop Slot\",
-which will appear as a big downward arrow to the right of the inventory.
+[center]DROPPING ITEMS[/center]
+You can drop an item by either pressing RIGHT MOUSE and then Drop or, or by grabbing it with LEFT MOUSE and placing it in the \"Drop Slot\", which will appear as a big downward arrow to the right of the inventory.
 
-CLOSING THE INVENTORY:
+[center]CLOSING THE INVENTORY[/center]
 Press SPACE to close back the inventory. Any items you were holding will be dropped back to the floor if there isn't any space available in the bag.
 
 
 "
-label_settings = SubResource("LabelSettings_sugp2")
+fit_content = true
 autowrap_mode = 2
 
 [node name="HSeparator3" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Controls"]
@@ -320,15 +321,21 @@ layout_mode = 2
 theme_override_constants/separation = 30
 theme_override_styles/separator = SubResource("StyleBoxLine_sugp2")
 
-[node name="Description" type="Label" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Enemies"]
+[node name="Description" type="RichTextLabel" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Enemies"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 14
+theme_override_font_sizes/bold_italics_font_size = 14
+theme_override_font_sizes/italics_font_size = 14
+theme_override_font_sizes/mono_font_size = 14
+bbcode_enabled = true
 text = "Enemies are the colored triangles characters that you will see chasing you down. They will try to get close to lend a hit on you, so be careful!
-They are separated in 3 groups by color, RED, BLUE and GREEN. 
-They can only be efficiently harmed by the right colored weapon/bullet, for example, a RED enemy is only harmed by RED weapons/bullets.
-You can kill all enemy types with any weapon type, but it will take a greater amount of bullets.
+They are separated in 3 groups by color,  [color=red]RED[/color], [color=royal_blue]BLUE[/color] and [color=green]GREEN[/color]. 
+They can only be efficiently harmed by the [b]right colored[/b] weapon/bullet, for example, a [color=red]RED[/color] enemy is only harmed by [color=red]RED[/color] weapons/bullets.
+You [i]can[/i] kill all enemy types with any weapon type, but it will take a greater amount of bullets.
 As the waves go on, they will be more numerous, faster, and more diverse, so use the time between the waves to heal and find new items that might aid you."
-label_settings = SubResource("LabelSettings_sugp2")
+fit_content = true
 autowrap_mode = 2
 
 [node name="HSeparator3" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Enemies"]
@@ -349,29 +356,32 @@ layout_mode = 2
 theme_override_constants/separation = 30
 theme_override_styles/separator = SubResource("StyleBoxLine_sugp2")
 
-[node name="Description" type="Label" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Items"]
+[node name="Description" type="RichTextLabel" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Items"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 14
+theme_override_font_sizes/bold_italics_font_size = 14
+theme_override_font_sizes/italics_font_size = 14
+theme_override_font_sizes/mono_font_size = 14
+bbcode_enabled = true
 text = "Items are spread all over the map, and are separated in 3 categories: POTIONS, COINS and WEAPONS. All items have value, with some being more valuable then others. You can always check this information by pressing RIGHT MOUSE over the item of interest while in the inventory.
 
 In general, the bigger the item (inside the inventory grid) the more value it can offer, either as a healing source, or points for the score.
 
-
-POTIONS:
+[center]POTIONS[/center]
 Potions are single use red viles that can heal the player for some amount. They can differ in size, heal amount, and value.
 
-COINS:
+[center]COINS[/center]
 Coins are small yellow circles that give a lot of points, and can differ in size and value.
 
-WEAPONS:
+[center]WEAPONS[/center]
 Weapons are colored pistols. They all have the same size, and all the colors can be found scattered around the map.
-Weapons are divided in 3 colors: RED, BLUE and GREEN. By equiping differently colored weapons in the primary and secondary weapon
-slots, you can shot both colors when pressing MOUSE LEFT and MOUSE RIGHT. Enemies are only really affected by the right color, 
-so pay attention to make the correct switch, although they can all be killed by any weapon.
+Weapons are divided in 3 colors: [color=red]RED[/color], [color=royal_blue]BLUE[/color] and [color=green]GREEN[/color]. By equiping differently colored weapons in the primary and secondary weapon slots, you can shot both colors when pressing MOUSE LEFT and MOUSE RIGHT. Enemies are only really affected by the right color, so pay attention to make the correct switch, although they can all be killed by any weapon.
 
-You start the game without one, so searching the map for one is one of your first priorities.
+[b]You start the game without a weapon, so searching the map for one is one of your first priorities.[/b]
 "
-label_settings = SubResource("LabelSettings_sugp2")
+fit_content = true
 autowrap_mode = 2
 
 [node name="HSeparator3" type="HSeparator" parent="MainMenuCanvas/Tutorial/ScrollContainer/VBoxContainer/MarginContainer/VBoxContainer/Items"]
