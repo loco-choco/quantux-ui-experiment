@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://dg2eoqojt8v1"]
+[gd_scene load_steps=10 format=3 uid="uid://dg2eoqojt8v1"]
 
 [ext_resource type="Script" uid="uid://dqcm57s62snqt" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://ct5lh45t375b1" path="res://scenes/world.tscn" id="2_0wfyh"]
-[ext_resource type="PackedScene" uid="uid://d0x0cwmmnybk3" path="res://scenes/mainmenu/pre_game_questionaire.tscn" id="3_sugp2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tefeu"]
 font_size = 12
@@ -39,7 +38,6 @@ process_mode = 3
 
 [node name="MainMenu" type="PanelContainer" parent="MainMenuCanvas"]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -94,13 +92,13 @@ layout_mode = 2
 layout_mode = 2
 text = "Enable Data Collection"
 
-[node name="DataCollectionDocument" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="OpenConsentForm" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Open Data Collection Document"
 
-[node name="PrePlayingQuestionnaire" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="OpenQuestionnaire" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Open Pre Game Questionnaire"
+text = "Open Questionnaire"
 
 [node name="OpenTutorial" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -109,10 +107,6 @@ text = "Open Tutorial"
 [node name="StartGame" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Play Round"
-
-[node name="PrePlayingQuestionaire2" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Open Post Playing Questionaire"
 
 [node name="ExportData" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -338,12 +332,8 @@ layout_mode = 2
 theme_override_constants/separation = 100
 theme_override_styles/separator = SubResource("StyleBoxEmpty_tbgi4")
 
-[node name="PreGameQuestionnaire" parent="MainMenuCanvas" instance=ExtResource("3_sugp2")]
-unique_name_in_owner = true
-visible = false
-
 [connection signal="toggled" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EnableDataCollection" to="." method="_on_enable_data_collection_toggled"]
-[connection signal="pressed" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/PrePlayingQuestionnaire" to="." method="_on_start_pregame_quest"]
+[connection signal="pressed" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/OpenQuestionnaire" to="." method="_on_open_questionnaire"]
 [connection signal="pressed" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/OpenTutorial" to="." method="_on_tutorial_pressed"]
 [connection signal="pressed" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/StartGame" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/ExportData" to="." method="_on_export_data_pressed"]
