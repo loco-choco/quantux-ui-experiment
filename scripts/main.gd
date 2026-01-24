@@ -70,6 +70,7 @@ func _on_tutorial_return_pressed() -> void:
 
 func _on_export_data_pressed() -> void:
 	_export_data_as_zip()
+	OS.shell_open(ProjectSettings.globalize_path("user://"))
 
 func _export_data_as_zip() -> void:
 	var file_name : String = "user://collected_data.zip"
