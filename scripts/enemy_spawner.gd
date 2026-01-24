@@ -42,8 +42,8 @@ func spawn_wave() -> void:
 
 func _on_enemy_died(enemy: Enemy) -> void:
 	current_alive_enemies.erase(enemy)
+	wave_progression.emit(current_alive_enemies.size(), enemy_waves.waves[current_wave].amount_of_enemies)
 	if current_alive_enemies.size() <= 0:
-		wave_progression.emit(current_alive_enemies.size(), enemy_waves.waves[current_wave].amount_of_enemies)
 		print("Wave ", current_wave, " completed!")
 		wave_completed.emit(current_wave)
 		current_wave = current_wave + 1
