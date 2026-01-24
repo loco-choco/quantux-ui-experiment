@@ -4,7 +4,7 @@ class_name Main extends Node2D
 @export var regular_world : PackedScene
 var current_world : RoundWorld
 
-var collect_data : bool
+var collect_data : bool = true
 var collected_round_data : Array[RoundData] = []
 const forms_uri : String = "https://framaforms.org/quantux-experiment-questionnaire-1768771359"
 

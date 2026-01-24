@@ -38,7 +38,6 @@ process_mode = 3
 
 [node name="MainMenu" type="PanelContainer" parent="MainMenuCanvas"]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -90,12 +89,9 @@ theme_override_constants/margin_right = 200
 layout_mode = 2
 
 [node name="EnableDataCollection" type="CheckButton" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Enable Data Collection"
-
-[node name="OpenConsentForm" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Open Data Collection Document"
 
 [node name="OpenQuestionnaire" type="Button" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -176,6 +172,7 @@ text = "Return to Menu"
 
 [node name="Tutorial" type="PanelContainer" parent="MainMenuCanvas"]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
