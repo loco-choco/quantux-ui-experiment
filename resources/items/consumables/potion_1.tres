@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://kokyfwlsu617"]
+
+[ext_resource type="Script" uid="uid://cno3dtxvobxyw" path="res://scripts/item/properties/item_properties.gd" id="1_ltr0w"]
+[ext_resource type="Script" uid="uid://dscrrkgqafh0w" path="res://scripts/item/properties/potion.gd" id="2_tko3b"]
+[ext_resource type="Script" uid="uid://c1kv774gln5nn" path="res://scripts/item/properties/valuable.gd" id="3_wppk7"]
+[ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://scripts/item/item_data.gd" id="4_kg68p"]
+[ext_resource type="Texture2D" uid="uid://dtq02x5n7yb1i" path="res://assets/items/potion_1.png" id="5_n1frg"]
+
+[sub_resource type="Resource" id="Resource_ts3mq"]
+script = ExtResource("2_tko3b")
+heal_amount = 5.0
+metadata/_custom_type_script = "uid://dscrrkgqafh0w"
+
+[sub_resource type="Resource" id="Resource_p8obf"]
+script = ExtResource("3_wppk7")
+value = 5
+metadata/_custom_type_script = "uid://c1kv774gln5nn"
+
+[resource]
+script = ExtResource("4_kg68p")
+name = "Potion1"
+texture = ExtResource("5_n1frg")
+dimensions = Vector2i(1, 1)
+properties = Array[ExtResource("1_ltr0w")]([SubResource("Resource_ts3mq"), SubResource("Resource_p8obf")])
+metadata/_custom_type_script = "uid://dnhj6mns60i8v"
