@@ -18,6 +18,7 @@ metadata/_custom_type_script = "uid://c1kv774gln5nn"
 
 [resource]
 script = ExtResource("3_scka1")
+name = "WeaponRed"
 texture = ExtResource("4_ot0st")
 dimensions = Vector2i(2, 2)
 properties = Array[ExtResource("1_ot0st")]([SubResource("Resource_88v7r"), SubResource("Resource_iw7ol")])
