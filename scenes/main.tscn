@@ -230,7 +230,7 @@ theme_override_font_sizes/bold_italics_font_size = 14
 theme_override_font_sizes/italics_font_size = 14
 theme_override_font_sizes/mono_font_size = 14
 text = "Your objective is to get the highest amount of valuable items inside your inventory (also called \"bag\") while surviving to the end of the round. 
-A round is composed of several waves of enemies that will swarm you, with each wave getting increasily more difficult.
+A round is composed of several waves of enemies that will swarm you, with each wave getting increasingly more difficult.
 Each item has an amount of points associated with it, and it is your job to decide which ones are better to be kept or to be left on the floor."
 fit_content = true
 autowrap_mode = 2
@@ -271,7 +271,7 @@ Use WASD/ZQSD to move the player.
 While using your mouse to aim (from the center of the screen, the bullet goes in the direction of the mouse pointer), press LEFT MOUSE to fire your primary weapon, and RIGHT MOUSE to fire your secondary weapon.
 
 [center]INTERACTING WITH ITEMS[/center]
-You will find items scattered on the ground as small squares that will be highlighted once you are close enough to interact with. By pressing E they will be automatically placed in your bag, if there is enough space left. If there isn't enough space, the item will stay on the ground, and you will have to either drop or rearange your current inventory to have it fit.
+You will find items scattered on the ground as small squares that will be highlighted once you are close enough to interact with. By pressing E they will be automatically placed in your bag, if there is enough space left. If there isn't enough space, the item will stay on the ground, and you will have to either drop or rearrange your current inventory to have it fit.
 
 [center]OPENING THE INVENTORY[/center]
 Press SPACE to open the inventory.
@@ -285,15 +285,15 @@ in there.
 
 You can also press RIGHT MOUSE before grabbing an item to see other interaction options like:
 - Drop: Drops the item to the ground, removing it from the inventory
-- Heal (x): Heals the player for a x amount
+- Heal (x): Heals the player for an x amount
 - Value (x): The value (x) of the item
 
-[center]EQUIPING WEAPONS[/center]
+[center]EQUIPPING WEAPONS[/center]
 Once you have a weapon, you can equip it in your primary or secondary weapon slots. Those slots are big white rectangles located to the left of the inventory, with the first at the top being the primary weapons, and the second for secondary weapons.
 These slots only accept weapons, and will turn red if the item you are holding isn't one.
 
 [center]DROPPING ITEMS[/center]
-You can drop an item by either pressing RIGHT MOUSE and then Drop or, or by grabbing it with LEFT MOUSE and placing it in the \"Drop Slot\", which will appear as a big downward arrow to the right of the inventory.
+You can drop an item by either pressing RIGHT MOUSE and then \"Drop\" or, or by grabbing it with LEFT MOUSE and placing it in the \"Drop Slot\", which will appear as a big downward arrow to the right of the inventory.
 
 [center]CLOSING THE INVENTORY[/center]
 Press SPACE to close back the inventory. Any items you were holding will be dropped back to the floor if there isn't any space available in the bag.
@@ -365,19 +365,19 @@ theme_override_font_sizes/bold_italics_font_size = 14
 theme_override_font_sizes/italics_font_size = 14
 theme_override_font_sizes/mono_font_size = 14
 bbcode_enabled = true
-text = "Items are spread all over the map, and are separated in 3 categories: POTIONS, COINS and WEAPONS. All items have value, with some being more valuable then others. You can always check this information by pressing RIGHT MOUSE over the item of interest while in the inventory.
+text = "Items are spread all over the map, and are separated in 3 categories: POTIONS, COINS and WEAPONS. All items have value, with some being more valuable than others. You can always check this information by pressing RIGHT MOUSE over the item of interest while in the inventory.
 
 In general, the bigger the item (inside the inventory grid) the more value it can offer, either as a healing source, or points for the score.
 
 [center]POTIONS[/center]
-Potions are single use red viles that can heal the player for some amount. They can differ in size, heal amount, and value.
+Potions are single use red vials that can heal the player for some amount. They can differ in size, heal amount, and value.
 
 [center]COINS[/center]
 Coins are small yellow circles that give a lot of points, and can differ in size and value.
 
 [center]WEAPONS[/center]
 Weapons are colored pistols. They all have the same size, and all the colors can be found scattered around the map.
-Weapons are divided in 3 colors: [color=red]RED[/color], [color=royal_blue]BLUE[/color] and [color=green]GREEN[/color]. By equiping differently colored weapons in the primary and secondary weapon slots, you can shot both colors when pressing MOUSE LEFT and MOUSE RIGHT. Enemies are only really affected by the right color, so pay attention to make the correct switch, although they can all be killed by any weapon.
+Weapons are divided in 3 colors: [color=red]RED[/color], [color=royal_blue]BLUE[/color] and [color=green]GREEN[/color]. By equipping differently colored weapons in the primary and secondary weapon slots, you can shoot both colors when pressing MOUSE LEFT and MOUSE RIGHT. Enemies are only really affected by the right color, so pay attention to make the correct switch, although they can all be killed by any weapon.
 
 [b]You start the game without a weapon, so searching the map for one is one of your first priorities.[/b]
 "
