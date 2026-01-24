@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dvkqs1ejdovsf"]
+[gd_scene load_steps=14 format=3 uid="uid://dvkqs1ejdovsf"]
 
 [ext_resource type="Script" uid="uid://bkrwpauhwrkpy" path="res://scripts/loot_spawner.gd" id="1_4xfga"]
 [ext_resource type="PackedScene" uid="uid://dfa3nrjnhe3mt" path="res://scenes/item.tscn" id="2_2lpho"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://bqsaxr8qmgbop" path="res://resources/items/valuables/coins_2.tres" id="5_blm8a"]
 [ext_resource type="Resource" uid="uid://daqxkox125g3w" path="res://resources/items/valuables/coins_1.tres" id="6_mlgqr"]
 [ext_resource type="Resource" uid="uid://kokyfwlsu617" path="res://resources/items/consumables/potion_1.tres" id="7_blm8a"]
+[ext_resource type="Resource" uid="uid://h2ts1vi0qsyx" path="res://resources/items/valuables/coins_7.tres" id="7_gw3fx"]
 [ext_resource type="Resource" uid="uid://bfkkg2x47qstj" path="res://resources/items/weapons/weapon_green.tres" id="7_nakos"]
 [ext_resource type="Resource" uid="uid://b61a3s00gs7ar" path="res://resources/items/weapons/weapon_blue.tres" id="8_jh32y"]
 [ext_resource type="Resource" uid="uid://bhpodjsbowjue" path="res://resources/items/consumables/potion_2.tres" id="8_mlgqr"]
@@ -69,11 +70,11 @@ metadata/_edit_use_anchors_ = true
 [node name="ColorRect14" type="ColorRect" parent="BackGround/Control"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.63735265
+anchor_left = 0.35448775
 anchor_top = -0.53846157
 anchor_right = 0.35448775
 anchor_bottom = -0.3739645
-offset_left = -1214.0
+offset_left = -896.0
 offset_top = 73.00003
 offset_right = -719.9999
 offset_bottom = 119.00003
@@ -598,6 +599,48 @@ script = ExtResource("1_4xfga")
 item_scene = ExtResource("2_2lpho")
 loot_table = Array[ExtResource("3_nakos")]([ExtResource("5_blm8a"), ExtResource("6_mlgqr"), ExtResource("6_mlgqr"), ExtResource("6_mlgqr"), ExtResource("7_blm8a")])
 loot_amount = 2
+
+[node name="LootSpawner18" type="Node2D" parent="LootSpawners"]
+position = Vector2(1344, 778)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("5_blm8a"), ExtResource("7_gw3fx")])
+loot_amount = 3
+
+[node name="LootSpawner19" type="Node2D" parent="LootSpawners"]
+position = Vector2(1292, -326)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("5_blm8a"), ExtResource("7_gw3fx")])
+loot_amount = 3
+
+[node name="LootSpawner21" type="Node2D" parent="LootSpawners"]
+position = Vector2(2968, 50)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("10_wslke"), ExtResource("9_wslke")])
+loot_amount = 3
+
+[node name="LootSpawner22" type="Node2D" parent="LootSpawners"]
+position = Vector2(-351, 817)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("5_blm8a"), ExtResource("7_gw3fx")])
+loot_amount = 3
+
+[node name="LootSpawner27" type="Node2D" parent="LootSpawners"]
+position = Vector2(-364, -352)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("5_blm8a"), ExtResource("7_gw3fx")])
+loot_amount = 3
+
+[node name="LootSpawner25" type="Node2D" parent="LootSpawners"]
+position = Vector2(-1885, 178)
+script = ExtResource("1_4xfga")
+item_scene = ExtResource("2_2lpho")
+loot_table = Array[ExtResource("3_nakos")]([ExtResource("10_wslke"), ExtResource("9_wslke")])
+loot_amount = 3
 
 [node name="LootSpawner2" type="Node2D" parent="LootSpawners"]
 position = Vector2(108, 27)
