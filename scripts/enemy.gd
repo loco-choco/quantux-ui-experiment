@@ -10,7 +10,9 @@ var wrong_color_local_position : Vector2
 
 @export var target : Player
 
-@export var follow_speed : float = 80
+@export var follow_speed : float = 400
+@export var approach_speed : float = 350
+@export var approach_distance : float = 700
 @export var color_code : String = 'r'
 @export var wrong_color_demage_penalty : float = 0.1
 @export var hp : float = 100
@@ -31,13 +33,15 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if hp > 0 and is_instance_valid(target) and target.current_health > 0:
 		look_at(target.global_position)
-		var speed : Vector2 = follow_speed * (target.global_position - global_position).normalized()
+		var distance_sqr : float = (target.global_position - global_position).length_squared()
+		var speed : float = follow_speed if distance_sqr > approach_distance * approach_distance \
+							else approach_speed
 		if hitbox.overlaps_area(target.hitbox):
-			speed = Vector2.ZERO # We reached the player, we can stop moving
+			speed = 0 # We reached the player, we can stop moving
 			if time_since_last_hit >= time_per_hit:
 				target.take_damage(damage_per_hit)
 				time_since_last_hit = 0
-		global_position += speed * delta
+		global_position += speed * delta * (target.global_position - global_position).normalized()
 	
 	time_since_last_hit = time_since_last_hit + delta if time_since_last_hit < time_per_hit else time_since_last_hit
 	# On death animation
