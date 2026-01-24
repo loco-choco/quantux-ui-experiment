@@ -17,7 +17,6 @@ const forms_uri : String = "https://framaforms.org/quantux-experiment-questionna
 @onready var score : Label = $%Score
 
 func _ready() -> void:
-	collect_data = false
 	main_menu.show()
 	tutorial.hide()
 	round_sumary.hide()
