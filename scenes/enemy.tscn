@@ -12,6 +12,7 @@ shader_parameter/clr = Vector3(0, 0, 0)
 [node name="Enemy" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_qi2p4")
+approach_speed = 300.0
 
 [node name="Hitbox" type="Area2D" parent="."]
 unique_name_in_owner = true
