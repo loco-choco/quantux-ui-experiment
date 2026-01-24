@@ -14,7 +14,7 @@ func _ready() -> void:
 	wave_logic.last_wave_completed.connect(on_game_won)
 	wave_logic.wave_started.connect(func(wave : int): \
 		wave_label.text = "Wave: %d / %d" % [wave + 1, wave_logic.enemy_waves.waves.size()])
-	wave_logic.wave_completed.connect(func(wave : int): wave_label.text = "Waiting for next wave")
+	wave_logic.wave_completed.connect(func(_wave : int): wave_label.text = "Waiting for next wave")
 	wave_logic.wave_progression.connect(func(alive: int, total: int): \
 		enemies_label.text = "Enemies: %d / %d" % [alive, total])
 func on_game_over() -> void:
