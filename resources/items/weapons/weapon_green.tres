@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=6 format=3 uid="uid://bfkkg2x47qstj"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=8 format=3 uid="uid://bfkkg2x47qstj"]
 
 [ext_resource type="Script" uid="uid://cno3dtxvobxyw" path="res://scripts/item/properties/item_properties.gd" id="1_5k54b"]
 [ext_resource type="Script" uid="uid://cwrog8jdduphy" path="res://scripts/item/properties/weapon.gd" id="2_dcj66"]
 [ext_resource type="Script" uid="uid://dnhj6mns60i8v" path="res://scripts/item/item_data.gd" id="3_pe8nu"]
+[ext_resource type="Script" uid="uid://c1kv774gln5nn" path="res://scripts/item/properties/valuable.gd" id="3_svc4b"]
 [ext_resource type="Texture2D" uid="uid://c3pd46wog3je" path="res://assets/items/green_gun.png" id="4_5k54b"]
 
 [sub_resource type="Resource" id="Resource_88v7r"]
@@ -10,10 +11,15 @@ script = ExtResource("2_dcj66")
 color = "g"
 metadata/_custom_type_script = "uid://cwrog8jdduphy"
 
+[sub_resource type="Resource" id="Resource_xvpof"]
+script = ExtResource("3_svc4b")
+value = 15
+metadata/_custom_type_script = "uid://c1kv774gln5nn"
+
 [resource]
 script = ExtResource("3_pe8nu")
 name = "WeaponGreen"
 texture = ExtResource("4_5k54b")
 dimensions = Vector2i(2, 2)
-properties = Array[ExtResource("1_5k54b")]([SubResource("Resource_88v7r")])
+properties = Array[ExtResource("1_5k54b")]([SubResource("Resource_88v7r"), SubResource("Resource_xvpof")])
 metadata/_custom_type_script = "uid://dnhj6mns60i8v"
