@@ -83,3 +83,7 @@ func _export_data_as_zip() -> void:
 		collected_round_data[i].save_to_zip_archive(zip, "round_%d/" % [i])
 	
 	zip.close()
+
+
+func _on_exit_game_pressed() -> void:
+	get_tree().quit() # default behavior
