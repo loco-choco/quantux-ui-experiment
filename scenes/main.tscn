@@ -35,7 +35,6 @@ process_mode = 3
 
 [node name="MainMenu" type="PanelContainer" parent="MainMenuCanvas"]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -68,7 +67,7 @@ horizontal_alignment = 1
 [node name="Description" type="Label" parent="MainMenuCanvas/MainMenu/MarginContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "This is a game for the research project from the class Quant UX (HSS_0EL42) from Telecom Paris. In it, the user (you) is tasked to play the game as you seem fit. Metrics will be collected during the gameplay, as described by the survey in the first button. If you agree to share it with the research project, please follow the instructions given by the questionnaire, if not, fell free to just play the game, no data will be sent without your knowledge or consent."
+text = "This is a game for the research project from the class Quant UX (HSS_0EL42) from Telecom Paris. In it, the user (you) is tasked to play the game as you seem fit. Metrics will be collected during the gameplay, as described by the survey in the first button. If you agree to share it with the research project, please follow the instructions given by the questionnaire, if not, feel free to just play the game, no data will be sent without your knowledge or consent."
 label_settings = SubResource("LabelSettings_tefeu")
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -174,6 +173,7 @@ text = "Return to Menu"
 
 [node name="Tutorial" type="PanelContainer" parent="MainMenuCanvas"]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
