@@ -279,9 +279,7 @@ Press SPACE to open the inventory.
 [center][b]IN THE INVENTORY[/b][/center]
 
 [center]INTERACTING WITH ITEMS[/center]
-With your mouse, hover the item and press LEFT MOUSE to grab it. You can then press RIGHT MOUSE to rotate it, and RIGHT MOUSE to 
-place it in a new position that depends on where you move your mouse. Invalid slots will be marked with red and won't allow you to place items
-in there.
+With your mouse, hover the item and press LEFT MOUSE to grab it. You can then press RIGHT MOUSE to rotate it, and LEFT MOUSE again to place it in a new position that depends on where you move your mouse. Invalid slots will be marked with red and won't allow you to place items in there.
 
 You can also press RIGHT MOUSE before grabbing an item to see other interaction options like:
 - Drop: Drops the item to the ground, removing it from the inventory
